@@ -9,12 +9,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      theme: ThemeData(
-        fontFamily: 'Roboto',
-        primarySwatch: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
-      home: MyFirstWidgetFull(),
+      home: MyFirstWidget(),
     );
   }
 }
