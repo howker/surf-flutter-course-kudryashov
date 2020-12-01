@@ -15,32 +15,8 @@ class MyApp extends StatelessWidget {
 }
 
 class MyFirstWidget extends StatelessWidget {
-  int _counter = 1;
   @override
   Widget build(BuildContext context) {
-    print('функция запустилась ${_counter++} раз');
-    return Container(
-      child: Center(
-        child: Text('Hello!'),
-      ),
-    );
-  }
-}
-
-class MyFirstWidgetFull extends StatefulWidget {
-  @override
-  _MyFirstWidgetFullState createState() => _MyFirstWidgetFullState();
-}
-
-class _MyFirstWidgetFullState extends State<MyFirstWidgetFull> {
-  int _counter = 1;
-  @override
-  Widget build(BuildContext context) {
-    print('функция запустилась ${_counter++} раз');
-    return Container(
-      child: Center(
-        child: Text('Hello!'),
-      ),
-    );
+    return Container();
   }
 }
