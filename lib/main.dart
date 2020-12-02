@@ -8,44 +8,42 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        fontFamily: 'Roboto',
-        primarySwatch: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
-      home: MyFirstWidgetFull(),
+      title: 'TITLE',
+      home: MyFirstWidget(),
     );
   }
 }
 
 class MyFirstWidget extends StatelessWidget {
-  int _counter = 1;
+  runtypeReturn() {
+    return context.runtimeType;
+  }
+
   @override
   Widget build(BuildContext context) {
-    print('функция запустилась ${_counter++} раз');
-    return Container(
-      child: Center(
-        child: Text('Hello!'),
-      ),
-    );
+    return Container();
   }
 }
 
-class MyFirstWidgetFull extends StatefulWidget {
+class MyStatefullWidget extends StatefulWidget {
   @override
-  _MyFirstWidgetFullState createState() => _MyFirstWidgetFullState();
+  _MyStatefullWidgetState createState() => _MyStatefullWidgetState();
 }
 
-class _MyFirstWidgetFullState extends State<MyFirstWidgetFull> {
-  int _counter = 1;
+class _MyStatefullWidgetState extends State<MyStatefullWidget> {
+  runtypeReturn() {
+    return context.runtimeType;
+  }
+
   @override
   Widget build(BuildContext context) {
-    print('функция запустилась ${_counter++} раз');
-    return Container(
-      child: Center(
-        child: Text('Hello!'),
-      ),
-    );
+    return Container();
   }
 }
+
+/* 
+1 - приложение не запустится т.к. отсутствует точка входа main 
+2 - значение title будет виден в верхней части в диспетчере задач, если нажать кнопку "последние приложения".
+3 - context.runtimeType не получилось реализовать в StatelessWidget, так как нет контекста 
+4 - context.runtimeType получилось реализовать в StatefullWidget в части State, т.к здесь контекст уже есть 
+*/
