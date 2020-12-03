@@ -13,16 +13,47 @@ class _SightListScreenState extends State<SightListScreen> {
         toolbarHeight: 136,
         backgroundColor: Colors.white,
         elevation: 0.0,
-        title: Text(
-          'Список\nинтересных мест',
+        title: RichText(
+          text: TextSpan(
+            text: 'С',
+            style: TextStyle(
+              fontFamily: 'Roboto',
+              fontWeight: FontWeight.w700,
+              fontSize: 32,
+              color: Colors.green,
+            ),
+            children: [
+              TextSpan(
+                text: 'писок\n',
+                style: TextStyle(
+                  fontFamily: 'Roboto',
+                  fontWeight: FontWeight.w700,
+                  fontSize: 32,
+                  color: Color(0xFF3B3E5B),
+                ),
+              ),
+              TextSpan(
+                text: 'и',
+                style: TextStyle(
+                  fontFamily: 'Roboto',
+                  fontWeight: FontWeight.w700,
+                  fontSize: 32,
+                  color: Colors.yellow,
+                ),
+              ),
+              TextSpan(
+                text: 'нтересных мест',
+                style: TextStyle(
+                  fontFamily: 'Roboto',
+                  fontWeight: FontWeight.w700,
+                  fontSize: 32,
+                  color: Color(0xFF3B3E5B),
+                ),
+              ),
+            ],
+          ),
           textAlign: TextAlign.left,
           maxLines: 2,
-          style: TextStyle(
-            fontFamily: 'Roboto',
-            fontWeight: FontWeight.w700,
-            fontSize: 32,
-            color: Color(0xFF3B3E5B),
-          ),
         ),
       ),
     );
