@@ -6,6 +6,24 @@ const titleFontStyle = TextStyle(
   fontSize: 24,
   color: const Color(0xFF3B3E5B),
 );
+const smallBoldFontStyle = TextStyle(
+  fontFamily: 'Roboto',
+  fontWeight: FontWeight.bold,
+  fontSize: 14,
+  color: const Color(0xFF3B3E5B),
+);
+const smallFontStyle = TextStyle(
+  fontFamily: 'Roboto',
+  fontWeight: FontWeight.normal,
+  fontSize: 14,
+  color: const Color(0xFF7C7E92),
+);
+const buttonFontStyle = TextStyle(
+  fontFamily: 'Roboto',
+  fontWeight: FontWeight.w700,
+  fontSize: 14,
+  color: const Color(0xFFFFFFFF),
+);
 
 const textStyle = TextStyle(
   fontFamily: 'Roboto',
