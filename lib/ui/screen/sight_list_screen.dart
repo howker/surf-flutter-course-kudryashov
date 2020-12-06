@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:places/text_string_const.dart';
 
 class SightListScreen extends StatefulWidget {
   @override
@@ -16,39 +17,19 @@ class _SightListScreenState extends State<SightListScreen> {
         title: RichText(
           text: TextSpan(
             text: 'С',
-            style: TextStyle(
-              fontFamily: 'Roboto',
-              fontWeight: FontWeight.w700,
-              fontSize: 32,
-              color: Colors.green,
-            ),
+            style: textStyle,
             children: [
               TextSpan(
-                text: 'писок\n',
-                style: TextStyle(
-                  fontFamily: 'Roboto',
-                  fontWeight: FontWeight.w700,
-                  fontSize: 32,
-                  color: Color(0xFF3B3E5B),
-                ),
+                text: placesN,
+                style: textStyle1,
               ),
               TextSpan(
                 text: 'и',
-                style: TextStyle(
-                  fontFamily: 'Roboto',
-                  fontWeight: FontWeight.w700,
-                  fontSize: 32,
-                  color: Colors.yellow,
-                ),
+                style: textStyle2,
               ),
               TextSpan(
-                text: 'нтересных мест',
-                style: TextStyle(
-                  fontFamily: 'Roboto',
-                  fontWeight: FontWeight.w700,
-                  fontSize: 32,
-                  color: Color(0xFF3B3E5B),
-                ),
+                text: nPlaces,
+                style: textStyle3,
               ),
             ],
           ),
@@ -59,3 +40,31 @@ class _SightListScreenState extends State<SightListScreen> {
     );
   }
 }
+
+const textStyle = TextStyle(
+  fontFamily: 'Roboto',
+  fontWeight: FontWeight.w700,
+  fontSize: 32,
+  color: Colors.green,
+);
+
+const textStyle1 = TextStyle(
+  fontFamily: 'Roboto',
+  fontWeight: FontWeight.w700,
+  fontSize: 32,
+  color: const Color(0xFF3B3E5B),
+);
+
+const textStyle2 = TextStyle(
+  fontFamily: 'Roboto',
+  fontWeight: FontWeight.w700,
+  fontSize: 32,
+  color: Colors.yellow,
+);
+
+const textStyle3 = TextStyle(
+  fontFamily: 'Roboto',
+  fontWeight: FontWeight.w700,
+  fontSize: 32,
+  color: const Color(0xFF3B3E5B),
+);
