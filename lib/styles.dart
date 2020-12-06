@@ -29,7 +29,7 @@ const textStyle = TextStyle(
   fontFamily: 'Roboto',
   fontWeight: FontWeight.w700,
   fontSize: 32,
-  color: Colors.green,
+  color: const Color(0xFF3B3E5B),
 );
 
 const textStyle1 = TextStyle(

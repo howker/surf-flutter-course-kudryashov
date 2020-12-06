@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:places/mock.dart';
 import 'package:places/styles.dart';
 import 'package:places/text_string_const.dart';
+import 'package:places/ui/screen/sight_card.dart';
 
 class SightListScreen extends StatefulWidget {
   @override
@@ -8,10 +10,26 @@ class SightListScreen extends StatefulWidget {
 }
 
 class _SightListScreenState extends State<SightListScreen> {
+  SightCard sightCard = SightCard(
+    sight: mocks[0],
+  );
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: _buildAppBar(),
+      body: Column(
+        children: [
+          Container(
+            padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
+            height: 188,
+            child: Stack(
+              children: [
+                sightCard,
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 
@@ -20,27 +38,9 @@ class _SightListScreenState extends State<SightListScreen> {
       toolbarHeight: 136,
       backgroundColor: Colors.white,
       elevation: 0.0,
-      title: RichText(
-        text: TextSpan(
-          text: 'С',
-          style: textStyle,
-          children: [
-            TextSpan(
-              text: placesN,
-              style: textStyle1,
-            ),
-            TextSpan(
-              text: 'и',
-              style: textStyle2,
-            ),
-            TextSpan(
-              text: nPlaces,
-              style: textStyle3,
-            ),
-          ],
-        ),
-        textAlign: TextAlign.left,
-        maxLines: 2,
+      title: Text(
+        listInterestingPlaces,
+        style: textStyle,
       ),
     );
   }

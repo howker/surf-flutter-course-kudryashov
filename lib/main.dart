@@ -13,9 +13,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'TITLE',
-      home: SightCard(
-        sight: mocks[0],
-      ),
+      home: SightListScreen(),
+      //SightCard(sight: mocks[0],),
     );
   }
 }
