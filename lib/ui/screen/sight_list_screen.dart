@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:places/text_string_const.dart';
 
 class SightListScreen extends StatefulWidget {
   @override
@@ -14,17 +15,19 @@ class _SightListScreenState extends State<SightListScreen> {
         backgroundColor: Colors.white,
         elevation: 0.0,
         title: Text(
-          'Список\nинтересных мест',
+          listInterestingPlaces,
           textAlign: TextAlign.left,
           maxLines: 2,
-          style: TextStyle(
-            fontFamily: 'Roboto',
-            fontWeight: FontWeight.w700,
-            fontSize: 32,
-            color: Color(0xFF3B3E5B),
-          ),
+          style: appBarStyle,
         ),
       ),
     );
   }
 }
+
+const appBarStyle = TextStyle(
+  fontFamily: 'Roboto',
+  fontWeight: FontWeight.w700,
+  fontSize: 32,
+  color: const Color(0xFF3B3E5B),
+);
