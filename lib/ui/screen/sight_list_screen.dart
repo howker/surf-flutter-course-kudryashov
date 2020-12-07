@@ -17,19 +17,7 @@ class _SightListScreenState extends State<SightListScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: _buildAppBar(),
-      body: Column(
-        children: [
-          Container(
-            padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
-            height: 188,
-            child: Stack(
-              children: [
-                sightCard,
-              ],
-            ),
-          ),
-        ],
-      ),
+      body: Column(),
     );
   }
 
