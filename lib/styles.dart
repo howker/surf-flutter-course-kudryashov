@@ -1,5 +1,11 @@
 import 'package:flutter/material.dart';
 
+const textFontStyle = TextStyle(
+  fontFamily: 'Roboto',
+  fontWeight: FontWeight.w500,
+  fontSize: 16,
+  color: const Color(0xFF3B3E5B),
+);
 const titleFontStyle = TextStyle(
   fontFamily: 'Roboto',
   fontWeight: FontWeight.bold,
