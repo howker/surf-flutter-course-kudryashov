@@ -15,9 +15,8 @@ class SightCard extends StatelessWidget {
             margin: EdgeInsets.only(left: 16, right: 16),
             decoration: BoxDecoration(
               color: Colors.blue,
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(15),
-                topRight: Radius.circular(15),
+              borderRadius: BorderRadius.all(
+                Radius.circular(15),
               ),
             ),
             height: 188,
@@ -26,9 +25,15 @@ class SightCard extends StatelessWidget {
             top: 96,
             left: 16,
             child: Container(
-              color: const Color(0xFFF5F5F5),
               height: 92,
               width: 380,
+              decoration: BoxDecoration(
+                color: const Color(0xFFF5F5F5),
+                borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(15),
+                  bottomRight: Radius.circular(15),
+                ),
+              ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
