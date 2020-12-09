@@ -17,7 +17,11 @@ class _SightListScreenState extends State<SightListScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: _buildAppBar(),
-      body: Column(),
+      body: Column(
+        children: [
+          sightCard,
+        ],
+      ),
     );
   }
 
