@@ -20,7 +20,7 @@ class SightDetails extends StatelessWidget {
             padding: const EdgeInsets.fromLTRB(16, 24, 16, 2),
             child: Text(
               sight.nameSights,
-              style: titleFontStyle,
+              style: textBold24Black,
             ),
           ),
           Container(
@@ -30,14 +30,14 @@ class SightDetails extends StatelessWidget {
               children: [
                 Text(
                   sight.type,
-                  style: smallBoldFontStyle,
+                  style: textBold14Black,
                 ),
                 SizedBox(
                   width: 16,
                 ),
                 Text(
                   'закрыто до 09:00',
-                  style: smallFontStyle,
+                  style: textRegular14Grey,
                 ),
               ],
             ),
@@ -47,7 +47,7 @@ class SightDetails extends StatelessWidget {
             padding: const EdgeInsets.fromLTRB(16, 0, 16, 24),
             child: Text(
               sight.details,
-              style: smallFontStyle,
+              style: textRegular14Grey,
             ),
           ),
           Container(
@@ -57,7 +57,7 @@ class SightDetails extends StatelessWidget {
             color: Colors.green,
             child: Text(
               'ПОСТРОИТЬ МАРШРУТ',
-              style: buttonFontStyle,
+              style: textRegular14White,
             ),
           ),
           Container(
@@ -72,7 +72,7 @@ class SightDetails extends StatelessWidget {
                 SizedBox(width: 9),
                 Text(
                   'Запланировать',
-                  style: smallFontStyle.copyWith(
+                  style: textRegular14Grey.copyWith(
                     color: const Color(0xFF7C7E92),
                   ),
                 ),
@@ -81,7 +81,7 @@ class SightDetails extends StatelessWidget {
                 SizedBox(width: 9),
                 Text(
                   'В избранное',
-                  style: smallFontStyle,
+                  style: textRegular14Grey,
                 ),
               ],
             ),
