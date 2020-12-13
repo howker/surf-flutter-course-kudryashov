@@ -1,3 +1,5 @@
+// список карточек интересных мест
+
 import 'package:flutter/material.dart';
 import 'package:places/mock.dart';
 import 'package:places/styles.dart';
@@ -42,7 +44,7 @@ class _SightListScreenState extends State<SightListScreen> {
       elevation: 0.0,
       title: Text(
         listInterestingPlaces,
-        style: textStyle,
+        style: textRegular32DarkGrey,
       ),
     );
   }

@@ -1,3 +1,5 @@
+// Карточка интересного места
+
 import 'package:flutter/material.dart';
 import 'package:places/domain/sight.dart';
 import 'package:places/styles.dart';
@@ -37,26 +39,30 @@ class SightCard extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  SizedBox(
+                    height: 16,
+                  ),
                   Container(
                     padding: EdgeInsets.only(
-                      top: 16,
                       left: 16,
                       right: 16,
                     ),
                     child: Text(
                       sight.nameSights,
-                      style: textFontStyle,
+                      style: textRegular16Black,
                     ),
+                  ),
+                  SizedBox(
+                    height: 2,
                   ),
                   Container(
                     padding: EdgeInsets.only(
-                      top: 2,
                       left: 16,
                       right: 16,
                     ),
                     child: Text(
                       sight.details,
-                      style: smallFontStyle,
+                      style: textRegular14Grey,
                     ),
                   ),
                 ],
@@ -68,7 +74,7 @@ class SightCard extends StatelessWidget {
               left: 36,
               child: Text(
                 sight.type,
-                style: smallBoldFontStyle.copyWith(color: Colors.white),
+                style: textBold14Black.copyWith(color: Colors.white),
               )),
           Positioned(
             top: 19,
