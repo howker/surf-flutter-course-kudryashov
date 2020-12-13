@@ -15,17 +15,23 @@ class SightDetails extends StatelessWidget {
             height: 360,
             color: Colors.blue,
           ),
+          SizedBox(
+            height: 24,
+          ),
           Container(
             alignment: Alignment.centerLeft,
-            padding: const EdgeInsets.fromLTRB(16, 24, 16, 2),
+            padding: const EdgeInsets.only(left: 16, right: 16),
             child: Text(
               sight.nameSights,
               style: textBold24Black,
             ),
           ),
+          SizedBox(
+            height: 2,
+          ),
           Container(
             alignment: Alignment.centerLeft,
-            padding: const EdgeInsets.only(left: 16, right: 16, bottom: 24),
+            padding: const EdgeInsets.only(left: 16, right: 16),
             child: Row(
               children: [
                 Text(
@@ -42,23 +48,32 @@ class SightDetails extends StatelessWidget {
               ],
             ),
           ),
+          SizedBox(
+            height: 24,
+          ),
           Container(
             alignment: Alignment.centerLeft,
-            padding: const EdgeInsets.fromLTRB(16, 0, 16, 24),
+            padding: const EdgeInsets.only(left: 16, right: 16),
             child: Text(
               sight.details,
               style: textRegular14Grey,
             ),
           ),
+          SizedBox(
+            height: 24,
+          ),
           Container(
             alignment: Alignment.center,
-            margin: const EdgeInsets.fromLTRB(16, 0, 16, 24),
+            margin: const EdgeInsets.only(left: 16, right: 16),
             height: 48,
             color: Colors.green,
             child: Text(
               'ПОСТРОИТЬ МАРШРУТ',
               style: textRegular14White,
             ),
+          ),
+          SizedBox(
+            height: 24,
           ),
           Container(
             alignment: Alignment.centerLeft,
@@ -73,7 +88,7 @@ class SightDetails extends StatelessWidget {
                 Text(
                   'Запланировать',
                   style: textRegular14Grey.copyWith(
-                    color: const Color(0xFF7C7E92),
+                    color: Color.fromRGBO(124, 126, 146, 0.56),
                   ),
                 ),
                 SizedBox(width: 40),
