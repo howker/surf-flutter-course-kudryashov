@@ -1,3 +1,5 @@
+// список карточек интересных мест
+
 import 'package:flutter/material.dart';
 import 'package:places/styles.dart';
 import 'package:places/text_string_const.dart';
@@ -23,19 +25,19 @@ class _SightListScreenState extends State<SightListScreen> {
       title: RichText(
         text: TextSpan(
           text: 'С',
-          style: textStyle,
+          style: textRegular32Green,
           children: [
             TextSpan(
               text: placesN,
-              style: textStyle1,
+              style: textRegular32Black,
             ),
             TextSpan(
               text: 'и',
-              style: textStyle2,
+              style: textRegular32Yello,
             ),
             TextSpan(
               text: nPlaces,
-              style: textStyle3,
+              style: textRegular32Black,
             ),
           ],
         ),

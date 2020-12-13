@@ -1,3 +1,4 @@
+// Модель данных интересных мест
 class Sight {
   final String nameSights;
   final double lat, lon;
