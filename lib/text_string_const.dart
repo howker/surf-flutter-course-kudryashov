@@ -1,4 +1,4 @@
-// Текстовые константы
+/// Текстовые константы
 
 const String listInterestingPlaces = 'Список\nинтересных мест';
 const String placesN = 'писок\n';

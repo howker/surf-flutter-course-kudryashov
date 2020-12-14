@@ -1,8 +1,8 @@
-// список карточек интересных мест
-
 import 'package:flutter/material.dart';
+import 'package:places/mock.dart';
 import 'package:places/styles.dart';
 import 'package:places/text_string_const.dart';
+import 'package:places/ui/screen/sight_card.dart';
 
 /// список карточек интересных мест
 class SightListScreen extends StatefulWidget {
@@ -11,10 +11,28 @@ class SightListScreen extends StatefulWidget {
 }
 
 class _SightListScreenState extends State<SightListScreen> {
+  SightCard sightCard = SightCard(
+    sight: mocks[0],
+  );
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: _buildAppBar(),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            sightCard,
+            SizedBox(height: 16),
+            sightCard,
+            SizedBox(height: 16),
+            sightCard,
+            SizedBox(height: 16),
+            sightCard,
+            SizedBox(height: 16),
+            sightCard,
+          ],
+        ),
+      ),
     );
   }
 

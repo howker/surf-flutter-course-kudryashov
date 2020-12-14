@@ -1,9 +1,8 @@
-// Карточка интересного места
-
 import 'package:flutter/material.dart';
 import 'package:places/domain/sight.dart';
 import 'package:places/styles.dart';
 
+/// Карточка интересного места
 class SightCard extends StatelessWidget {
   final Sight sight;
 
