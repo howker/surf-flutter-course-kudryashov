@@ -1,9 +1,8 @@
-// список карточек интересных мест
-
 import 'package:flutter/material.dart';
 import 'package:places/styles.dart';
 import 'package:places/text_string_const.dart';
 
+/// список карточек интересных мест
 class SightListScreen extends StatefulWidget {
   @override
   _SightListScreenState createState() => _SightListScreenState();
@@ -33,7 +32,7 @@ class _SightListScreenState extends State<SightListScreen> {
             ),
             TextSpan(
               text: 'и',
-              style: textRegular32Yello,
+              style: textRegular32Yellow,
             ),
             TextSpan(
               text: nPlaces,

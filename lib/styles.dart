@@ -1,4 +1,4 @@
-//Стили текстов
+///Стили текстов
 
 import 'package:flutter/material.dart';
 
@@ -16,7 +16,7 @@ const textRegular32Black = TextStyle(
   color: const Color(0xFF3B3E5B),
 );
 
-const textRegular32Yello = TextStyle(
+const textRegular32Yellow = TextStyle(
   fontFamily: 'Roboto',
   fontWeight: FontWeight.w700,
   fontSize: 32,
