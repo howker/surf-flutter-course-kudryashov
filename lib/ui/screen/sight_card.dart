@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:places/colors.dart';
 import 'package:places/domain/sight.dart';
 import 'package:places/styles.dart';
 
@@ -31,7 +32,7 @@ class SightCard extends StatelessWidget {
                 height: 92,
                 width: 380,
                 decoration: BoxDecoration(
-                  color: const Color(0xFFF5F5F5),
+                  color: backgroundColor,
                   borderRadius: BorderRadius.only(
                     bottomLeft: Radius.circular(15),
                     bottomRight: Radius.circular(15),

@@ -13,7 +13,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'TITLE',
       home: SightListScreen(),
-      //SightDetails( sight: mocks[0], ),
+      //SightDetails(
+      //sight: mocks[0],
+      //),
     );
   }
 }

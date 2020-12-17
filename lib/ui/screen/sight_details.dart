@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:places/colors.dart';
 import 'package:places/domain/sight.dart';
 import 'package:places/styles.dart';
 
@@ -83,13 +84,13 @@ class SightDetails extends StatelessWidget {
               children: [
                 Icon(
                   Icons.calendar_today_outlined,
-                  color: const Color(0xFF7C7E92),
+                  color: inactiveBlackColor,
                 ),
                 SizedBox(width: 9),
                 Text(
                   'Запланировать',
                   style: textRegular14Grey.copyWith(
-                    color: Color.fromRGBO(124, 126, 146, 0.56),
+                    color: inactiveBlackColor,
                   ),
                 ),
                 SizedBox(width: 40),
