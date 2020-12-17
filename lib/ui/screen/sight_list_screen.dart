@@ -17,7 +17,9 @@ class _SightListScreenState extends State<SightListScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: _buildAppBar(),
+      appBar: CustomAppBar(
+        title: listInterestingPlaces,
+      ),
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -35,16 +37,31 @@ class _SightListScreenState extends State<SightListScreen> {
       ),
     );
   }
+}
 
-  Widget _buildAppBar() {
-    return AppBar(
-      toolbarHeight: 136,
-      backgroundColor: Colors.white,
-      elevation: 0.0,
-      title: Text(
-        listInterestingPlaces,
+class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
+  final String title;
+
+  const CustomAppBar({Key key, this.title}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      child: Text(
+        title,
+        textAlign: TextAlign.left,
+        maxLines: 2,
         style: textRegular32DarkGrey,
+      ),
+      padding: const EdgeInsets.only(
+        left: 16.0,
+        top: 64.0,
+        right: 16.0,
+        bottom: 16.0,
       ),
     );
   }
+
+  @override
+  Size get preferredSize => const Size.fromHeight(136.0);
 }
