@@ -15,7 +15,10 @@ class SightDetails extends StatelessWidget {
         children: [
           Container(
             height: 360,
-            color: Colors.blue,
+            child: Image.asset(
+              'res/images/hole_china.jpg',
+              fit: BoxFit.fitHeight,
+            ),
           ),
           const SizedBox(
             height: 24,
