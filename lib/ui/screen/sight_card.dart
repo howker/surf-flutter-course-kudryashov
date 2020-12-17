@@ -92,7 +92,7 @@ class SightCard extends StatelessWidget {
                 child: Image.asset('res/images/heart.jpg'),
               ),
             ),
-            Center(
+            const Center(
               child: CircularProgressIndicator(),
             ),
           ],
