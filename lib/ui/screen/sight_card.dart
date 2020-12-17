@@ -93,7 +93,7 @@ class SightCard extends StatelessWidget {
               ),
             ),
             const Center(
-              child: CircularProgressIndicator(),
+              child: const CircularProgressIndicator(),
             ),
           ],
         ),
