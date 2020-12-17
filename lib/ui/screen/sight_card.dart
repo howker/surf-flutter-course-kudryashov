@@ -16,11 +16,11 @@ class SightCard extends StatelessWidget {
         child: Stack(
           children: [
             Container(
-              margin: EdgeInsets.only(left: 16, right: 16),
-              decoration: BoxDecoration(
+              margin: const EdgeInsets.only(left: 16, right: 16),
+              decoration: const BoxDecoration(
                 color: Colors.blue,
-                borderRadius: BorderRadius.all(
-                  Radius.circular(15),
+                borderRadius: const BorderRadius.all(
+                  const Radius.circular(15),
                 ),
               ),
               height: 188,
@@ -31,22 +31,22 @@ class SightCard extends StatelessWidget {
               child: Container(
                 height: 92,
                 width: 380,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   color: backgroundColor,
-                  borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(15),
-                    bottomRight: Radius.circular(15),
+                  borderRadius: const BorderRadius.only(
+                    bottomLeft: const Radius.circular(15),
+                    bottomRight: const Radius.circular(15),
                   ),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SizedBox(
+                    const SizedBox(
                       height: 16,
                     ),
                     Expanded(
                       child: Container(
-                        padding: EdgeInsets.only(
+                        padding: const EdgeInsets.only(
                           left: 16,
                           right: 16,
                         ),
@@ -56,12 +56,12 @@ class SightCard extends StatelessWidget {
                         ),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 2,
                     ),
                     Expanded(
                       child: Container(
-                        padding: EdgeInsets.only(
+                        padding: const EdgeInsets.only(
                           left: 16,
                           right: 16,
                         ),

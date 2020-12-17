@@ -24,13 +24,13 @@ class _SightListScreenState extends State<SightListScreen> {
         child: Column(
           children: [
             sightCard,
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             sightCard,
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             sightCard,
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             sightCard,
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             sightCard,
           ],
         ),
@@ -39,6 +39,7 @@ class _SightListScreenState extends State<SightListScreen> {
   }
 }
 
+///кастомизированный AppBar
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
 

@@ -17,7 +17,7 @@ class SightDetails extends StatelessWidget {
             height: 360,
             color: Colors.blue,
           ),
-          SizedBox(
+          const SizedBox(
             height: 24,
           ),
           Container(
@@ -28,7 +28,7 @@ class SightDetails extends StatelessWidget {
               style: textBold24Black,
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 2,
           ),
           Container(
@@ -40,17 +40,17 @@ class SightDetails extends StatelessWidget {
                   sight.type,
                   style: textBold14Black,
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 16,
                 ),
-                Text(
+                const Text(
                   'закрыто до 09:00',
                   style: textRegular14Grey,
                 ),
               ],
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 24,
           ),
           Container(
@@ -61,7 +61,7 @@ class SightDetails extends StatelessWidget {
               style: textRegular14Grey,
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 24,
           ),
           Container(
@@ -69,12 +69,12 @@ class SightDetails extends StatelessWidget {
             margin: const EdgeInsets.only(left: 16, right: 16),
             height: 48,
             color: Colors.green,
-            child: Text(
+            child: const Text(
               'ПОСТРОИТЬ МАРШРУТ',
               style: textRegular14White,
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 24,
           ),
           Container(
@@ -82,21 +82,21 @@ class SightDetails extends StatelessWidget {
             padding: const EdgeInsets.only(left: 33),
             child: Row(
               children: [
-                Icon(
+                const Icon(
                   Icons.calendar_today_outlined,
                   color: inactiveBlackColor,
                 ),
-                SizedBox(width: 9),
+                const SizedBox(width: 9),
                 Text(
                   'Запланировать',
                   style: textRegular14Grey.copyWith(
                     color: inactiveBlackColor,
                   ),
                 ),
-                SizedBox(width: 40),
-                Icon(Icons.favorite_border),
-                SizedBox(width: 9),
-                Text(
+                const SizedBox(width: 40),
+                const Icon(Icons.favorite_border),
+                const SizedBox(width: 9),
+                const Text(
                   'В избранное',
                   style: textRegular14Grey,
                 ),
