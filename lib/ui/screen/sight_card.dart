@@ -12,18 +12,20 @@ class SightCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Material(
       child: AspectRatio(
-        aspectRatio: 3 / 2,
+        aspectRatio: 3 / 1.4,
         child: Stack(
           children: [
             Container(
               margin: const EdgeInsets.only(left: 16, right: 16),
-              decoration: const BoxDecoration(
-                color: Colors.blue,
-                borderRadius: const BorderRadius.all(
-                  const Radius.circular(15),
+              height: 188,
+              width: double.infinity,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(15),
+                image: const DecorationImage(
+                  image: const ExactAssetImage('res/images/hole_china.jpg'),
+                  fit: BoxFit.cover,
                 ),
               ),
-              height: 188,
             ),
             Positioned(
               top: 96,
@@ -44,16 +46,14 @@ class SightCard extends StatelessWidget {
                     const SizedBox(
                       height: 16,
                     ),
-                    Expanded(
-                      child: Container(
-                        padding: const EdgeInsets.only(
-                          left: 16,
-                          right: 16,
-                        ),
-                        child: Text(
-                          sight.nameSights,
-                          style: textRegular16Black,
-                        ),
+                    Container(
+                      padding: const EdgeInsets.only(
+                        left: 16,
+                        right: 16,
+                      ),
+                      child: Text(
+                        sight.nameSights,
+                        style: textRegular16Black,
                       ),
                     ),
                     const SizedBox(
@@ -76,20 +76,24 @@ class SightCard extends StatelessWidget {
               ),
             ),
             Positioned(
-                top: 19,
-                left: 36,
-                child: Text(
-                  sight.type,
-                  style: textBold14Black.copyWith(color: Colors.white),
-                )),
+              top: 19,
+              left: 36,
+              child: Text(
+                sight.type,
+                style: textBold14Black.copyWith(color: Colors.white),
+              ),
+            ),
             Positioned(
               top: 19,
               right: 36,
               child: Container(
                 height: 18,
                 width: 20,
-                color: Colors.white,
+                child: Image.asset('res/images/heart.jpg'),
               ),
+            ),
+            Center(
+              child: CircularProgressIndicator(),
             ),
           ],
         ),
