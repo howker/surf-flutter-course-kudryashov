@@ -28,6 +28,6 @@ flutter:
   uses-material-design: true
 
   assets:
-    - res/images/
+    - res/
 
   

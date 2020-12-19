@@ -23,15 +23,11 @@ class _SightListScreenState extends State<SightListScreen> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            sightCard,
+            SightCard(sight: mocks[0]),
             const SizedBox(height: 16),
-            sightCard,
+            SightCard(sight: mocks[1]),
             const SizedBox(height: 16),
-            sightCard,
-            const SizedBox(height: 16),
-            sightCard,
-            const SizedBox(height: 16),
-            sightCard,
+            SightCard(sight: mocks[2]),
           ],
         ),
       ),

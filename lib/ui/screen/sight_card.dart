@@ -19,11 +19,23 @@ class SightCard extends StatelessWidget {
               margin: const EdgeInsets.only(left: 16, right: 16),
               height: 188,
               width: double.infinity,
-              decoration: BoxDecoration(
+              child: ClipRRect(
                 borderRadius: BorderRadius.circular(15),
-                image: const DecorationImage(
-                  image: const ExactAssetImage('res/images/hole_china.jpg'),
+                child: Image.network(
+                  sight.url,
                   fit: BoxFit.cover,
+                  loadingBuilder: (BuildContext context, Widget child,
+                      ImageChunkEvent loadingProgress) {
+                    if (loadingProgress == null) return child;
+                    return Center(
+                      child: CircularProgressIndicator(
+                        value: loadingProgress.expectedTotalBytes != null
+                            ? loadingProgress.cumulativeBytesLoaded /
+                                loadingProgress.expectedTotalBytes
+                            : null,
+                      ),
+                    );
+                  },
                 ),
               ),
             ),
@@ -89,11 +101,12 @@ class SightCard extends StatelessWidget {
               child: Container(
                 height: 18,
                 width: 20,
-                child: Image.asset('res/images/heart.jpg'),
+                child: Container(
+                  color: primaryColor,
+                  height: 18,
+                  width: 20,
+                ),
               ),
-            ),
-            const Center(
-              child: const CircularProgressIndicator(),
             ),
           ],
         ),
