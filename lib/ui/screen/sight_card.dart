@@ -12,7 +12,7 @@ class SightCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Material(
       child: AspectRatio(
-        aspectRatio: 3 / 1.4,
+        aspectRatio: 3 / 2,
         child: Stack(
           children: [
             Container(
