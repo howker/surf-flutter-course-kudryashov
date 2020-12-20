@@ -12,18 +12,32 @@ class SightCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Material(
       child: AspectRatio(
-        aspectRatio: 3 / 2,
+        aspectRatio: 3 / 1.4,
         child: Stack(
           children: [
             Container(
               margin: const EdgeInsets.only(left: 16, right: 16),
-              decoration: const BoxDecoration(
-                color: Colors.blue,
-                borderRadius: const BorderRadius.all(
-                  const Radius.circular(15),
+              height: 188,
+              width: double.infinity,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(15),
+                child: Image.network(
+                  sight.url,
+                  fit: BoxFit.cover,
+                  loadingBuilder: (BuildContext context, Widget child,
+                      ImageChunkEvent loadingProgress) {
+                    if (loadingProgress == null) return child;
+                    return Center(
+                      child: CircularProgressIndicator(
+                        value: loadingProgress.expectedTotalBytes != null
+                            ? loadingProgress.cumulativeBytesLoaded /
+                                loadingProgress.expectedTotalBytes
+                            : null,
+                      ),
+                    );
+                  },
                 ),
               ),
-              height: 188,
             ),
             Positioned(
               top: 96,
@@ -44,16 +58,14 @@ class SightCard extends StatelessWidget {
                     const SizedBox(
                       height: 16,
                     ),
-                    Expanded(
-                      child: Container(
-                        padding: const EdgeInsets.only(
-                          left: 16,
-                          right: 16,
-                        ),
-                        child: Text(
-                          sight.nameSights,
-                          style: textRegular16Black,
-                        ),
+                    Container(
+                      padding: const EdgeInsets.only(
+                        left: 16,
+                        right: 16,
+                      ),
+                      child: Text(
+                        sight.nameSights,
+                        style: textRegular16Black,
                       ),
                     ),
                     const SizedBox(
@@ -76,19 +88,24 @@ class SightCard extends StatelessWidget {
               ),
             ),
             Positioned(
-                top: 19,
-                left: 36,
-                child: Text(
-                  sight.type,
-                  style: textBold14Black.copyWith(color: Colors.white),
-                )),
+              top: 19,
+              left: 36,
+              child: Text(
+                sight.type,
+                style: textBold14Black.copyWith(color: Colors.white),
+              ),
+            ),
             Positioned(
               top: 19,
               right: 36,
               child: Container(
                 height: 18,
                 width: 20,
-                color: Colors.white,
+                child: Container(
+                  color: primaryColor,
+                  height: 18,
+                  width: 20,
+                ),
               ),
             ),
           ],
