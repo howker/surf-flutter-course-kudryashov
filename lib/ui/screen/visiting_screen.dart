@@ -34,6 +34,7 @@ class _VisitingScreenState extends State with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: primaryColor,
       appBar: AppBar(
         backgroundColor: primaryColor,
         title: const Text(

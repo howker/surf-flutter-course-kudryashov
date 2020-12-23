@@ -1,5 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:places/appicons.dart';
 import 'package:places/colors.dart';
 
 ///Нижняя навигационная панель
@@ -14,21 +14,22 @@ class BottomNaviBar extends StatelessWidget {
       unselectedItemColor: backgroundBlackColor,
       selectedItemColor: backgroundBlackColor,
       showSelectedLabels: false,
+      currentIndex: 1,
       items: [
         const BottomNavigationBarItem(
-          icon: const Icon(Icons.list_alt_rounded),
+          icon: const Icon(Appicons.list),
           label: '',
         ),
         const BottomNavigationBarItem(
-          icon: const Icon(Icons.map_outlined),
+          icon: const Icon(Appicons.map),
           label: '',
         ),
         const BottomNavigationBarItem(
-          icon: const Icon(Icons.favorite),
+          icon: const Icon(Appicons.heartfull),
           label: '',
         ),
         const BottomNavigationBarItem(
-          icon: const Icon(CupertinoIcons.gear),
+          icon: const Icon(Appicons.settings),
           label: '',
         ),
       ],
