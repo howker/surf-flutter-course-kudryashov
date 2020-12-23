@@ -51,8 +51,8 @@ class _VisitingScreenState extends State with SingleTickerProviderStateMixin {
       body: TabBarView(
         controller: _tabController,
         children: [
-          WantToVisitTabEmpty(),
-          AlreadyVisitedTabEmpty(),
+          WantToVisitTab(),
+          AlreadyVisitedTab(),
         ],
       ),
       bottomNavigationBar: BottomNaviBar(),

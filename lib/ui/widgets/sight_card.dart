@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:places/appicons.dart';
 
 import 'package:places/colors.dart';
 import 'package:places/domain/sight.dart';
@@ -28,8 +29,8 @@ class SightCard extends StatelessWidget {
     this.closed = '';
   }
   SightCard.wanttovisit(this.sight) {
-    firstIcon = Icon(Icons.date_range, color: primaryColor);
-    secondIcon = Icon(Icons.close, color: primaryColor);
+    firstIcon = Icon(Appicons.calendar, color: primaryColor);
+    secondIcon = Icon(Appicons.close, color: primaryColor);
     descriptionCardHeight = 102;
     details = planned;
     closed = close;
@@ -37,8 +38,8 @@ class SightCard extends StatelessWidget {
   }
 
   SightCard.alreadyvisited(this.sight) {
-    firstIcon = Icon(Icons.share, color: primaryColor);
-    secondIcon = Icon(Icons.close, color: primaryColor);
+    firstIcon = Icon(Appicons.share, color: primaryColor);
+    secondIcon = Icon(Appicons.close, color: primaryColor);
     descriptionCardHeight = 102;
     details = aimReached;
     closed = close;
