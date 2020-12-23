@@ -1,9 +1,13 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:places/colors.dart';
 import 'package:places/text_string_const.dart';
 import 'package:places/styles.dart';
 import 'package:places/ui/screen/already_visited.dart';
+import 'package:places/ui/screen/already_visited_empty.dart';
 import 'package:places/ui/screen/want_to_visit.dart';
+import 'package:places/ui/screen/want_to_visit_empty.dart';
+import 'package:places/ui/widgets/bottom_navibar.dart';
 
 /// Экран "Хочу посетить/Посещенные места"
 class VisitingScreen extends StatefulWidget {
@@ -46,10 +50,11 @@ class _VisitingScreenState extends State with SingleTickerProviderStateMixin {
       body: TabBarView(
         controller: _tabController,
         children: [
-          WantToVisitTab(),
-          AlreadyVisitedTab(),
+          WantToVisitTabEmpty(),
+          AlreadyVisitedTabEmpty(),
         ],
       ),
+      bottomNavigationBar: BottomNaviBar(),
     );
   }
 
