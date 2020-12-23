@@ -1,13 +1,50 @@
 import 'package:flutter/material.dart';
+
 import 'package:places/colors.dart';
 import 'package:places/domain/sight.dart';
+import 'package:places/mock.dart';
 import 'package:places/styles.dart';
+import 'package:places/text_string_const.dart';
 
 /// Карточка интересного места
 class SightCard extends StatelessWidget {
-  final Sight sight;
+  Sight sight;
+  Icon firstIcon, secondIcon;
+  double descriptionCardHeight;
+  String details;
+  String closed;
+  TextStyle detailsStyle;
 
-  const SightCard({this.sight});
+  SightCard({
+    Key key,
+    this.sight,
+  }) {
+    this.sight = sight ?? mocks[0];
+    this.firstIcon = firstIcon ?? Icon(Icons.date_range);
+    this.secondIcon = secondIcon ?? Icon(Icons.close);
+    this.descriptionCardHeight = 92;
+    this.details = sight.details;
+    this.detailsStyle = textRegular14Grey;
+    this.closed = '';
+  }
+  SightCard.wanttovisit(this.sight) {
+    firstIcon = Icon(Icons.date_range, color: primaryColor);
+    secondIcon = Icon(Icons.close, color: primaryColor);
+    descriptionCardHeight = 102;
+    details = planned;
+    closed = close;
+    detailsStyle = textRegular14Grey.copyWith(color: Colors.green);
+  }
+
+  SightCard.alreadyvisited(this.sight) {
+    firstIcon = Icon(Icons.share, color: primaryColor);
+    secondIcon = Icon(Icons.close, color: primaryColor);
+    descriptionCardHeight = 102;
+    details = aimReached;
+    closed = close;
+    detailsStyle = textRegular14Grey;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -43,7 +80,7 @@ class SightCard extends StatelessWidget {
               top: 96,
               left: 16,
               child: Container(
-                height: 92,
+                height: descriptionCardHeight,
                 width: 380,
                 decoration: const BoxDecoration(
                   color: backgroundColor,
@@ -78,8 +115,20 @@ class SightCard extends StatelessWidget {
                           right: 16,
                         ),
                         child: Text(
-                          sight.details,
-                          style: textRegular14Grey,
+                          details,
+                          style: detailsStyle,
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: Container(
+                        padding: const EdgeInsets.only(
+                          left: 16,
+                          right: 16,
+                        ),
+                        child: Text(
+                          closed,
+                          style: textSmallRegular14Grey,
                         ),
                       ),
                     ),
@@ -98,14 +147,12 @@ class SightCard extends StatelessWidget {
             Positioned(
               top: 19,
               right: 36,
-              child: Container(
-                height: 18,
-                width: 20,
-                child: Container(
-                  color: primaryColor,
-                  height: 18,
-                  width: 20,
-                ),
+              child: Row(
+                children: [
+                  firstIcon,
+                  const SizedBox(width: 23),
+                  secondIcon,
+                ],
               ),
             ),
           ],

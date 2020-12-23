@@ -55,3 +55,31 @@ const textRegular32Yellow = TextStyle(
   fontSize: 32,
   color: Colors.yellow,
 );
+
+const textRegular18Black = TextStyle(
+  fontFamily: 'Roboto-Regular',
+  fontWeight: FontWeight.w500,
+  fontSize: 18,
+  color: const Color(0xFF252849),
+);
+
+const textBoldRegular14White = TextStyle(
+  fontFamily: 'Roboto-Regular',
+  fontWeight: FontWeight.bold,
+  fontSize: 14,
+  color: const Color(0xFFFFFFFF),
+);
+
+const textBoldRegular14Grey = TextStyle(
+  fontFamily: 'Roboto-Regular',
+  fontWeight: FontWeight.bold,
+  fontSize: 14,
+  color: const Color.fromRGBO(124, 126, 146, 0.56),
+);
+
+const textSmallRegular14Grey = TextStyle(
+  fontFamily: 'Roboto-Regular',
+  fontWeight: FontWeight.normal,
+  fontSize: 14,
+  color: const Color(0xFF7C7E92),
+);
