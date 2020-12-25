@@ -1,12 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:places/appicons.dart';
 import 'package:places/colors.dart';
 import 'package:places/text_string_const.dart';
 import 'package:places/styles.dart';
 import 'package:places/ui/screen/already_visited.dart';
-import 'package:places/ui/screen/already_visited_empty.dart';
 import 'package:places/ui/screen/want_to_visit.dart';
-import 'package:places/ui/screen/want_to_visit_empty.dart';
 import 'package:places/ui/widgets/bottom_navibar.dart';
 
 /// Экран "Хочу посетить/Посещенные места"
@@ -51,8 +50,8 @@ class _VisitingScreenState extends State with SingleTickerProviderStateMixin {
       body: TabBarView(
         controller: _tabController,
         children: [
-          WantToVisitTab(),
-          AlreadyVisitedTab(),
+          buildEmptyState(Appicons.card, markPlaces), //WantToVisitTab(),
+          buildEmptyState(Appicons.go, finishRoute), //AlreadyVisitedTab(),
         ],
       ),
       bottomNavigationBar: BottomNaviBar(),
@@ -112,6 +111,36 @@ class _VisitingScreenState extends State with SingleTickerProviderStateMixin {
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget buildEmptyState(IconData icon, String text) {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Container(
+            color: primaryColor,
+            child: Icon(
+              icon,
+              color: inactiveBlackColor,
+              size: 53,
+            ),
+          ),
+          const SizedBox(
+            height: 32,
+          ),
+          Text(
+            empty,
+            style: textSubtitleRegular18Grey,
+          ),
+          Text(
+            text,
+            style: textSmallRegular14Grey,
+            textAlign: TextAlign.center,
+          ),
+        ],
       ),
     );
   }
