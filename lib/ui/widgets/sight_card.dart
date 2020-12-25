@@ -21,16 +21,16 @@ class SightCard extends StatelessWidget {
     this.sight,
   }) {
     this.sight = sight ?? mocks[0];
-    this.firstIcon = firstIcon ?? Icon(Icons.date_range);
-    this.secondIcon = secondIcon ?? Icon(Icons.close);
+    this.firstIcon = firstIcon ?? const Icon(Icons.date_range);
+    this.secondIcon = secondIcon ?? const Icon(Icons.close);
     this.descriptionCardHeight = 92;
     this.details = sight.details;
     this.detailsStyle = textRegular14Grey;
     this.closed = '';
   }
   SightCard.wanttovisit(this.sight) {
-    firstIcon = Icon(Appicons.calendar, color: primaryColor);
-    secondIcon = Icon(Appicons.close, color: primaryColor);
+    firstIcon = const Icon(Appicons.calendar, color: primaryColor);
+    secondIcon = const Icon(Appicons.close, color: primaryColor);
     descriptionCardHeight = 102;
     details = planned;
     closed = close;
@@ -38,8 +38,8 @@ class SightCard extends StatelessWidget {
   }
 
   SightCard.alreadyvisited(this.sight) {
-    firstIcon = Icon(Appicons.share, color: primaryColor);
-    secondIcon = Icon(Appicons.close, color: primaryColor);
+    firstIcon = const Icon(Appicons.share, color: primaryColor);
+    secondIcon = const Icon(Appicons.close, color: primaryColor);
     descriptionCardHeight = 102;
     details = aimReached;
     closed = close;

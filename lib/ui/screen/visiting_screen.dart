@@ -131,7 +131,7 @@ class _VisitingScreenState extends State with SingleTickerProviderStateMixin {
           const SizedBox(
             height: 32,
           ),
-          Text(
+          const Text(
             empty,
             style: textSubtitleRegular18Grey,
           ),
