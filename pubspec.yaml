@@ -23,7 +23,10 @@ flutter:
   fonts:    
     - family: Roboto
       fonts:        
-        - asset: res/font/Roboto-Bold.ttf        
+        - asset: res/font/Roboto-Bold.ttf
+    - family: Appicons
+      fonts:        
+        - asset: res/font/Appicons.ttf        
 
   uses-material-design: true
 
