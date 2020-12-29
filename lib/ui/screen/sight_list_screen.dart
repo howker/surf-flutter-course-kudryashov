@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:places/mock.dart';
-import 'package:places/styles.dart';
 import 'package:places/text_string_const.dart';
+import 'package:places/ui/widgets/bottom_navibar.dart';
 import 'package:places/ui/widgets/sight_card.dart';
 
 /// список карточек интересных мест
@@ -31,6 +31,7 @@ class _SightListScreenState extends State<SightListScreen> {
           ],
         ),
       ),
+      bottomNavigationBar: BottomNaviBar(),
     );
   }
 }
@@ -48,7 +49,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
         title,
         textAlign: TextAlign.left,
         maxLines: 2,
-        style: textRegular32DarkGrey,
+        style: Theme.of(context).textTheme.headline6,
       ),
       padding: const EdgeInsets.only(
         left: 16.0,

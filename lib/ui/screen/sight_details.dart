@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:places/appicons.dart';
 import 'package:places/colors.dart';
 import 'package:places/domain/sight.dart';
 import 'package:places/styles.dart';
@@ -40,7 +41,7 @@ class SightDetails extends StatelessWidget {
             padding: const EdgeInsets.only(left: 16, right: 16),
             child: Text(
               sight.nameSights,
-              style: textBold24Black,
+              style: Theme.of(context).textTheme.subtitle1, //textBold24Black,
             ),
           ),
           const SizedBox(
@@ -53,14 +54,14 @@ class SightDetails extends StatelessWidget {
               children: [
                 Text(
                   sight.type,
-                  style: textBold14Black,
+                  style: Theme.of(context).textTheme.subtitle2,
                 ),
                 const SizedBox(
                   width: 16,
                 ),
-                const Text(
+                Text(
                   'закрыто до 09:00',
-                  style: textRegular14Grey,
+                  style: Theme.of(context).textTheme.headline4,
                 ),
               ],
             ),
@@ -73,7 +74,7 @@ class SightDetails extends StatelessWidget {
             padding: const EdgeInsets.only(left: 16, right: 16),
             child: Text(
               sight.details,
-              style: textRegular14Grey,
+              style: Theme.of(context).textTheme.bodyText1,
             ),
           ),
           const SizedBox(
@@ -98,7 +99,7 @@ class SightDetails extends StatelessWidget {
             child: Row(
               children: [
                 const Icon(
-                  Icons.calendar_today_outlined,
+                  Appicons.calendar,
                   color: inactiveBlackColor,
                 ),
                 const SizedBox(width: 9),
@@ -109,11 +110,14 @@ class SightDetails extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(width: 40),
-                const Icon(Icons.favorite_border),
+                Icon(
+                  Icons.favorite_border,
+                  color: Theme.of(context).primaryColorDark,
+                ),
                 const SizedBox(width: 9),
-                const Text(
+                Text(
                   'В избранное',
-                  style: textRegular14Grey,
+                  style: Theme.of(context).textTheme.bodyText1,
                 ),
               ],
             ),

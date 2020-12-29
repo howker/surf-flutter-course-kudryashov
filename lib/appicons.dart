@@ -16,6 +16,10 @@
 ///         Author:    Aristeides Stathopoulos
 ///         License:   SIL (http://scripts.sil.org/OFL)
 ///         Homepage:  http://aristeides.com/
+/// * Linecons, Copyright (C) 2013 by Designmodo
+///         Author:    Designmodo for Smashing Magazine
+///         License:   CC BY ()
+///         Homepage:  http://designmodo.com/linecons-free/
 ///
 import 'package:flutter/widgets.dart';
 
@@ -28,6 +32,7 @@ class Appicons {
   static const IconData star_circled = IconData(0xe800, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData map = IconData(0xe801, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData calendar = IconData(0xe802, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData heart_1 = IconData(0xe803, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData close = IconData(0xe804, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData go = IconData(0xe805, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData heart = IconData(0xe806, fontFamily: _kFontFam, fontPackage: _kFontPkg);

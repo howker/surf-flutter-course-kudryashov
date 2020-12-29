@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:places/appicons.dart';
 import 'package:places/colors.dart';
 import 'package:places/text_string_const.dart';
 import 'package:places/styles.dart';
@@ -33,12 +32,12 @@ class _VisitingScreenState extends State with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: primaryColor,
+      backgroundColor: Theme.of(context).primaryColor,
       appBar: AppBar(
-        backgroundColor: primaryColor,
-        title: const Text(
+        backgroundColor: Theme.of(context).primaryColor,
+        title: Text(
           favorites,
-          style: textRegular18Black,
+          style: Theme.of(context).textTheme.headline1,
         ),
         elevation: 0,
         centerTitle: true,
@@ -50,8 +49,8 @@ class _VisitingScreenState extends State with SingleTickerProviderStateMixin {
       body: TabBarView(
         controller: _tabController,
         children: [
-          buildEmptyState(Appicons.card, markPlaces), //WantToVisitTab(),
-          buildEmptyState(Appicons.go, finishRoute), //AlreadyVisitedTab(),
+          WantToVisitTab(), //buildEmptyState(Appicons.card, markPlaces), //WantToVisitTab(),
+          AlreadyVisitedTab(), //buildEmptyState(Appicons.go, finishRoute), //AlreadyVisitedTab(),
         ],
       ),
       bottomNavigationBar: BottomNaviBar(),
@@ -68,7 +67,7 @@ class _VisitingScreenState extends State with SingleTickerProviderStateMixin {
         margin: const EdgeInsets.only(bottom: 30),
         height: 40,
         decoration: BoxDecoration(
-          color: backgroundColor,
+          color: Theme.of(context).backgroundColor,
           borderRadius: BorderRadius.circular(40),
         ),
         child: Row(
@@ -79,14 +78,14 @@ class _VisitingScreenState extends State with SingleTickerProviderStateMixin {
                 child: Text(
                   wantToVisit,
                   style: _tabController.index == 0
-                      ? textBoldRegular14White
-                      : textBoldRegular14Grey,
+                      ? Theme.of(context).textTheme.headline3
+                      : Theme.of(context).textTheme.headline2,
                 ),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(40),
                   color: _tabController.index == 0
-                      ? secondaryColor
-                      : backgroundColor,
+                      ? Theme.of(context).primaryColorDark
+                      : Theme.of(context).backgroundColor,
                 ),
                 height: 40,
               ),
@@ -97,15 +96,14 @@ class _VisitingScreenState extends State with SingleTickerProviderStateMixin {
                 child: Text(
                   alreadyVisited,
                   style: _tabController.index == 1
-                      ? textBoldRegular14White
-                      : textBoldRegular14Grey,
+                      ? Theme.of(context).textTheme.headline3
+                      : Theme.of(context).textTheme.headline2,
                 ),
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(40),
-                  color: _tabController.index == 1
-                      ? secondaryColor
-                      : backgroundColor,
-                ),
+                    borderRadius: BorderRadius.circular(40),
+                    color: _tabController.index == 1
+                        ? Theme.of(context).primaryColorDark
+                        : Theme.of(context).backgroundColor),
                 height: 40,
               ),
             ),
@@ -121,7 +119,7 @@ class _VisitingScreenState extends State with SingleTickerProviderStateMixin {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Container(
-            color: primaryColor,
+            color: Theme.of(context).primaryColor,
             child: Icon(
               icon,
               color: inactiveBlackColor,

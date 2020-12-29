@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:places/appicons.dart';
-import 'package:places/colors.dart';
 
 ///Нижняя навигационная панель
 class BottomNaviBar extends StatelessWidget {
@@ -11,8 +10,6 @@ class BottomNaviBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
-      unselectedItemColor: backgroundBlackColor,
-      selectedItemColor: backgroundBlackColor,
       showSelectedLabels: false,
       currentIndex: 1,
       items: [
