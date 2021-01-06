@@ -91,7 +91,7 @@ const textSubtitleRegular18Grey = TextStyle(
   color: const Color.fromRGBO(124, 126, 146, 0.56),
 );
 
-const textBold14G = TextStyle(
+const textBold14DarkGrey = TextStyle(
   fontFamily: 'Roboto-Regular',
   fontWeight: FontWeight.bold,
   fontSize: 14,

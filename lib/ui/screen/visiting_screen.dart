@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:places/colors.dart';
 import 'package:places/text_string_const.dart';
 import 'package:places/styles.dart';
@@ -49,8 +50,9 @@ class _VisitingScreenState extends State with SingleTickerProviderStateMixin {
       body: TabBarView(
         controller: _tabController,
         children: [
-          WantToVisitTab(), //buildEmptyState(Appicons.card, markPlaces), //WantToVisitTab(),
-          AlreadyVisitedTab(), //buildEmptyState(Appicons.go, finishRoute), //AlreadyVisitedTab(),
+          buildEmptyState('res/icons/Card.svg', markPlaces), //WantToVisitTab(),
+          buildEmptyState(
+              'res/icons/GO.svg', finishRoute), //AlreadyVisitedTab(),
         ],
       ),
       bottomNavigationBar: BottomNaviBar(),
@@ -113,17 +115,18 @@ class _VisitingScreenState extends State with SingleTickerProviderStateMixin {
     );
   }
 
-  Widget buildEmptyState(IconData icon, String text) {
+  Widget buildEmptyState(String icon, String text) {
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Container(
             color: Theme.of(context).primaryColor,
-            child: Icon(
+            child: SvgPicture.asset(
               icon,
-              color: inactiveBlackColor,
-              size: 53,
+              color: lmInactiveBlackColor,
+              width: 53,
+              height: 53,
             ),
           ),
           const SizedBox(

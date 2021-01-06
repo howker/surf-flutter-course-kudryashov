@@ -9,7 +9,7 @@ class AlreadyVisitedTab extends StatelessWidget {
     return SingleChildScrollView(
       child: Column(
         children: [
-          SightCard.alreadyvisited(mocks[2]),
+          SightCard.alreadyVisited(mocks[2]),
         ],
       ),
     );

@@ -4,87 +4,87 @@ import 'package:places/colors.dart';
 import 'package:places/styles.dart';
 
 final lightTheme = ThemeData(
-  canvasColor: lmprimaryColor,
-  scaffoldBackgroundColor: lmprimaryColor,
-  iconTheme: IconThemeData(color: lmprimaryColor),
+  canvasColor: lmPrimaryColor,
+  scaffoldBackgroundColor: lmPrimaryColor,
+  iconTheme: IconThemeData(color: lmPrimaryColor),
   bottomNavigationBarTheme: BottomNavigationBarThemeData(
-    backgroundColor: lmprimaryColor,
+    backgroundColor: lmPrimaryColor,
     selectedItemColor: lmBottomBarSelectedColor,
     unselectedItemColor: lmBottomBarSelectedColor,
   ),
   textTheme: TextTheme(
     headline6: textRegular32DarkGrey.copyWith(
-      color: lmsecondaryColor,
+      color: lmSecondaryColor,
     ),
     headline5: textRegular16Black.copyWith(
-      color: lmsecondaryColor,
+      color: lmSecondaryColor,
     ),
     headline4: textRegular14Grey.copyWith(
-      color: lmheadline4Color,
+      color: lmHeadline4Color,
     ),
-    headline3: textBold14G.copyWith(
-      color: lmheadline3Color,
+    headline3: textBold14DarkGrey.copyWith(
+      color: lmHeadline3Color,
     ),
-    headline2: textBold14G.copyWith(
-      color: lmsecondaryColor,
+    headline2: textBold14DarkGrey.copyWith(
+      color: lmSecondaryColor,
     ),
     headline1: textSubtitleRegular18Grey.copyWith(
-      color: lmsecondaryColor,
+      color: lmSecondaryColor,
     ),
     subtitle1: textNormal24Black.copyWith(
-      color: lmsecondaryColor,
+      color: lmSecondaryColor,
     ),
-    subtitle2: textBold14G.copyWith(
-      color: lmheadline4Color,
+    subtitle2: textBold14DarkGrey.copyWith(
+      color: lmHeadline4Color,
     ),
     bodyText1: textRegular14Grey.copyWith(
-      color: lmsecondaryColor,
+      color: lmSecondaryColor,
     ),
   ),
-  primaryColor: lmprimaryColor,
-  primaryColorDark: lmsecondaryColor,
-  backgroundColor: lmbackgroundColor,
+  primaryColor: lmPrimaryColor,
+  primaryColorDark: lmSecondaryColor,
+  backgroundColor: lmBackgroundColor,
 );
 
 final darkTheme = ThemeData(
-  canvasColor: dmprimaryColor,
-  scaffoldBackgroundColor: dmprimaryColor,
-  iconTheme: IconThemeData(color: dmsecondaryColor),
+  canvasColor: dmPrimaryColor,
+  scaffoldBackgroundColor: dmPrimaryColor,
+  iconTheme: IconThemeData(color: dmSecondaryColor),
   bottomNavigationBarTheme: BottomNavigationBarThemeData(
-    backgroundColor: dmprimaryColor,
+    backgroundColor: dmPrimaryColor,
     selectedItemColor: dmBottomBarSelectedColor,
     unselectedItemColor: dmBottomBarSelectedColor,
   ),
   textTheme: TextTheme(
     headline6: textRegular32DarkGrey.copyWith(
-      color: dmsecondaryColor,
+      color: dmSecondaryColor,
     ),
     headline5: textRegular16Black.copyWith(
-      color: dmsecondaryColor,
+      color: dmSecondaryColor,
     ),
     headline4: textRegular14Grey.copyWith(
-      color: dmheadline4Color,
+      color: dmHeadline4Color,
     ),
-    headline3: textBold14G.copyWith(
-      color: dmheadline3Color,
+    headline3: textBold14DarkGrey.copyWith(
+      color: dmHeadline3Color,
     ),
-    headline2: textBold14G.copyWith(
-      color: dmsecondaryColor,
+    headline2: textBold14DarkGrey.copyWith(
+      color: dmSecondaryColor,
     ),
     headline1: textSubtitleRegular18Grey.copyWith(
-      color: dmsecondaryColor,
+      color: dmSecondaryColor,
     ),
     subtitle1: textNormal24Black.copyWith(
-      color: dmsecondaryColor,
+      color: dmSecondaryColor,
     ),
-    subtitle2: textBold14G.copyWith(
-      color: dmheadline4Color,
+    subtitle2: textBold14DarkGrey.copyWith(
+      color: dmHeadline4Color,
     ),
     bodyText1: textRegular14Grey.copyWith(
-      color: dmsecondaryColor,
+      color: dmSecondaryColor,
     ),
   ),
   primaryColor: dmBlackDarkColor,
-  primaryColorDark: dmsecondaryColor,
+  primaryColorDark: dmSecondaryColor,
   backgroundColor: dmBlackDarkColor,
 );

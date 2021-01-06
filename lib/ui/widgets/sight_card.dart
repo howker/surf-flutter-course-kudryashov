@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:places/appicons.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:places/domain/sight.dart';
 import 'package:places/mock.dart';
 import 'package:places/styles.dart';
@@ -8,7 +8,8 @@ import 'package:places/text_string_const.dart';
 /// Карточка интересного места
 class SightCard extends StatelessWidget {
   Sight sight;
-  Icon firstIcon, secondIcon;
+  String firstIcon;
+  Icon secondIcon;
   double descriptionCardHeight;
   String details;
   String closed;
@@ -19,26 +20,23 @@ class SightCard extends StatelessWidget {
     this.sight,
   }) {
     this.sight = sight ?? mocks[0];
-    this.secondIcon = secondIcon ?? const Icon(Appicons.heart);
+    this.secondIcon = secondIcon ?? const Icon(Icons.favorite_border);
     this.descriptionCardHeight = 92;
     this.details = sight.details;
     this.closed = '';
   }
-  SightCard.wanttovisit(this.sight) {
-    firstIcon = const Icon(
-      Appicons.calendar,
-      color: Colors.white,
-    );
-    secondIcon = const Icon(Appicons.close);
+  SightCard.wantToVisit(this.sight) {
+    firstIcon = 'res/icons/Calendar.svg';
+    secondIcon = const Icon(Icons.close);
     descriptionCardHeight = 102;
     details = planned;
     closed = close;
     detailsStyle = textRegular14Grey.copyWith(color: Colors.green);
   }
 
-  SightCard.alreadyvisited(this.sight) {
-    firstIcon = const Icon(Icons.share);
-    secondIcon = const Icon(Appicons.close);
+  SightCard.alreadyVisited(this.sight) {
+    firstIcon = 'res/icons/Share.svg';
+    secondIcon = const Icon(Icons.close);
     descriptionCardHeight = 102;
     details = aimReached;
     closed = close;
@@ -151,7 +149,9 @@ class SightCard extends StatelessWidget {
               right: 36,
               child: Row(
                 children: [
-                  firstIcon ?? const SizedBox(),
+                  firstIcon == null
+                      ? const SizedBox()
+                      : SvgPicture.asset(firstIcon),
                   const SizedBox(width: 23),
                   secondIcon,
                 ],

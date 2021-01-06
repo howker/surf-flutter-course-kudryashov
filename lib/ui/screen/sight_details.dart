@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:places/appicons.dart';
 import 'package:places/colors.dart';
 import 'package:places/domain/sight.dart';
 import 'package:places/styles.dart';
@@ -41,7 +40,7 @@ class SightDetails extends StatelessWidget {
             padding: const EdgeInsets.only(left: 16, right: 16),
             child: Text(
               sight.nameSights,
-              style: Theme.of(context).textTheme.subtitle1, //textBold24Black,
+              style: Theme.of(context).textTheme.subtitle1,
             ),
           ),
           const SizedBox(
@@ -99,14 +98,14 @@ class SightDetails extends StatelessWidget {
             child: Row(
               children: [
                 const Icon(
-                  Appicons.calendar,
-                  color: inactiveBlackColor,
+                  Icons.calendar_today,
+                  color: lmInactiveBlackColor,
                 ),
                 const SizedBox(width: 9),
                 Text(
                   'Запланировать',
                   style: textRegular14Grey.copyWith(
-                    color: inactiveBlackColor,
+                    color: lmInactiveBlackColor,
                   ),
                 ),
                 const SizedBox(width: 40),

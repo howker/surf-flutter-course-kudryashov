@@ -1,17 +1,32 @@
 import 'package:flutter/material.dart';
 
-const Color lmbackgroundColor = Color(0xFFF5F5F5),
-    inactiveBlackColor = Color.fromRGBO(124, 126, 146, 0.56),
-    lmprimaryColor = Color(0xFFFFFFFF),
-    lmBottomBarSelectedColor = Color(0xFF1A1A20),
-    lmsecondaryColor = Color(0xFF3B3E5B),
-    backgroundBlackColor = Color(0xFF252849),
-    lmheadline4Color = Color(0xFF7C7E92),
-    lmheadline3Color = Color(0xFFFFFFFF);
+/// Цвета для светлой темы
+const Color lmBackgroundColor = _milkWhite,
+    lmInactiveBlackColor = _lightGrey,
+    lmPrimaryColor = _white,
+    lmBottomBarSelectedColor = _darkBlack,
+    lmSecondaryColor = _darkGrey,
+    lmBackgroundBlackColor = _ferricBlack,
+    lmHeadline4Color = _grey,
+    lmHeadline3Color = _white;
 
-const Color dmprimaryColor = Color(0xFF2E2E2E),
-    dmBottomBarSelectedColor = Color(0xFFFFFFFF),
-    dmsecondaryColor = Color(0xFFFFFFFF),
-    dmBlackDarkColor = Color(0xFF1A1A20),
-    dmheadline4Color = Color(0xFF7C7E92),
-    dmheadline3Color = Color(0xFF3B3E5B);
+/// Цвета для тёмной темы
+const Color dmPrimaryColor = _lightBlack,
+    dmBottomBarSelectedColor = _white,
+    dmSecondaryColor = _white,
+    dmBlackDarkColor = _darkBlack,
+    dmHeadline4Color = _grey,
+    dmHeadline3Color = _darkGrey;
+
+/// Цвета по умолчанию
+const Color defaultIconColor = _white;
+
+/// Палитра цветов
+const Color _lightBlack = Color(0xFF2E2E2E),
+    _white = Color(0xFFFFFFFF),
+    _darkBlack = Color(0xFF1A1A20),
+    _grey = Color(0xFF7C7E92),
+    _darkGrey = Color(0xFF3B3E5B),
+    _milkWhite = Color(0xFFF5F5F5),
+    _lightGrey = Color.fromRGBO(124, 126, 146, 0.56),
+    _ferricBlack = Color(0xFF252849);

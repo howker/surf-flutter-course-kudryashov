@@ -13,13 +13,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: darkTheme, //lightTheme,
+      theme: darkTheme, //lightTheme, //
       title: 'TITLE',
-      home: //SightListScreen(), //VisitingScreen(),
+      home: SightListScreen(), //VisitingScreen(), //
 
-          SightDetails(
-        sight: mocks[0],
-      ),
+      //     SightDetails(
+      //   sight: mocks[0],
+      // ),
     );
   }
 }
