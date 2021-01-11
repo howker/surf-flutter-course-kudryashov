@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:places/appicons.dart';
-import 'package:places/colors.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 ///Нижняя навигационная панель
 class BottomNaviBar extends StatelessWidget {
@@ -11,25 +10,37 @@ class BottomNaviBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
-      unselectedItemColor: backgroundBlackColor,
-      selectedItemColor: backgroundBlackColor,
       showSelectedLabels: false,
       currentIndex: 1,
       items: [
-        const BottomNavigationBarItem(
-          icon: const Icon(Appicons.list),
+        BottomNavigationBarItem(
+          icon: SvgPicture.asset(
+            'res/icons/List.svg',
+            color: Theme.of(context).bottomNavigationBarTheme.selectedItemColor,
+          ),
+
+          //const Icon(Icons.list),
           label: '',
         ),
-        const BottomNavigationBarItem(
-          icon: const Icon(Appicons.map),
+        BottomNavigationBarItem(
+          icon: SvgPicture.asset(
+            'res/icons/Map.svg',
+            color: Theme.of(context).bottomNavigationBarTheme.selectedItemColor,
+          ),
           label: '',
         ),
-        const BottomNavigationBarItem(
-          icon: const Icon(Appicons.heartfull),
+        BottomNavigationBarItem(
+          icon: SvgPicture.asset(
+            'res/icons/Heart.svg',
+            color: Theme.of(context).bottomNavigationBarTheme.selectedItemColor,
+          ),
           label: '',
         ),
-        const BottomNavigationBarItem(
-          icon: const Icon(Appicons.settings),
+        BottomNavigationBarItem(
+          icon: SvgPicture.asset(
+            'res/icons/Settings.svg',
+            color: Theme.of(context).bottomNavigationBarTheme.selectedItemColor,
+          ),
           label: '',
         ),
       ],
