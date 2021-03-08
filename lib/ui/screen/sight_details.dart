@@ -79,14 +79,19 @@ class SightDetails extends StatelessWidget {
           const SizedBox(
             height: 24,
           ),
-          Container(
-            alignment: Alignment.center,
-            margin: const EdgeInsets.only(left: 16, right: 16),
-            height: 48,
-            color: Colors.green,
-            child: const Text(
-              'ПОСТРОИТЬ МАРШРУТ',
-              style: textRegular14White,
+          Padding(
+            padding: const EdgeInsets.only(left: 16, right: 16),
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                minimumSize: Size(double.infinity, 48),
+              ),
+              onPressed: () {
+                print('ПОСТРОИТЬ МАРШРУТ');
+              },
+              child: const Text(
+                'ПОСТРОИТЬ МАРШРУТ',
+                style: textRegular14White,
+              ),
             ),
           ),
           const SizedBox(
