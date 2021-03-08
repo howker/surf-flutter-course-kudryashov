@@ -6,7 +6,8 @@ import 'package:places/styles.dart';
 final lightTheme = ThemeData(
   elevatedButtonTheme: ElevatedButtonThemeData(
     style: ElevatedButton.styleFrom(
-      primary: Colors.green,
+      elevation: 0,
+      primary: lmElevatedButtonColor,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12),
       ),
@@ -57,7 +58,8 @@ final lightTheme = ThemeData(
 final darkTheme = ThemeData(
   elevatedButtonTheme: ElevatedButtonThemeData(
     style: ElevatedButton.styleFrom(
-      primary: Colors.green,
+      elevation: 0,
+      primary: dmElevatedButtonColor,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12),
       ),
