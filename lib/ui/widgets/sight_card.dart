@@ -152,9 +152,15 @@ class SightCard extends StatelessWidget {
                 children: [
                   firstIcon == null
                       ? const SizedBox()
-                      : SvgPicture.asset(firstIcon),
+                      : InkWell(
+                          child: SvgPicture.asset(firstIcon),
+                          onTap: _onFirstIconTap,
+                        ),
                   const SizedBox(width: 23),
-                  secondIcon,
+                  InkWell(
+                    child: secondIcon,
+                    onTap: _onSecondIconTap,
+                  ),
                 ],
               ),
             ),
@@ -162,5 +168,19 @@ class SightCard extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void _onSecondIconTap() {
+    if (secondIcon == Icon(Icons.close)) {
+      print('close');
+    } else
+      print('to favourites');
+  }
+
+  void _onFirstIconTap() {
+    if (firstIcon == 'res/icons/Calendar.svg') {
+      print('calendar');
+    } else
+      print('share');
   }
 }

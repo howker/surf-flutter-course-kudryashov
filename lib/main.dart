@@ -15,11 +15,11 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       theme: darkTheme, //lightTheme,
       title: 'TITLE',
-      home: //SightListScreen(), //VisitingScreen(), //
+      home: SightListScreen(), //VisitingScreen(),
 
-          SightDetails(
-        sight: mocks[0],
-      ),
+      //     SightDetails(
+      //   sight: mocks[0],
+      // ),
     );
   }
 }
