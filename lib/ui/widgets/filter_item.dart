@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:places/mock.dart';
 
 class FilterItem extends StatefulWidget {
   final Color checkRoundcolor;
@@ -8,8 +9,9 @@ class FilterItem extends StatefulWidget {
   final int value;
   final String svgPath;
   final String description;
+  bool isChecked;
 
-  const FilterItem({
+  FilterItem({
     Key key,
     this.checkRoundcolor = Colors.black,
     this.checkMarkColor = Colors.white,
@@ -17,13 +19,13 @@ class FilterItem extends StatefulWidget {
     @required this.value,
     @required this.svgPath,
     this.description = '',
+    this.isChecked = false,
   }) : super(key: key);
   @override
   _FilterItemState createState() => _FilterItemState();
 }
 
 class _FilterItemState extends State<FilterItem> {
-  bool _isChecked = false;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -32,9 +34,31 @@ class _FilterItemState extends State<FilterItem> {
           splashColor: const Color(0xFF4CAF50).withOpacity(0.5),
           borderRadius: BorderRadius.circular(32),
           onTap: () {
-            setState(() {
-              _isChecked = !_isChecked;
-            });
+            setState(
+              () {
+                widget.isChecked = !widget.isChecked;
+                switch (widget.value) {
+                  case 1:
+                    filters['Отель'] = !filters['Отель'];
+                    break;
+                  case 2:
+                    filters['Ресторан'] = !filters['Ресторан'];
+                    break;
+                  case 3:
+                    filters['Особое место'] = !filters['Особое место'];
+                    break;
+                  case 4:
+                    filters['Парк'] = !filters['Парк'];
+                    break;
+                  case 5:
+                    filters['Музей'] = !filters['Музей'];
+                    break;
+                  case 6:
+                    filters['Кафе'] = !filters['Кафе'];
+                    break;
+                }
+              },
+            );
           },
           child: Stack(
             alignment: Alignment.bottomRight,
@@ -51,7 +75,7 @@ class _FilterItemState extends State<FilterItem> {
                   shape: BoxShape.circle,
                   color: widget.checkRoundcolor,
                 ),
-                child: _isChecked
+                child: widget.isChecked
                     ? Icon(
                         Icons.check,
                         size: 9,

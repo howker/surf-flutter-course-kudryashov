@@ -32,3 +32,12 @@ final List<Sight> mocks = [
       details: 'Астраханский кремль',
       type: 'Музей, достопримечательность'),
 ];
+
+Map filters = {
+  'Отель': false,
+  'Ресторан': false,
+  'Особое место': false,
+  'Парк': false,
+  'Музей': false,
+  'Кафе': false,
+};

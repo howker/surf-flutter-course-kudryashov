@@ -27,9 +27,14 @@ class _FiltersScreenState extends State<FiltersScreen> {
         actions: [
           TextButton(
             onPressed: () {
-              setState(() {
-                _rangeValues = const RangeValues(100, 10000);
-              });
+              setState(
+                () {
+                  _rangeValues = const RangeValues(100, 10000);
+                  for (var item in filters.entries) {
+                    filters[item.key] = false;
+                  }
+                },
+              );
             },
             child: Text(
               'Очистить',
@@ -102,7 +107,15 @@ class _FiltersScreenState extends State<FiltersScreen> {
                 minimumSize: Size(double.infinity, 48),
               ),
               onPressed: () {
-                print('show');
+                listAreaByRadius(mocks, userLat, userLng, _rangeValues)
+                    .forEach((element) {
+                  print(element.nameSights);
+                  filters.forEach(
+                    (key, value) {
+                      print('$key : $value');
+                    },
+                  );
+                });
               },
               child: Text(
                 'ПОКАЗАТЬ (${listAreaByRadius(mocks, userLat, userLng, _rangeValues).length})',
@@ -126,31 +139,37 @@ class _FiltersScreenState extends State<FiltersScreen> {
           svgPath: 'res/icons/Hotel.svg',
           value: 1,
           description: 'Отель',
+          isChecked: filters['Отель'],
         ),
         FilterItem(
           svgPath: 'res/icons/Restourant.svg',
-          value: 1,
+          value: 2,
           description: 'Ресторан',
+          isChecked: filters['Ресторан'],
         ),
         FilterItem(
           svgPath: 'res/icons/Particular_place.svg',
-          value: 1,
+          value: 3,
           description: 'Особое место',
+          isChecked: filters['Особое место'],
         ),
         FilterItem(
           svgPath: 'res/icons/Park.svg',
-          value: 1,
+          value: 4,
           description: 'Парк',
+          isChecked: filters['Парк'],
         ),
         FilterItem(
           svgPath: 'res/icons/Museum.svg',
-          value: 1,
+          value: 5,
           description: 'Музей',
+          isChecked: filters['Музей'],
         ),
         FilterItem(
           svgPath: 'res/icons/Cafe.svg',
-          value: 1,
+          value: 6,
           description: 'Кафе',
+          isChecked: filters['Кафе'],
         ),
       ],
     );
