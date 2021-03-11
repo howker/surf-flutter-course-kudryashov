@@ -1,8 +1,9 @@
 import 'dart:math';
-
 import 'package:flutter/material.dart';
+import 'package:places/colors.dart';
 import 'package:places/domain/sight.dart';
 import 'package:places/mock.dart';
+import 'package:places/ui/widgets/filter_item.dart';
 
 class FiltersScreen extends StatefulWidget {
   @override
@@ -25,7 +26,11 @@ class _FiltersScreenState extends State<FiltersScreen> {
         ),
         actions: [
           TextButton(
-            onPressed: () {},
+            onPressed: () {
+              setState(() {
+                _rangeValues = const RangeValues(100, 10000);
+              });
+            },
             child: Text(
               'Очистить',
               style: Theme.of(context)
@@ -37,7 +42,29 @@ class _FiltersScreenState extends State<FiltersScreen> {
         ],
       ),
       body: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
         children: [
+          const SizedBox(height: 24),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: Row(
+              children: [
+                Text(
+                  'КАТЕГОРИИ',
+                  style: Theme.of(context).textTheme.bodyText1.copyWith(
+                        fontSize: 12,
+                        color: lmInactiveBlackColor,
+                      ),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 24),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: _buildFilterItems(),
+          ),
+          const SizedBox(height: 60),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Row(
@@ -67,6 +94,7 @@ class _FiltersScreenState extends State<FiltersScreen> {
               });
             },
           ),
+          const SizedBox(height: 140),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: ElevatedButton(
@@ -82,8 +110,49 @@ class _FiltersScreenState extends State<FiltersScreen> {
               ),
             ),
           ),
+          const SizedBox(height: 8),
         ],
       ),
+    );
+  }
+
+  Widget _buildFilterItems() {
+    return Wrap(
+      spacing: 44,
+      alignment: WrapAlignment.spaceEvenly,
+      runSpacing: 40,
+      children: [
+        FilterItem(
+          svgPath: 'res/icons/Hotel.svg',
+          value: 1,
+          description: 'Отель',
+        ),
+        FilterItem(
+          svgPath: 'res/icons/Restourant.svg',
+          value: 1,
+          description: 'Ресторан',
+        ),
+        FilterItem(
+          svgPath: 'res/icons/Particular_place.svg',
+          value: 1,
+          description: 'Особое место',
+        ),
+        FilterItem(
+          svgPath: 'res/icons/Park.svg',
+          value: 1,
+          description: 'Парк',
+        ),
+        FilterItem(
+          svgPath: 'res/icons/Museum.svg',
+          value: 1,
+          description: 'Музей',
+        ),
+        FilterItem(
+          svgPath: 'res/icons/Cafe.svg',
+          value: 1,
+          description: 'Кафе',
+        ),
+      ],
     );
   }
 }
@@ -105,8 +174,6 @@ bool arePointsNear(
   double kx = cos(pi * userPointLat / 180.0) * ky;
   var dx = (userPointLng - checkPointLng).abs() * kx;
   var dy = (userPointLat - checkPointLat).abs() * ky;
-  print('sqrt =${sqrt(dx * dx + dy * dy)}');
-  print('start = $kmStart end =$kmEnd');
   if (sqrt(dx * dx + dy * dy) <= kmEnd * 0.001 &&
       sqrt(dx * dx + dy * dy) >= kmStart * 0.001)
     return true;
