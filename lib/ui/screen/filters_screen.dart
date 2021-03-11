@@ -1,9 +1,19 @@
-import 'package:flutter/material.dart';
+import 'dart:math';
 
-class FiltersScreen extends StatelessWidget {
-  final RangeValues _rangeValues = const RangeValues(100, 10000);
+import 'package:flutter/material.dart';
+import 'package:places/domain/sight.dart';
+import 'package:places/mock.dart';
+
+class FiltersScreen extends StatefulWidget {
+  @override
+  _FiltersScreenState createState() => _FiltersScreenState();
+}
+
+class _FiltersScreenState extends State<FiltersScreen> {
+  RangeValues _rangeValues = const RangeValues(100, 10000);
   final double userLat = 46.348838;
   final double userLng = 48.029816;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,7 +48,7 @@ class FiltersScreen extends StatelessWidget {
                   style: Theme.of(context).textTheme.caption,
                 ),
                 Text(
-                  'от до',
+                  'от ${(_rangeValues.start * 0.001).toInt()} до ${(_rangeValues.end * 0.001).toInt()} км',
                   style: Theme.of(context)
                       .textTheme
                       .caption
@@ -51,7 +61,11 @@ class FiltersScreen extends StatelessWidget {
             values: _rangeValues,
             max: 10000,
             min: 0,
-            onChanged: (newValue) {},
+            onChanged: (newValues) {
+              setState(() {
+                _rangeValues = newValues;
+              });
+            },
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -63,7 +77,7 @@ class FiltersScreen extends StatelessWidget {
                 print('show');
               },
               child: Text(
-                'ПОКАЗАТЬ (190)',
+                'ПОКАЗАТЬ (${listAreaByRadius(mocks, userLat, userLng, _rangeValues).length})',
                 style: Theme.of(context).textTheme.bodyText2,
               ),
             ),
@@ -72,4 +86,30 @@ class FiltersScreen extends StatelessWidget {
       ),
     );
   }
+}
+
+List<Sight> listAreaByRadius(
+    List<Sight> inputList, userLat, userLng, RangeValues rangeValues) {
+  List<Sight> listAreaByRadius = [];
+  inputList.forEach((element) {
+    if (arePointsNear(userLat, userLng, element.lat, element.lon,
+        rangeValues.start, rangeValues.end)) listAreaByRadius.add(element);
+  });
+  return listAreaByRadius;
+}
+
+bool arePointsNear(
+    userPointLat, userPointLng, checkPointLat, checkPointLng, kmStart, kmEnd) {
+  const double pi = 3.1415926535897932;
+  const ky = 40000 / 360;
+  double kx = cos(pi * userPointLat / 180.0) * ky;
+  var dx = (userPointLng - checkPointLng).abs() * kx;
+  var dy = (userPointLat - checkPointLat).abs() * ky;
+  print('sqrt =${sqrt(dx * dx + dy * dy)}');
+  print('start = $kmStart end =$kmEnd');
+  if (sqrt(dx * dx + dy * dy) <= kmEnd * 0.001 &&
+      sqrt(dx * dx + dy * dy) >= kmStart * 0.001)
+    return true;
+  else
+    return false;
 }
