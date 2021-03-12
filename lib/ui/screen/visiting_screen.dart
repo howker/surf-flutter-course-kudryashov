@@ -53,8 +53,8 @@ class _VisitingScreenState extends State with SingleTickerProviderStateMixin {
         children: [
           WantToVisitTab(),
           AlreadyVisitedTab(),
-          //buildEmptyState('res/icons/Card.svg', markPlaces),
-          //buildEmptyState('res/icons/GO.svg', finishRoute),
+          buildEmptyState('res/icons/Card.svg', markPlaces),
+          buildEmptyState('res/icons/GO.svg', finishRoute),
         ],
       ),
       bottomNavigationBar: BottomNaviBar(),

@@ -16,8 +16,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       theme: lightTheme, //darkTheme,
       title: 'TITLE',
-      home: FiltersScreen(),
-      //SightListScreen(), //VisitingScreen(),
+      home: //FiltersScreen(),
+          VisitingScreen(), //SightListScreen(),
 
       //     SightDetails(
       //   sight: mocks[0],
