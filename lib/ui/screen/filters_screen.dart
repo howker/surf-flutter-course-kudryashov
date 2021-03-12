@@ -5,6 +5,7 @@ import 'package:places/domain/sight.dart';
 import 'package:places/mock.dart';
 import 'package:places/ui/widgets/filter_item.dart';
 
+///Экран фильтров
 class FiltersScreen extends StatefulWidget {
   @override
   _FiltersScreenState createState() => _FiltersScreenState();
