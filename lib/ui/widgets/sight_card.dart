@@ -171,7 +171,7 @@ class SightCard extends StatelessWidget {
   }
 
   void _onSecondIconTap() {
-    if (secondIcon == Icon(Icons.close)) {
+    if (secondIcon.icon == Icons.close) {
       print('close');
     } else
       print('to favourites');
