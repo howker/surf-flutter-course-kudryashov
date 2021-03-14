@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:places/mock.dart';
 
+///Фильтры для экрана фильтров
 class FilterItem extends StatefulWidget {
   final Color checkRoundcolor;
   final Color checkMarkColor;

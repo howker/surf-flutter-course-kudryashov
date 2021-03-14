@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:places/colors.dart';
 import 'package:places/styles.dart';
 
+///Настройки тем приложения
 final lightTheme = ThemeData(
   elevatedButtonTheme: ElevatedButtonThemeData(
     style: ElevatedButton.styleFrom(
@@ -50,7 +51,7 @@ final lightTheme = ThemeData(
       color: lmSecondaryColor,
     ),
     bodyText2: textRegular14White,
-    caption: textNormal16Black,
+    caption: textNormal16Black.copyWith(color: lmSecondaryColor),
   ),
   primaryColor: lmPrimaryColor,
   primaryColorDark: lmSecondaryColor,
@@ -109,6 +110,7 @@ final darkTheme = ThemeData(
       color: dmSecondaryColor,
     ),
     bodyText2: textRegular14White,
+    caption: textNormal16Black.copyWith(color: dmSecondaryColor),
   ),
   primaryColor: dmBlackDarkColor,
   primaryColorDark: dmSecondaryColor,
