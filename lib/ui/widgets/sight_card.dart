@@ -108,20 +108,6 @@ class SightCard extends StatelessWidget {
                       const SizedBox(
                         height: 2,
                       ),
-                      Container(
-                        padding: const EdgeInsets.only(
-                          left: 16,
-                          right: 16,
-                        ),
-                        child: Text(
-                          details,
-                          style: detailsStyle ??
-                              Theme.of(context).textTheme.headline4,
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 8,
-                      ),
                       Expanded(
                         child: Container(
                           padding: const EdgeInsets.only(
