@@ -77,7 +77,7 @@ class SightCard extends StatelessWidget {
                 ),
               ),
               Positioned(
-                top: 96,
+                top: 120,
                 left: 0,
                 child: Container(
                   height: descriptionCardHeight,
@@ -139,9 +139,11 @@ class SightCard extends StatelessWidget {
                 ),
               ),
               Positioned.fill(
+                bottom: 62,
                 child: Material(
                   type: MaterialType.transparency,
                   child: InkWell(
+                    borderRadius: BorderRadius.circular(16),
                     onTap: () {
                       print('onTap');
                     },
