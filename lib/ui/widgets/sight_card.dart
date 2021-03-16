@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:places/domain/sight.dart';
 import 'package:places/mock.dart';
 import 'package:places/styles.dart';
+import 'package:places/svg_path_const.dart';
 import 'package:places/text_string_const.dart';
 
 /// Карточка интересного места
@@ -24,10 +25,10 @@ class SightCard extends StatelessWidget {
     this.secondIcon = secondIcon ?? const Icon(Icons.favorite_border);
     this.descriptionCardHeight = 92;
     this.details = sight.details;
-    this.closed = 'закрыто до 10:00';
+    this.closed = close;
   }
   SightCard.wantToVisit(this.sight) {
-    firstIcon = 'res/icons/Calendar.svg';
+    firstIcon = calendar;
     secondIcon = const Icon(Icons.close);
     descriptionCardHeight = 102;
     details = planned;
@@ -36,7 +37,7 @@ class SightCard extends StatelessWidget {
   }
 
   SightCard.alreadyVisited(this.sight) {
-    firstIcon = 'res/icons/Share.svg';
+    firstIcon = share;
     secondIcon = const Icon(Icons.close);
     descriptionCardHeight = 102;
     details = aimReached;
@@ -178,7 +179,7 @@ class SightCard extends StatelessWidget {
   }
 
   void _onFirstIconTap() {
-    if (firstIcon == 'res/icons/Calendar.svg') {
+    if (firstIcon == calendar) {
       print('calendar');
     } else
       print('share');

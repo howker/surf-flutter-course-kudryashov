@@ -91,7 +91,7 @@ class SightDetails extends StatelessWidget {
                   width: 16,
                 ),
                 Text(
-                  'закрыто до 09:00',
+                  close,
                   style: Theme.of(context).textTheme.headline4,
                 ),
               ],
@@ -124,14 +124,14 @@ class SightDetails extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SvgPicture.asset(
-                    'res/icons/GO.svg',
+                    go,
                     color: Colors.white,
                   ),
                   const SizedBox(
                     width: 10,
                   ),
                   Text(
-                    'ПОСТРОИТЬ МАРШРУТ',
+                    buildRoute,
                     style: Theme.of(context).textTheme.bodyText2,
                   ),
                 ],
@@ -157,7 +157,7 @@ class SightDetails extends StatelessWidget {
                 ),
                 const SizedBox(width: 9),
                 Text(
-                  'Запланировать',
+                  toPlain,
                   style: textRegular14Grey.copyWith(
                     color: lmInactiveBlackColor,
                   ),
@@ -174,7 +174,7 @@ class SightDetails extends StatelessWidget {
                 ),
                 const SizedBox(width: 9),
                 Text(
-                  'В Избранное',
+                  toFavorites,
                   style: Theme.of(context).textTheme.bodyText1,
                 ),
               ],

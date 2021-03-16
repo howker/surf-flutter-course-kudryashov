@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:places/svg_path_const.dart';
 
 ///Нижняя навигационная панель
 class BottomNaviBar extends StatelessWidget {
@@ -16,28 +17,28 @@ class BottomNaviBar extends StatelessWidget {
       items: [
         BottomNavigationBarItem(
           icon: SvgPicture.asset(
-            'res/icons/List.svg',
+            list,
             color: Theme.of(context).bottomNavigationBarTheme.selectedItemColor,
           ),
           label: '',
         ),
         BottomNavigationBarItem(
           icon: SvgPicture.asset(
-            'res/icons/Map.svg',
+            map,
             color: Theme.of(context).bottomNavigationBarTheme.selectedItemColor,
           ),
           label: '',
         ),
         BottomNavigationBarItem(
           icon: SvgPicture.asset(
-            'res/icons/Heart.svg',
+            heart,
             color: Theme.of(context).bottomNavigationBarTheme.selectedItemColor,
           ),
           label: '',
         ),
         BottomNavigationBarItem(
           icon: SvgPicture.asset(
-            'res/icons/Settings.svg',
+            settings,
             color: Theme.of(context).bottomNavigationBarTheme.selectedItemColor,
           ),
           label: '',
