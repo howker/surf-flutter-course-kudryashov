@@ -8,7 +8,10 @@ const Color lmBackgroundColor = _milkWhite,
     lmSecondaryColor = _darkGrey,
     lmBackgroundBlackColor = _ferricBlack,
     lmHeadline4Color = _grey,
-    lmHeadline3Color = _white;
+    lmHeadline3Color = _white,
+    lmElevatedButtonColor = _green,
+    lmRangeSliderActiveColor = _green,
+    lmThumbColor = _white;
 
 /// Цвета для тёмной темы
 const Color dmPrimaryColor = _lightBlack,
@@ -16,7 +19,10 @@ const Color dmPrimaryColor = _lightBlack,
     dmSecondaryColor = _white,
     dmBlackDarkColor = _darkBlack,
     dmHeadline4Color = _grey,
-    dmHeadline3Color = _darkGrey;
+    dmHeadline3Color = _darkGrey,
+    dmElevatedButtonColor = _green,
+    dmRangeSliderActiveColor = _green,
+    dmThumbColor = _white;
 
 /// Цвета по умолчанию
 const Color defaultIconColor = _white;
@@ -29,4 +35,5 @@ const Color _lightBlack = Color(0xFF2E2E2E),
     _darkGrey = Color(0xFF3B3E5B),
     _milkWhite = Color(0xFFF5F5F5),
     _lightGrey = Color.fromRGBO(124, 126, 146, 0.56),
-    _ferricBlack = Color(0xFF252849);
+    _ferricBlack = Color(0xFF252849),
+    _green = Color(0xFF4CAF50);

@@ -24,4 +24,20 @@ final List<Sight> mocks = [
       url: 'https://joy-pup.com/wp-content/uploads/2019/03/ship_chernobil.jpg',
       details: 'Кладбище кораблей в городе Чернобыль Киевской области, Украина',
       type: 'необычное место'),
+  Sight(
+      nameSights: 'Астраханский кремль',
+      lat: 46.349540,
+      lon: 48.030772,
+      url: 'https://cdn.photosight.ru/img/8/2a2/6386165_large.jpg',
+      details: 'Астраханский кремль',
+      type: 'Музей, достопримечательность'),
 ];
+
+Map filters = {
+  'Отель': false,
+  'Ресторан': false,
+  'Особое место': false,
+  'Парк': false,
+  'Музей': false,
+  'Кафе': false,
+};

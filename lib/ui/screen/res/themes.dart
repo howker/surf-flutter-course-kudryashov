@@ -4,6 +4,15 @@ import 'package:places/colors.dart';
 import 'package:places/styles.dart';
 
 final lightTheme = ThemeData(
+  elevatedButtonTheme: ElevatedButtonThemeData(
+    style: ElevatedButton.styleFrom(
+      elevation: 0,
+      primary: lmElevatedButtonColor,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12),
+      ),
+    ),
+  ),
   canvasColor: lmPrimaryColor,
   scaffoldBackgroundColor: lmPrimaryColor,
   iconTheme: IconThemeData(color: lmPrimaryColor),
@@ -40,13 +49,29 @@ final lightTheme = ThemeData(
     bodyText1: textRegular14Grey.copyWith(
       color: lmSecondaryColor,
     ),
+    bodyText2: textRegular14White,
+    caption: textNormal16Black,
   ),
   primaryColor: lmPrimaryColor,
   primaryColorDark: lmSecondaryColor,
   backgroundColor: lmBackgroundColor,
+  sliderTheme: SliderThemeData(
+    activeTrackColor: lmRangeSliderActiveColor,
+    thumbColor: lmThumbColor,
+    trackHeight: 2,
+  ),
 );
 
 final darkTheme = ThemeData(
+  elevatedButtonTheme: ElevatedButtonThemeData(
+    style: ElevatedButton.styleFrom(
+      elevation: 0,
+      primary: dmElevatedButtonColor,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12),
+      ),
+    ),
+  ),
   canvasColor: dmPrimaryColor,
   scaffoldBackgroundColor: dmPrimaryColor,
   iconTheme: IconThemeData(color: dmSecondaryColor),
@@ -83,8 +108,14 @@ final darkTheme = ThemeData(
     bodyText1: textRegular14Grey.copyWith(
       color: dmSecondaryColor,
     ),
+    bodyText2: textRegular14White,
   ),
   primaryColor: dmBlackDarkColor,
   primaryColorDark: dmSecondaryColor,
   backgroundColor: dmBlackDarkColor,
+  sliderTheme: SliderThemeData(
+    activeTrackColor: dmRangeSliderActiveColor,
+    thumbColor: dmThumbColor,
+    trackHeight: 2,
+  ),
 );

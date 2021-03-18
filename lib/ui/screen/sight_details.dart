@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:places/colors.dart';
 import 'package:places/domain/sight.dart';
 import 'package:places/styles.dart';
@@ -13,24 +14,55 @@ class SightDetails extends StatelessWidget {
     return Material(
       child: Column(
         children: [
-          Container(
-            height: 360,
-            child: Image.network(
-              sight.url,
-              fit: BoxFit.cover,
-              loadingBuilder: (BuildContext context, Widget child,
-                  ImageChunkEvent loadingProgress) {
-                if (loadingProgress == null) return child;
-                return Center(
-                  child: CircularProgressIndicator(
-                    value: loadingProgress.expectedTotalBytes != null
-                        ? loadingProgress.cumulativeBytesLoaded /
-                            loadingProgress.expectedTotalBytes
-                        : null,
+          Stack(
+            children: [
+              Container(
+                height: 360,
+                child: Image.network(
+                  sight.url,
+                  fit: BoxFit.cover,
+                  loadingBuilder: (BuildContext context, Widget child,
+                      ImageChunkEvent loadingProgress) {
+                    if (loadingProgress == null) return child;
+                    return Center(
+                      child: CircularProgressIndicator(
+                        value: loadingProgress.expectedTotalBytes != null
+                            ? loadingProgress.cumulativeBytesLoaded /
+                                loadingProgress.expectedTotalBytes
+                            : null,
+                      ),
+                    );
+                  },
+                ),
+              ),
+              Positioned(
+                top: 36,
+                left: 16,
+                child: DecoratedBox(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: Theme.of(context).primaryColor,
                   ),
-                );
-              },
-            ),
+                  child: InkWell(
+                    onTap: () {
+                      print('back');
+                    },
+                    child: Container(
+                      width: 32,
+                      height: 32,
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 6),
+                        child: Icon(
+                          Icons.arrow_back_ios,
+                          color: Theme.of(context).primaryColorDark,
+                          size: 15,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              )
+            ],
           ),
           const SizedBox(
             height: 24,
@@ -79,14 +111,31 @@ class SightDetails extends StatelessWidget {
           const SizedBox(
             height: 24,
           ),
-          Container(
-            alignment: Alignment.center,
-            margin: const EdgeInsets.only(left: 16, right: 16),
-            height: 48,
-            color: Colors.green,
-            child: const Text(
-              'ПОСТРОИТЬ МАРШРУТ',
-              style: textRegular14White,
+          Padding(
+            padding: const EdgeInsets.only(left: 16, right: 16),
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                minimumSize: Size(double.infinity, 48),
+              ),
+              onPressed: () {
+                print('ПОСТРОИТЬ МАРШРУТ');
+              },
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SvgPicture.asset(
+                    'res/icons/GO.svg',
+                    color: Colors.white,
+                  ),
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  Text(
+                    'ПОСТРОИТЬ МАРШРУТ',
+                    style: Theme.of(context).textTheme.bodyText2,
+                  ),
+                ],
+              ),
             ),
           ),
           const SizedBox(
@@ -94,12 +143,17 @@ class SightDetails extends StatelessWidget {
           ),
           Container(
             alignment: Alignment.centerLeft,
-            padding: const EdgeInsets.only(left: 33),
             child: Row(
               children: [
-                const Icon(
-                  Icons.calendar_today,
-                  color: lmInactiveBlackColor,
+                IconButton(
+                  padding: EdgeInsets.only(left: 33),
+                  icon: const Icon(
+                    Icons.calendar_today,
+                    color: lmInactiveBlackColor,
+                  ),
+                  onPressed: () {
+                    print('Запланировать');
+                  },
                 ),
                 const SizedBox(width: 9),
                 Text(
@@ -108,14 +162,19 @@ class SightDetails extends StatelessWidget {
                     color: lmInactiveBlackColor,
                   ),
                 ),
-                const SizedBox(width: 40),
-                Icon(
-                  Icons.favorite_border,
-                  color: Theme.of(context).primaryColorDark,
+                IconButton(
+                  padding: EdgeInsets.only(left: 40),
+                  icon: Icon(
+                    Icons.favorite_border,
+                    color: Theme.of(context).primaryColorDark,
+                  ),
+                  onPressed: () {
+                    print('В избранное');
+                  },
                 ),
                 const SizedBox(width: 9),
                 Text(
-                  'В избранное',
+                  'В Избранное',
                   style: Theme.of(context).textTheme.bodyText1,
                 ),
               ],
