@@ -4,6 +4,15 @@ import 'package:places/colors.dart';
 import 'package:places/styles.dart';
 
 final lightTheme = ThemeData(
+  elevatedButtonTheme: ElevatedButtonThemeData(
+    style: ElevatedButton.styleFrom(
+      elevation: 0,
+      primary: lmElevatedButtonColor,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12),
+      ),
+    ),
+  ),
   canvasColor: lmPrimaryColor,
   scaffoldBackgroundColor: lmPrimaryColor,
   iconTheme: IconThemeData(color: lmPrimaryColor),
@@ -47,6 +56,15 @@ final lightTheme = ThemeData(
 );
 
 final darkTheme = ThemeData(
+  elevatedButtonTheme: ElevatedButtonThemeData(
+    style: ElevatedButton.styleFrom(
+      elevation: 0,
+      primary: dmElevatedButtonColor,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12),
+      ),
+    ),
+  ),
   canvasColor: dmPrimaryColor,
   scaffoldBackgroundColor: dmPrimaryColor,
   iconTheme: IconThemeData(color: dmSecondaryColor),

@@ -21,7 +21,7 @@ class _VisitingScreenState extends State with SingleTickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 2, vsync: this);
+    _tabController = TabController(length: 4, vsync: this);
     _tabController.addListener(
       () {
         if (!_tabController.indexIsChanging) {
@@ -51,9 +51,10 @@ class _VisitingScreenState extends State with SingleTickerProviderStateMixin {
       body: TabBarView(
         controller: _tabController,
         children: [
-          buildEmptyState('res/icons/Card.svg', markPlaces), //WantToVisitTab(),
-          buildEmptyState(
-              'res/icons/GO.svg', finishRoute), //AlreadyVisitedTab(),
+          WantToVisitTab(),
+          AlreadyVisitedTab(),
+          //buildEmptyState('res/icons/Card.svg', markPlaces),
+          //buildEmptyState('res/icons/GO.svg', finishRoute),
         ],
       ),
       bottomNavigationBar: BottomNaviBar(),
@@ -76,38 +77,48 @@ class _VisitingScreenState extends State with SingleTickerProviderStateMixin {
         child: Row(
           children: [
             Expanded(
-              child: Container(
-                alignment: Alignment.center,
-                child: Text(
-                  wantToVisit,
-                  style: _tabController.index == 0
-                      ? Theme.of(context).textTheme.headline3
-                      : Theme.of(context).textTheme.headline2,
+              child: InkWell(
+                onTap: () {
+                  print('Хочу посетить');
+                },
+                child: Container(
+                  alignment: Alignment.center,
+                  child: Text(
+                    wantToVisit,
+                    style: _tabController.index == 0
+                        ? Theme.of(context).textTheme.headline3
+                        : Theme.of(context).textTheme.headline2,
+                  ),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(40),
+                    color: _tabController.index == 0
+                        ? Theme.of(context).primaryColorDark
+                        : Theme.of(context).backgroundColor,
+                  ),
+                  height: 40,
                 ),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(40),
-                  color: _tabController.index == 0
-                      ? Theme.of(context).primaryColorDark
-                      : Theme.of(context).backgroundColor,
-                ),
-                height: 40,
               ),
             ),
             Expanded(
-              child: Container(
-                alignment: Alignment.center,
-                child: Text(
-                  alreadyVisited,
-                  style: _tabController.index == 1
-                      ? Theme.of(context).textTheme.headline3
-                      : Theme.of(context).textTheme.headline2,
+              child: InkWell(
+                onTap: () {
+                  print('Посетил');
+                },
+                child: Container(
+                  alignment: Alignment.center,
+                  child: Text(
+                    alreadyVisited,
+                    style: _tabController.index == 1
+                        ? Theme.of(context).textTheme.headline3
+                        : Theme.of(context).textTheme.headline2,
+                  ),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(40),
+                      color: _tabController.index == 1
+                          ? Theme.of(context).primaryColorDark
+                          : Theme.of(context).backgroundColor),
+                  height: 40,
                 ),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(40),
-                    color: _tabController.index == 1
-                        ? Theme.of(context).primaryColorDark
-                        : Theme.of(context).backgroundColor),
-                height: 40,
               ),
             ),
           ],

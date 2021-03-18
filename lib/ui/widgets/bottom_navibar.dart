@@ -10,6 +10,7 @@ class BottomNaviBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
+      onTap: _onBottomItemTap,
       showSelectedLabels: false,
       currentIndex: 1,
       items: [
@@ -18,8 +19,6 @@ class BottomNaviBar extends StatelessWidget {
             'res/icons/List.svg',
             color: Theme.of(context).bottomNavigationBarTheme.selectedItemColor,
           ),
-
-          //const Icon(Icons.list),
           label: '',
         ),
         BottomNavigationBarItem(
@@ -45,5 +44,9 @@ class BottomNaviBar extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  void _onBottomItemTap(index) {
+    print(index);
   }
 }
