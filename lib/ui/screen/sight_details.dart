@@ -3,6 +3,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:places/colors.dart';
 import 'package:places/domain/sight.dart';
 import 'package:places/styles.dart';
+import 'package:places/svg_path_const.dart';
+import 'package:places/text_string_const.dart';
 
 /// Экран детализации интересного места
 class SightDetails extends StatelessWidget {
@@ -52,7 +54,7 @@ class SightDetails extends StatelessWidget {
                       height: 32,
                       child: Padding(
                         padding: const EdgeInsets.only(left: 6),
-                        child: Icon(
+                        child: const Icon(
                           Icons.arrow_back_ios,
                           color: Theme.of(context).primaryColorDark,
                           size: 15,
@@ -91,7 +93,7 @@ class SightDetails extends StatelessWidget {
                   width: 16,
                 ),
                 Text(
-                  'закрыто до 09:00',
+                  close,
                   style: Theme.of(context).textTheme.headline4,
                 ),
               ],
@@ -124,14 +126,14 @@ class SightDetails extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SvgPicture.asset(
-                    'res/icons/GO.svg',
+                    go,
                     color: Colors.white,
                   ),
                   const SizedBox(
                     width: 10,
                   ),
                   Text(
-                    'ПОСТРОИТЬ МАРШРУТ',
+                    buildRoute,
                     style: Theme.of(context).textTheme.bodyText2,
                   ),
                 ],
@@ -157,7 +159,7 @@ class SightDetails extends StatelessWidget {
                 ),
                 const SizedBox(width: 9),
                 Text(
-                  'Запланировать',
+                  toPlain,
                   style: textRegular14Grey.copyWith(
                     color: lmInactiveBlackColor,
                   ),
@@ -174,7 +176,7 @@ class SightDetails extends StatelessWidget {
                 ),
                 const SizedBox(width: 9),
                 Text(
-                  'В Избранное',
+                  toFavorites,
                   style: Theme.of(context).textTheme.bodyText1,
                 ),
               ],

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:places/mock.dart';
+import 'package:places/text_string_const.dart';
 
 ///Фильтры для экрана фильтров
 class FilterItem extends StatefulWidget {
@@ -40,22 +41,23 @@ class _FilterItemState extends State<FilterItem> {
                 widget.isChecked = !widget.isChecked;
                 switch (widget.value) {
                   case 1:
-                    filters['Отель'] = !filters['Отель'];
+                    filters[filterTypeHotel] = !filters[filterTypeHotel];
                     break;
                   case 2:
-                    filters['Ресторан'] = !filters['Ресторан'];
+                    filters[filterTypeRestaurant] =
+                        !filters[filterTypeRestaurant];
                     break;
                   case 3:
-                    filters['Особое место'] = !filters['Особое место'];
+                    filters[filterTypeSpecial] = !filters[filterTypeSpecial];
                     break;
                   case 4:
-                    filters['Парк'] = !filters['Парк'];
+                    filters[filterTypePark] = !filters[filterTypePark];
                     break;
                   case 5:
-                    filters['Музей'] = !filters['Музей'];
+                    filters[filterTypeMuseum] = !filters[filterTypeMuseum];
                     break;
                   case 6:
-                    filters['Кафе'] = !filters['Кафе'];
+                    filters[filterTypeCafe] = !filters[filterTypeCafe];
                     break;
                 }
               },

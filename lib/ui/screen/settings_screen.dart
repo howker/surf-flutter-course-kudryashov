@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:places/colors.dart';
 import 'package:places/main.dart';
+import 'package:places/text_string_const.dart';
 import 'package:places/ui/widgets/bottom_navibar.dart';
 
 ///Экран настроек
@@ -18,7 +19,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
       appBar: AppBar(
         backgroundColor: Theme.of(context).primaryColor,
         title: Text(
-          'Настройки',
+          settingsScreenTitle,
           style: Theme.of(context).textTheme.headline1,
         ),
         elevation: 0,
@@ -33,7 +34,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  'Тёмная тема',
+                  darkThemeSettings,
                   style: Theme.of(context).textTheme.caption,
                 ),
                 CupertinoSwitch(
@@ -56,7 +57,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  'Смотреть туториал',
+                  watchTutorial,
                   style: Theme.of(context).textTheme.caption,
                 ),
                 Icon(Icons.info_outline, color: Colors.green),

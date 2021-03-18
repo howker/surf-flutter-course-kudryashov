@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:places/colors.dart';
 import 'package:places/domain/sight.dart';
 import 'package:places/mock.dart';
+import 'package:places/svg_path_const.dart';
+import 'package:places/text_string_const.dart';
 import 'package:places/ui/widgets/filter_item.dart';
 
 ///Экран фильтров
@@ -38,7 +40,7 @@ class _FiltersScreenState extends State<FiltersScreen> {
               );
             },
             child: Text(
-              'Очистить',
+              clear,
               style: Theme.of(context)
                   .textTheme
                   .headline5
@@ -56,7 +58,7 @@ class _FiltersScreenState extends State<FiltersScreen> {
             child: Row(
               children: [
                 Text(
-                  'КАТЕГОРИИ',
+                  category,
                   style: Theme.of(context).textTheme.bodyText1.copyWith(
                         fontSize: 12,
                         color: lmInactiveBlackColor,
@@ -77,11 +79,11 @@ class _FiltersScreenState extends State<FiltersScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  'Расстояние',
+                  distance,
                   style: Theme.of(context).textTheme.caption,
                 ),
                 Text(
-                  'от ${(_rangeValues.start * 0.001).toInt()} до ${(_rangeValues.end * 0.001).toInt()} км',
+                  '$distanceFrom ${(_rangeValues.start * 0.001).toInt()} $distanceTo ${(_rangeValues.end * 0.001).toInt()} км',
                   style: Theme.of(context)
                       .textTheme
                       .caption
@@ -119,7 +121,7 @@ class _FiltersScreenState extends State<FiltersScreen> {
                 });
               },
               child: Text(
-                'ПОКАЗАТЬ (${listAreaByRadius(mocks, userLat, userLng, _rangeValues).length})',
+                '$show (${listAreaByRadius(mocks, userLat, userLng, _rangeValues).length})',
                 style: Theme.of(context).textTheme.bodyText2,
               ),
             ),
@@ -137,40 +139,40 @@ class _FiltersScreenState extends State<FiltersScreen> {
       runSpacing: 40,
       children: [
         FilterItem(
-          svgPath: 'res/icons/Hotel.svg',
+          svgPath: hotel,
           value: 1,
-          description: 'Отель',
-          isChecked: filters['Отель'],
+          description: filterTypeHotel,
+          isChecked: filters[filterTypeHotel],
         ),
         FilterItem(
-          svgPath: 'res/icons/Restourant.svg',
+          svgPath: restourant,
           value: 2,
-          description: 'Ресторан',
-          isChecked: filters['Ресторан'],
+          description: filterTypeRestaurant,
+          isChecked: filters[filterTypeRestaurant],
         ),
         FilterItem(
-          svgPath: 'res/icons/Particular_place.svg',
+          svgPath: particular_place,
           value: 3,
-          description: 'Особое место',
-          isChecked: filters['Особое место'],
+          description: filterTypeSpecial,
+          isChecked: filters[filterTypeSpecial],
         ),
         FilterItem(
-          svgPath: 'res/icons/Park.svg',
+          svgPath: park,
           value: 4,
-          description: 'Парк',
-          isChecked: filters['Парк'],
+          description: filterTypePark,
+          isChecked: filters[filterTypePark],
         ),
         FilterItem(
-          svgPath: 'res/icons/Museum.svg',
+          svgPath: museum,
           value: 5,
-          description: 'Музей',
-          isChecked: filters['Музей'],
+          description: filterTypeMuseum,
+          isChecked: filters[filterTypeMuseum],
         ),
         FilterItem(
-          svgPath: 'res/icons/Cafe.svg',
+          svgPath: cafe,
           value: 6,
-          description: 'Кафе',
-          isChecked: filters['Кафе'],
+          description: filterTypeCafe,
+          isChecked: filters[filterTypeCafe],
         ),
       ],
     );

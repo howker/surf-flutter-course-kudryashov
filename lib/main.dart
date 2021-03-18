@@ -29,9 +29,9 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       theme: themeModel.isDark ? darkTheme : lightTheme,
       title: 'TITLE',
-      home: SettingsScreen(),
-      //FiltersScreen(),
-      //VisitingScreen(), //SightListScreen(),
+      home: //SettingsScreen(),
+          //FiltersScreen(),
+          SightListScreen(), //VisitingScreen(),
 
       //     SightDetails(
       //   sight: mocks[0],
