@@ -104,3 +104,9 @@ const textNormal24Black = TextStyle(
   fontSize: 24,
   color: const Color(0xFF3B3E5B),
 );
+const textNormal16Black = TextStyle(
+  fontFamily: 'Roboto-Regular',
+  fontWeight: FontWeight.w400,
+  fontSize: 16,
+  color: const Color(0xFF252849),
+);

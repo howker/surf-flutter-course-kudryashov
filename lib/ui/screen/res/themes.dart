@@ -49,10 +49,17 @@ final lightTheme = ThemeData(
     bodyText1: textRegular14Grey.copyWith(
       color: lmSecondaryColor,
     ),
+    bodyText2: textRegular14White,
+    caption: textNormal16Black,
   ),
   primaryColor: lmPrimaryColor,
   primaryColorDark: lmSecondaryColor,
   backgroundColor: lmBackgroundColor,
+  sliderTheme: SliderThemeData(
+    activeTrackColor: lmRangeSliderActiveColor,
+    thumbColor: lmThumbColor,
+    trackHeight: 2,
+  ),
 );
 
 final darkTheme = ThemeData(
@@ -101,8 +108,14 @@ final darkTheme = ThemeData(
     bodyText1: textRegular14Grey.copyWith(
       color: dmSecondaryColor,
     ),
+    bodyText2: textRegular14White,
   ),
   primaryColor: dmBlackDarkColor,
   primaryColorDark: dmSecondaryColor,
   backgroundColor: dmBlackDarkColor,
+  sliderTheme: SliderThemeData(
+    activeTrackColor: dmRangeSliderActiveColor,
+    thumbColor: dmThumbColor,
+    trackHeight: 2,
+  ),
 );

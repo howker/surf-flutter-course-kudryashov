@@ -130,9 +130,9 @@ class SightDetails extends StatelessWidget {
                   const SizedBox(
                     width: 10,
                   ),
-                  const Text(
+                  Text(
                     'ПОСТРОИТЬ МАРШРУТ',
-                    style: textRegular14White,
+                    style: Theme.of(context).textTheme.bodyText2,
                   ),
                 ],
               ),
