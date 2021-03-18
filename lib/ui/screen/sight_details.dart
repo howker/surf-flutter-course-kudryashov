@@ -56,7 +56,7 @@ class SightDetails extends StatelessWidget {
                         padding: const EdgeInsets.only(left: 6),
                         child: const Icon(
                           Icons.arrow_back_ios,
-                          color: Theme.of(context).primaryColorDark,
+                          //color: Theme.of(context).primaryColorDark,
                           size: 15,
                         ),
                       ),

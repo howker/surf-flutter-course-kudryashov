@@ -54,6 +54,7 @@ const String toFavorites = 'В Избранное';
 const String newPlaceScreenTitle = 'Новое место';
 const String newPlaceScreenCancel = 'Отмена';
 const String newPlaceScreenCategory = 'КАТЕГОРИЯ';
+const String newPlaceScreenNotChosen = 'Не выбрано';
 const String newPlaceScreenName = 'НАЗВАНИЕ';
 const String newPlaceScreenLat = 'ШИРОТА';
 const String newPlaceScreenLon = 'ДОЛГОТА';

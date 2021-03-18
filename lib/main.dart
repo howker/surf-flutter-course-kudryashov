@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:places/mock.dart';
+import 'package:places/ui/screen/add_sight_screen.dart';
 import 'package:places/ui/screen/filters_screen.dart';
 import 'package:places/ui/screen/res/themes.dart';
 import 'package:places/ui/screen/settings_screen.dart';
@@ -29,9 +30,10 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       theme: themeModel.isDark ? darkTheme : lightTheme,
       title: 'TITLE',
-      home: //SettingsScreen(),
-          //FiltersScreen(),
-          SightListScreen(), //VisitingScreen(),
+      home: AddSightScreen(),
+      //SettingsScreen(),
+      //FiltersScreen(),
+      //SightListScreen(), //VisitingScreen(),
 
       //     SightDetails(
       //   sight: mocks[0],
