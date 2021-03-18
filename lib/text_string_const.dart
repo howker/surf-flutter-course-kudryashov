@@ -49,3 +49,19 @@ const String watchTutorial = 'Смотреть туториал';
 const String buildRoute = 'ПОСТРОИТЬ МАРШРУТ';
 const String toPlain = 'Запланировать';
 const String toFavorites = 'В Избранное';
+
+///AddSightScreen
+const String newPlaceScreenTitle = 'Новое место';
+const String newPlaceScreenCancel = 'Отмена';
+const String newPlaceScreenCategory = 'КАТЕГОРИЯ';
+const String newPlaceScreenName = 'НАЗВАНИЕ';
+const String newPlaceScreenLat = 'ШИРОТА';
+const String newPlaceScreenLon = 'ДОЛГОТА';
+const String newPlaceScreenPointAtMap = 'Указать на карте';
+const String newPlaceScreenDescription = 'ОПИСАНИЕ';
+const String newPlaceScreenInputText = 'Введите текст';
+const String newPlaceScreenCreateButton = 'СОЗДАТЬ';
+
+///NewPlaceCategoryScreen
+const String newPlaceCategoryScreenCategory = 'Категория';
+const String newPlaceCategoryScreenSave = 'СОХРАНИТЬ';
