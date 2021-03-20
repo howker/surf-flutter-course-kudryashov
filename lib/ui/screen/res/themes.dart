@@ -61,6 +61,10 @@ final lightTheme = ThemeData(
     thumbColor: lmThumbColor,
     trackHeight: 2,
   ),
+  textSelectionTheme:
+      TextSelectionThemeData(cursorColor: lmTextFieldCursorColor),
+  toggleableActiveColor: lmToggleableActiveColor,
+  unselectedWidgetColor: lmUnselectedWidgetColor,
 );
 
 final darkTheme = ThemeData(
@@ -120,4 +124,8 @@ final darkTheme = ThemeData(
     thumbColor: dmThumbColor,
     trackHeight: 2,
   ),
+  textSelectionTheme:
+      TextSelectionThemeData(cursorColor: dmTextFieldCursorColor),
+  toggleableActiveColor: dmToggleableActiveColor,
+  unselectedWidgetColor: dmUnselectedWidgetColor,
 );

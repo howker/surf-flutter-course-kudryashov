@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:places/colors.dart';
 import 'package:places/text_string_const.dart';
+import 'package:places/ui/screen/new_place_category.dart';
 
 /// Экран "Добавить новое место"
-class AddSightScreen extends StatelessWidget {
+class AddSightScreen extends StatefulWidget {
+  @override
+  _AddSightScreenState createState() => _AddSightScreenState();
+}
+
+class _AddSightScreenState extends State<AddSightScreen> {
+  String newPlaceCategory = newPlaceScreenNotChosen;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,7 +52,7 @@ class AddSightScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  newPlaceScreenNotChosen,
+                  newPlaceCategory,
                   style: Theme.of(context)
                       .textTheme
                       .caption
@@ -56,7 +63,9 @@ class AddSightScreen extends StatelessWidget {
                     Icons.navigate_next,
                     color: Theme.of(context).primaryColorDark,
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    _returnNewPlaceCategory(context);
+                  },
                 ),
               ],
             ),
@@ -71,7 +80,13 @@ class AddSightScreen extends StatelessWidget {
                   ),
             ),
             const SizedBox(height: 12),
-            Container(height: 40),
+            TextField(
+              textCapitalization: TextCapitalization.sentences,
+              style: Theme.of(context).textTheme.caption,
+              cursorWidth: 1,
+              cursorHeight: 24,
+            ),
+            //Container(height: 40),
             const SizedBox(height: 24),
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -94,7 +109,19 @@ class AddSightScreen extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 12),
-            Container(height: 40),
+            Row(
+              children: [
+                Flexible(
+                  child: TextField(
+                    keyboardType: TextInputType.number,
+                    style: Theme.of(context).textTheme.caption,
+                    cursorWidth: 1,
+                    cursorHeight: 24,
+                  ),
+                ),
+                // Container(height: 40),
+              ],
+            ),
             const SizedBox(height: 15),
             Text(
               newPlaceScreenPointAtMap,
@@ -111,6 +138,12 @@ class AddSightScreen extends StatelessWidget {
                     color: lmInactiveBlackColor,
                   ),
             ),
+            TextField(
+              style: Theme.of(context).textTheme.caption,
+              cursorWidth: 1,
+              cursorHeight: 24,
+              maxLines: 2,
+            ),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
                 minimumSize: Size(double.infinity, 48),
@@ -125,5 +158,15 @@ class AddSightScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void _returnNewPlaceCategory(BuildContext context) async {
+    final result = await Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (BuildContext context) => NewPlaceCategoryScreen()));
+    setState(() {
+      newPlaceCategory = result ?? newPlaceScreenNotChosen;
+    });
   }
 }

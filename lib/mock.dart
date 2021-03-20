@@ -41,3 +41,12 @@ Map filters = {
   'Музей': false,
   'Кафе': false,
 };
+
+Map placesCategory = {
+  'Кинотеатр': false,
+  'Ресторан': false,
+  'Особое место': false,
+  'Театр': false,
+  'Музей': false,
+  'Кафе': false,
+};
