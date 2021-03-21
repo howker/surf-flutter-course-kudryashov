@@ -6,6 +6,7 @@ import 'package:places/text_string_const.dart';
 import 'package:places/ui/screen/filters_screen.dart';
 import 'package:places/ui/screen/sight_search_screen.dart';
 
+/// Верхнее поле для поиска
 class SearchBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

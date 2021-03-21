@@ -25,7 +25,9 @@ class _FiltersScreenState extends State<FiltersScreen> {
         elevation: 0,
         leading: IconButton(
           icon: const Icon(Icons.navigate_before),
-          onPressed: () {},
+          onPressed: () {
+            Navigator.pop(context);
+          },
         ),
         actions: [
           TextButton(

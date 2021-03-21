@@ -30,7 +30,7 @@ final List<Sight> mocks = [
       lon: 48.030772,
       url: 'https://cdn.photosight.ru/img/8/2a2/6386165_large.jpg',
       details: 'Астраханский кремль',
-      type: 'Музей, достопримечательность'),
+      type: 'Музей'),
 ];
 
 Map filters = {

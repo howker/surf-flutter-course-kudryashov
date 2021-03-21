@@ -20,6 +20,7 @@ class _SightListScreenState extends State<SightListScreen> {
     return Scaffold(
       appBar: CustomAppBar(
         title: listInterestingPlaces,
+        searchBar: SearchBar(),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -65,8 +66,8 @@ class _SightListScreenState extends State<SightListScreen> {
 ///кастомизированный AppBar
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
-
-  const CustomAppBar({Key key, this.title}) : super(key: key);
+  final SearchBar searchBar;
+  const CustomAppBar({Key key, this.title, this.searchBar}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -82,7 +83,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
             style: Theme.of(context).textTheme.headline1,
           ),
           const SizedBox(height: 22),
-          SearchBar(),
+          searchBar,
         ],
       ),
     );
