@@ -62,6 +62,8 @@ const String newPlaceScreenPointAtMap = 'Указать на карте';
 const String newPlaceScreenDescription = 'ОПИСАНИЕ';
 const String newPlaceScreenInputText = 'введите текст';
 const String newPlaceScreenCreateButton = 'СОЗДАТЬ';
+const String urlByDefault =
+    'https://cdn.photosight.ru/img/8/2a2/6386165_large.jpg';
 
 ///NewPlaceCategoryScreen
 const String newPlaceCategoryScreenCategory = 'Категория';

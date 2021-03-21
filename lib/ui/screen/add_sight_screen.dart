@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:places/colors.dart';
+import 'package:places/domain/sight.dart';
+import 'package:places/mock.dart';
 import 'package:places/text_string_const.dart';
 import 'package:places/ui/screen/new_place_category.dart';
 
@@ -10,13 +12,20 @@ class AddSightScreen extends StatefulWidget {
 }
 
 class _AddSightScreenState extends State<AddSightScreen> {
-  final textController1 = TextEditingController();
-  final textController2 = TextEditingController();
+  final textControllerLat = TextEditingController();
+  final textControllerLon = TextEditingController();
+  final FocusNode focusNodeNewPlaceScreenName = FocusNode();
+  final FocusNode focusNodeNewPlaceScreenLat = FocusNode();
+  final FocusNode focusNodeNewPlaceScreenLon = FocusNode();
+  final FocusNode focusNodeNewPlaceScreenDescription = FocusNode();
+
   String newPlaceCategory = newPlaceScreenNotChosen;
-  FocusNode focusNode1 = FocusNode();
-  FocusNode focusNode2 = FocusNode();
-  FocusNode focusNode3 = FocusNode();
-  FocusNode focusNode4 = FocusNode();
+  String nameSight = '';
+  double latSight = 0.0;
+  double lonSight = 0.0;
+  String urlSight = urlByDefault;
+  String detailsSight = '';
+  String typeSight = '';
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +41,9 @@ class _AddSightScreenState extends State<AddSightScreen> {
         elevation: 0,
         centerTitle: true,
         leading: TextButton(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.pop(context);
+          },
           child: Text(
             newPlaceScreenCancel,
             style: Theme.of(context)
@@ -90,16 +101,16 @@ class _AddSightScreenState extends State<AddSightScreen> {
             ),
             const SizedBox(height: 12),
             TextField(
-              focusNode: focusNode1,
+              focusNode: focusNodeNewPlaceScreenName,
               textCapitalization: TextCapitalization.sentences,
               style: Theme.of(context).textTheme.caption,
               cursorWidth: 1,
               cursorHeight: 24,
               onChanged: (String value) {
-                print(value);
+                nameSight = value;
               },
               onEditingComplete: () {
-                focusNode2.requestFocus();
+                focusNodeNewPlaceScreenLat.requestFocus();
               },
               decoration: InputDecoration(
                 border: OutlineInputBorder(
@@ -133,22 +144,25 @@ class _AddSightScreenState extends State<AddSightScreen> {
               children: [
                 Flexible(
                   child: TextField(
-                    focusNode: focusNode2,
-                    controller: textController1,
+                    focusNode: focusNodeNewPlaceScreenLat,
+                    controller: textControllerLat,
                     keyboardType: TextInputType.number,
                     style: Theme.of(context).textTheme.caption,
                     cursorWidth: 1,
                     cursorHeight: 24,
                     onEditingComplete: () {
-                      focusNode3.requestFocus();
+                      focusNodeNewPlaceScreenLon.requestFocus();
+                    },
+                    onChanged: (String value) {
+                      latSight = double.tryParse(value);
                     },
                   ),
                 ),
                 const SizedBox(width: 16),
                 Flexible(
                   child: TextField(
-                    focusNode: focusNode3,
-                    controller: textController2,
+                    focusNode: focusNodeNewPlaceScreenLon,
+                    controller: textControllerLon,
                     keyboardType: TextInputType.number,
                     style: Theme.of(context).textTheme.caption,
                     cursorWidth: 1,
@@ -157,14 +171,17 @@ class _AddSightScreenState extends State<AddSightScreen> {
                       suffixIcon: IconButton(
                         icon: const Icon(Icons.cancel),
                         onPressed: () {
-                          textController1.clear();
-                          textController2.clear();
+                          textControllerLat.clear();
+                          textControllerLon.clear();
                         },
                         color: Theme.of(context).primaryColorDark,
                       ),
                     ),
                     onEditingComplete: () {
-                      focusNode4.requestFocus();
+                      focusNodeNewPlaceScreenDescription.requestFocus();
+                    },
+                    onChanged: (String value) {
+                      lonSight = double.tryParse(value);
                     },
                   ),
                 ),
@@ -187,7 +204,7 @@ class _AddSightScreenState extends State<AddSightScreen> {
                   ),
             ),
             TextField(
-              focusNode: focusNode4,
+              focusNode: focusNodeNewPlaceScreenDescription,
               style: Theme.of(context).textTheme.caption,
               cursorWidth: 1,
               cursorHeight: 24,
@@ -199,7 +216,10 @@ class _AddSightScreenState extends State<AddSightScreen> {
                     .copyWith(color: lmInactiveBlackColor),
               ),
               onEditingComplete: () {
-                focusNode4.unfocus();
+                focusNodeNewPlaceScreenDescription.unfocus();
+              },
+              onChanged: (String value) {
+                detailsSight = value;
               },
             ),
             Padding(
@@ -208,7 +228,17 @@ class _AddSightScreenState extends State<AddSightScreen> {
                 style: ElevatedButton.styleFrom(
                   minimumSize: Size(double.infinity, 48),
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  Sight newSight = Sight(
+                    nameSights: nameSight,
+                    lat: latSight,
+                    lon: lonSight,
+                    url: urlSight,
+                    details: detailsSight,
+                    type: typeSight,
+                  );
+                  mocks.add(newSight);
+                },
                 child: Text(
                   newPlaceScreenCreateButton,
                   style: Theme.of(context).textTheme.bodyText2,
@@ -228,7 +258,8 @@ class _AddSightScreenState extends State<AddSightScreen> {
             builder: (BuildContext context) => NewPlaceCategoryScreen()));
     setState(() {
       newPlaceCategory = result ?? newPlaceScreenNotChosen;
-      focusNode1.requestFocus();
+      typeSight = newPlaceCategory;
+      focusNodeNewPlaceScreenName.requestFocus();
     });
   }
 }
