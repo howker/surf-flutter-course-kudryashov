@@ -68,3 +68,6 @@ const String urlByDefault =
 ///NewPlaceCategoryScreen
 const String newPlaceCategoryScreenCategory = 'Категория';
 const String newPlaceCategoryScreenSave = 'СОХРАНИТЬ';
+
+/// SightListScreen
+const String sightListScreenAddNewPlace = 'НОВОЕ МЕСТО';

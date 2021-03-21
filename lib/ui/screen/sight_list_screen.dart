@@ -33,7 +33,30 @@ class _SightListScreenState extends State<SightListScreen> {
           ],
         ),
       ),
-      bottomNavigationBar: BottomNaviBar(),
+      bottomNavigationBar: const BottomNaviBar(),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton: _buildFloatingButtonAddPlace(),
+    );
+  }
+
+  Widget _buildFloatingButtonAddPlace() {
+    return Container(
+      padding: const EdgeInsets.fromLTRB(22, 12, 22, 12),
+      width: 177,
+      height: 48,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(24),
+        gradient: const LinearGradient(
+          colors: [Colors.yellow, Colors.green],
+        ),
+      ),
+      child: Row(
+        children: [
+          const Icon(Icons.add),
+          const SizedBox(width: 8),
+          const Text(sightListScreenAddNewPlace),
+        ],
+      ),
     );
   }
 }
