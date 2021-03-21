@@ -13,22 +13,7 @@ class _NewPlaceCategoryScreenState extends State<NewPlaceCategoryScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leadingWidth: 80,
-        backgroundColor: Theme.of(context).primaryColor,
-        title: Text(
-          newPlaceCategoryScreenCategory,
-          style: Theme.of(context).textTheme.headline1,
-        ),
-        elevation: 0,
-        centerTitle: true,
-        leading: IconButton(
-          icon: const Icon(Icons.navigate_before),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
-      ),
+      appBar: _buildAppBar(context),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16),
         child: Column(
@@ -38,23 +23,46 @@ class _NewPlaceCategoryScreenState extends State<NewPlaceCategoryScreen> {
             Column(
               children: _buildCheckboxListTile(context),
             ),
-            Padding(
-              padding: const EdgeInsets.only(bottom: 8),
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  minimumSize: Size(double.infinity, 48),
-                ),
-                onPressed: () {
-                  Navigator.pop(context, newPlaceCategory);
-                },
-                child: Text(
-                  newPlaceCategoryScreenSave,
-                  style: Theme.of(context).textTheme.bodyText2,
-                ),
-              ),
-            ),
+            _buildSaveButton(context),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _buildSaveButton(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 8),
+      child: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          minimumSize: Size(double.infinity, 48),
+        ),
+        onPressed: () {
+          Navigator.pop(context, newPlaceCategory);
+        },
+        child: Text(
+          newPlaceCategoryScreenSave,
+          style: Theme.of(context).textTheme.bodyText2,
+        ),
+      ),
+    );
+  }
+
+  Widget _buildAppBar(BuildContext context) {
+    return AppBar(
+      leadingWidth: 80,
+      backgroundColor: Theme.of(context).primaryColor,
+      title: Text(
+        newPlaceCategoryScreenCategory,
+        style: Theme.of(context).textTheme.headline1,
+      ),
+      elevation: 0,
+      centerTitle: true,
+      leading: IconButton(
+        icon: const Icon(Icons.navigate_before),
+        onPressed: () {
+          Navigator.pop(context);
+        },
       ),
     );
   }
