@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:places/mock.dart';
 import 'package:places/text_string_const.dart';
 import 'package:places/ui/widgets/bottom_navibar.dart';
+import 'package:places/ui/widgets/search_bar.dart';
 import 'package:places/ui/widgets/sight_card.dart';
 
 /// список карточек интересных мест
@@ -70,17 +71,19 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      child: Text(
-        title,
-        textAlign: TextAlign.left,
-        maxLines: 2,
-        style: Theme.of(context).textTheme.headline6,
-      ),
-      padding: const EdgeInsets.only(
-        left: 16.0,
-        top: 64.0,
-        right: 16.0,
-        bottom: 16.0,
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      child: Column(
+        children: [
+          const SizedBox(height: 40),
+          Text(
+            title,
+            textAlign: TextAlign.left,
+            maxLines: 2,
+            style: Theme.of(context).textTheme.headline1,
+          ),
+          const SizedBox(height: 22),
+          SearchBar(),
+        ],
       ),
     );
   }

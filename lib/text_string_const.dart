@@ -1,6 +1,6 @@
 /// Текстовые константы
 
-const String listInterestingPlaces = 'Список\nинтересных мест';
+const String listInterestingPlaces = 'Список интересных мест';
 const String placesN = 'писок\n';
 const String nPlaces = 'нтересных мест';
 const String favorites = 'Избранное';
@@ -71,3 +71,6 @@ const String newPlaceCategoryScreenSave = 'СОХРАНИТЬ';
 
 /// SightListScreen
 const String sightListScreenAddNewPlace = 'НОВОЕ МЕСТО';
+
+///SearchBar
+const String searchBarHint = 'Поиск';
