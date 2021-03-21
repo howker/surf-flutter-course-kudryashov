@@ -19,9 +19,7 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
     return Scaffold(
       appBar: CustomAppBar(
         title: listInterestingPlaces,
-        searchBar: SearchBarSearch(
-          textEditingController: textEditingController,
-        ),
+        searchBar: SearchBarSearch(),
       ),
       bottomNavigationBar: BottomNaviBar(),
       body: Padding(
@@ -61,10 +59,6 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
 
 ///Верхнее поле поиска для экрана SightSearchScreen
 class SearchBarSearch extends SearchBar {
-  final TextEditingController textEditingController;
-
-  SearchBarSearch({this.textEditingController});
-  @override
   Widget build(BuildContext context) {
     return Stack(
       children: [
@@ -76,7 +70,6 @@ class SearchBarSearch extends SearchBar {
           height: 40,
           width: double.infinity,
           child: TextField(
-            controller: textEditingController,
             onChanged: (String newValue) {},
             textCapitalization: TextCapitalization.sentences,
             style: Theme.of(context).textTheme.caption,

@@ -28,6 +28,13 @@ class _AddSightScreenState extends State<AddSightScreen> {
   String typeSight = '';
 
   @override
+  void dispose() {
+    textControllerLat.dispose();
+    textControllerLon.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
