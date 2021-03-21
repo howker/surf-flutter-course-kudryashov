@@ -60,7 +60,7 @@ const String newPlaceScreenLat = 'ШИРОТА';
 const String newPlaceScreenLon = 'ДОЛГОТА';
 const String newPlaceScreenPointAtMap = 'Указать на карте';
 const String newPlaceScreenDescription = 'ОПИСАНИЕ';
-const String newPlaceScreenInputText = 'Введите текст';
+const String newPlaceScreenInputText = 'введите текст';
 const String newPlaceScreenCreateButton = 'СОЗДАТЬ';
 
 ///NewPlaceCategoryScreen

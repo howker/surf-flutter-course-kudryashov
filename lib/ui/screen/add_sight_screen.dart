@@ -10,10 +10,18 @@ class AddSightScreen extends StatefulWidget {
 }
 
 class _AddSightScreenState extends State<AddSightScreen> {
+  final textController1 = TextEditingController();
+  final textController2 = TextEditingController();
   String newPlaceCategory = newPlaceScreenNotChosen;
+  FocusNode focusNode1 = FocusNode();
+  FocusNode focusNode2 = FocusNode();
+  FocusNode focusNode3 = FocusNode();
+  FocusNode focusNode4 = FocusNode();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         leadingWidth: 80,
         backgroundColor: Theme.of(context).primaryColor,
@@ -37,6 +45,7 @@ class _AddSightScreenState extends State<AddSightScreen> {
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const SizedBox(height: 40),
@@ -81,12 +90,23 @@ class _AddSightScreenState extends State<AddSightScreen> {
             ),
             const SizedBox(height: 12),
             TextField(
+              focusNode: focusNode1,
               textCapitalization: TextCapitalization.sentences,
               style: Theme.of(context).textTheme.caption,
               cursorWidth: 1,
               cursorHeight: 24,
+              onChanged: (String value) {
+                print(value);
+              },
+              onEditingComplete: () {
+                focusNode2.requestFocus();
+              },
+              decoration: InputDecoration(
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
+              ),
             ),
-            //Container(height: 40),
             const SizedBox(height: 24),
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -113,13 +133,41 @@ class _AddSightScreenState extends State<AddSightScreen> {
               children: [
                 Flexible(
                   child: TextField(
+                    focusNode: focusNode2,
+                    controller: textController1,
                     keyboardType: TextInputType.number,
                     style: Theme.of(context).textTheme.caption,
                     cursorWidth: 1,
                     cursorHeight: 24,
+                    onEditingComplete: () {
+                      focusNode3.requestFocus();
+                    },
                   ),
                 ),
-                // Container(height: 40),
+                const SizedBox(width: 16),
+                Flexible(
+                  child: TextField(
+                    focusNode: focusNode3,
+                    controller: textController2,
+                    keyboardType: TextInputType.number,
+                    style: Theme.of(context).textTheme.caption,
+                    cursorWidth: 1,
+                    cursorHeight: 24,
+                    decoration: InputDecoration(
+                      suffixIcon: IconButton(
+                        icon: const Icon(Icons.cancel),
+                        onPressed: () {
+                          textController1.clear();
+                          textController2.clear();
+                        },
+                        color: Theme.of(context).primaryColorDark,
+                      ),
+                    ),
+                    onEditingComplete: () {
+                      focusNode4.requestFocus();
+                    },
+                  ),
+                ),
               ],
             ),
             const SizedBox(height: 15),
@@ -139,19 +187,32 @@ class _AddSightScreenState extends State<AddSightScreen> {
                   ),
             ),
             TextField(
+              focusNode: focusNode4,
               style: Theme.of(context).textTheme.caption,
               cursorWidth: 1,
               cursorHeight: 24,
-              maxLines: 2,
-            ),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                minimumSize: Size(double.infinity, 48),
+              decoration: InputDecoration(
+                labelText: newPlaceScreenInputText,
+                labelStyle: Theme.of(context)
+                    .textTheme
+                    .caption
+                    .copyWith(color: lmInactiveBlackColor),
               ),
-              onPressed: () {},
-              child: Text(
-                newPlaceScreenCreateButton,
-                style: Theme.of(context).textTheme.bodyText2,
+              onEditingComplete: () {
+                focusNode4.unfocus();
+              },
+            ),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 8),
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  minimumSize: Size(double.infinity, 48),
+                ),
+                onPressed: () {},
+                child: Text(
+                  newPlaceScreenCreateButton,
+                  style: Theme.of(context).textTheme.bodyText2,
+                ),
               ),
             ),
           ],
@@ -167,6 +228,7 @@ class _AddSightScreenState extends State<AddSightScreen> {
             builder: (BuildContext context) => NewPlaceCategoryScreen()));
     setState(() {
       newPlaceCategory = result ?? newPlaceScreenNotChosen;
+      focusNode1.requestFocus();
     });
   }
 }
