@@ -170,7 +170,7 @@ class _AddSightScreenState extends State<AddSightScreen> {
               .caption
               .copyWith(color: lmInactiveBlackColor),
           enabledBorder: OutlineInputBorder(
-            borderSide: const BorderSide(color: Colors.green, width: 1.0),
+            borderSide: BorderSide(color: Colors.green, width: 1.0),
             borderRadius: BorderRadius.circular(8),
           ),
         ),
@@ -207,11 +207,11 @@ class _AddSightScreenState extends State<AddSightScreen> {
               decoration: InputDecoration(
                 contentPadding: const EdgeInsets.all(10),
                 enabledBorder: OutlineInputBorder(
-                  borderSide: const BorderSide(color: Colors.green, width: 1.0),
+                  borderSide: BorderSide(color: Colors.green, width: 1.0),
                   borderRadius: BorderRadius.circular(8),
                 ),
                 focusedBorder: OutlineInputBorder(
-                  borderSide: const BorderSide(color: Colors.green, width: 1.0),
+                  borderSide: BorderSide(color: Colors.green, width: 1.0),
                   borderRadius: BorderRadius.circular(8),
                 ),
               ),
@@ -241,11 +241,11 @@ class _AddSightScreenState extends State<AddSightScreen> {
                   color: Theme.of(context).primaryColorDark,
                 ),
                 enabledBorder: OutlineInputBorder(
-                  borderSide: const BorderSide(color: Colors.green, width: 1.0),
+                  borderSide: BorderSide(color: Colors.green, width: 1.0),
                   borderRadius: BorderRadius.circular(8),
                 ),
                 focusedBorder: OutlineInputBorder(
-                  borderSide: const BorderSide(color: Colors.green, width: 1.0),
+                  borderSide: BorderSide(color: Colors.green, width: 1.0),
                   borderRadius: BorderRadius.circular(8),
                 ),
               ),
@@ -330,9 +330,11 @@ class _AddSightScreenState extends State<AddSightScreen> {
 
   void _returnNewPlaceCategory(BuildContext context) async {
     final result = await Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (BuildContext context) => NewPlaceCategoryScreen()));
+      context,
+      MaterialPageRoute(
+        builder: (BuildContext context) => NewPlaceCategoryScreen(),
+      ),
+    );
     setState(() {
       newPlaceCategory = result ?? newPlaceScreenNotChosen;
       typeSight = newPlaceCategory;
