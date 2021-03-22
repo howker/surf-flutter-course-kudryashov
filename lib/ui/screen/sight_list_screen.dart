@@ -64,11 +64,19 @@ class _SightListScreenState extends State<SightListScreen> {
 }
 
 ///кастомизированный AppBar
-class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
+class CustomAppBar extends StatefulWidget implements PreferredSizeWidget {
   final String title;
-  final SearchBar searchBar;
+  final Widget searchBar;
   const CustomAppBar({Key key, this.title, this.searchBar}) : super(key: key);
 
+  @override
+  _CustomAppBarState createState() => _CustomAppBarState();
+
+  @override
+  Size get preferredSize => const Size.fromHeight(136.0);
+}
+
+class _CustomAppBarState extends State<CustomAppBar> {
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -77,18 +85,15 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
         children: [
           const SizedBox(height: 40),
           Text(
-            title,
+            widget.title,
             textAlign: TextAlign.left,
             maxLines: 2,
             style: Theme.of(context).textTheme.headline1,
           ),
           const SizedBox(height: 22),
-          searchBar,
+          widget.searchBar,
         ],
       ),
     );
   }
-
-  @override
-  Size get preferredSize => const Size.fromHeight(136.0);
 }
