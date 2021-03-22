@@ -68,7 +68,7 @@ class _NewPlaceCategoryScreenState extends State<NewPlaceCategoryScreen> {
   }
 
   List<Widget> _buildCheckboxListTile(BuildContext context) {
-    List<Widget> listWhitestars = placesCategory.entries
+    List<Widget> listCategory = placesCategory.entries
         .map(
           (e) => Column(
             children: [
@@ -94,6 +94,6 @@ class _NewPlaceCategoryScreenState extends State<NewPlaceCategoryScreen> {
         )
         .toList();
 
-    return listWhitestars;
+    return listCategory;
   }
 }
