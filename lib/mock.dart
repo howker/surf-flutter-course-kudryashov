@@ -50,3 +50,5 @@ Map placesCategory = {
   'Музей': false,
   'Кафе': false,
 };
+
+List searchHistory = [];
