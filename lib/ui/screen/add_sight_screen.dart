@@ -26,6 +26,13 @@ class _AddSightScreenState extends State<AddSightScreen> {
   String urlSight = urlByDefault;
   String detailsSight = '';
   String typeSight = '';
+  
+  @override
+  void dispose() {
+    textControllerLat.dispose();
+    textControllerLon.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
