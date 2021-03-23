@@ -31,6 +31,21 @@ final List<Sight> mocks = [
       url: 'https://cdn.photosight.ru/img/8/2a2/6386165_large.jpg',
       details: 'Астраханский кремль',
       type: 'Музей'),
+  Sight(
+      nameSights: 'Ресторан Белуга',
+      lat: 46.354357,
+      lon: 48.033053,
+      url:
+          'https://i1.photo.2gis.com/images/branch/8/1125899943872413_ffb7.jpg',
+      details: 'славится своими рыбными блюдами',
+      type: 'Ресторан'),
+  Sight(
+      nameSights: 'Ресторан Пряности',
+      lat: 46.352273,
+      lon: 48.033619,
+      url: 'https://fb.ru/misc/i/gallery/43527/3214514.jpg',
+      details: 'Кухня: европейская, итальянская, японская',
+      type: 'Ресторан'),
 ];
 
 Map filters = {

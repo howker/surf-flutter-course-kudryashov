@@ -101,6 +101,8 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
                   .where((element) =>
                       element.nameSights.contains(_textEditingController.text))
                   .toList();
+              newFoundList
+                  .forEach((element) => searchHistory.add(element.nameSights));
 
               setState(() {});
             },
@@ -137,7 +139,11 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
             icon: const Icon(Icons.cancel),
             color: Theme.of(context).primaryColorDark,
             onPressed: () {
-              // _textEditingController.clear();
+              _textEditingController.clear();
+
+              setState(() {
+                _buildHistoryPlacesList(context);
+              });
             },
           ),
         ),
@@ -167,16 +173,19 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
   }
 
   List<Widget> _buildHistoryPlacesList(BuildContext context) {
-    List<Widget> foundPlacesListlist = [];
-    newFoundList.forEach(
-      (element) => foundPlacesListlist.add(
+    List<Widget> searchHistoryList = [];
+    searchHistory.forEach(
+      (element) => searchHistoryList.add(
         Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            ListTile(
+            CheckboxListTile(
               title: Text(
-                element.nameSights,
+                element,
                 style: Theme.of(context).textTheme.caption,
               ),
+              onChanged: (bool value) {},
+              value: true,
             ),
             const Divider(),
           ],
@@ -184,6 +193,6 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
       ),
     );
 
-    return foundPlacesListlist;
+    return searchHistoryList;
   }
 }
