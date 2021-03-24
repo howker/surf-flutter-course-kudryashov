@@ -15,8 +15,6 @@ class FiltersScreen extends StatefulWidget {
 
 class _FiltersScreenState extends State<FiltersScreen> {
   RangeValues _rangeValues = const RangeValues(100, 10000);
-  final double userLat = 46.348838;
-  final double userLng = 48.029816;
 
   @override
   Widget build(BuildContext context) {

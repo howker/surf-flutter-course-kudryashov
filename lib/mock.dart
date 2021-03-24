@@ -75,3 +75,6 @@ Map placesCategory = {
 };
 
 List searchHistory = [];
+
+const double userLat = 46.348838;
+const double userLng = 48.029816;
