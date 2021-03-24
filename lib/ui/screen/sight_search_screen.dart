@@ -132,10 +132,13 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
             color: Theme.of(context).primaryColorDark,
             onPressed: () {
               _textEditingController.clear();
+              newFoundList.clear();
 
-              setState(() {
-                newFoundList.clear();
-              });
+              state = States.history;
+
+              if (searchHistory.isEmpty) state = States.empty;
+
+              setState(() {});
             },
           ),
         ),
@@ -149,9 +152,15 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
           .where((element) =>
               element.nameSights.contains(_textEditingController.text.trim()))
           .toList();
-      newFoundList.forEach((element) => searchHistory.add(element.nameSights));
 
-      if (newFoundList.isEmpty) state = States.error;
+      newFoundList.forEach((element) =>
+          searchHistory.contains(element.nameSights)
+              ? searchHistory
+              : searchHistory.add(element.nameSights));
+
+      if (newFoundList.isEmpty)
+        state = States.error;
+      else if (newFoundList.isNotEmpty) state = States.found;
 
       setState(() {});
     }
@@ -286,6 +295,7 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
                   setState(
                     () {
                       searchHistory.remove(element);
+                      if (searchHistory.isEmpty) state = States.empty;
                     },
                   );
                 },
@@ -310,6 +320,7 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
               setState(() {
                 _textEditingController.clear();
                 searchHistory.clear();
+                state = States.empty;
               });
             },
             child: Text(
