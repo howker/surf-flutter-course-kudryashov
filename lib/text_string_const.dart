@@ -78,3 +78,6 @@ const String searchBarHint = 'Поиск';
 /// SightSearchScreen
 const String sightSearchScreenYouSearched = 'ВЫ ИСКАЛИ';
 const String sightSearchScreenClear = 'Очистить историю';
+const String sightSearchScreenNothingFound = 'Ничего не найдено.';
+const String sightSearchScreenTryToChange =
+    'Попробуйте изменить параметры\nпоиска';

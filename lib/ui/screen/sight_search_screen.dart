@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:places/colors.dart';
 import 'package:places/domain/sight.dart';
 import 'package:places/mock.dart';
+import 'package:places/styles.dart';
 import 'package:places/svg_path_const.dart';
 import 'package:places/text_string_const.dart';
 import 'package:places/ui/screen/sight_details.dart';
@@ -183,8 +184,40 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
         ),
       ),
     );
-//if (newFoundList.isEmpty) return NothingFound
-    return foundPlacesListlist;
+    if (newFoundList.isEmpty)
+      return _searchErrorState();
+    else
+      return foundPlacesListlist;
+  }
+
+  List<Widget> _searchErrorState() {
+    List<Widget> searchErrorState = [
+      Center(
+        child: Column(
+          children: [
+            SvgPicture.asset(
+              searchSvg,
+              color: lmInactiveBlackColor,
+              width: 50,
+              height: 48,
+            ),
+            const SizedBox(height: 32),
+            const Text(
+              sightSearchScreenNothingFound,
+              style: textSubtitleRegular18Grey,
+            ),
+            const SizedBox(height: 8),
+            const Text(
+              sightSearchScreenTryToChange,
+              style: textSmallRegular14Grey,
+              textAlign: TextAlign.center,
+            ),
+          ],
+        ),
+      ),
+    ];
+
+    return searchErrorState;
   }
 
   Widget _buildImageCardItem(element) {
