@@ -16,6 +16,7 @@ class SightSearchScreen extends StatefulWidget {
 
 class _SightSearchScreenState extends State<SightSearchScreen> {
   final TextEditingController _textEditingController = TextEditingController();
+  final FocusNode focusNodeSearchBar = FocusNode();
   List newFoundList = [];
   @override
   void dispose() {
@@ -25,6 +26,7 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
 
   @override
   Widget build(BuildContext context) {
+    focusNodeSearchBar.requestFocus();
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
@@ -98,6 +100,7 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
           height: 40,
           width: double.infinity,
           child: TextField(
+            focusNode: focusNodeSearchBar,
             controller: _textEditingController,
             onChanged: (String newValue) {
               if (newValue.endsWith(' ')) _onCompleteUserSearchInput();
