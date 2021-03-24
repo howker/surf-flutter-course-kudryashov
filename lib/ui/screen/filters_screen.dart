@@ -1,7 +1,7 @@
-import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:places/colors.dart';
 import 'package:places/domain/sight.dart';
+import 'package:places/domain/utils.dart';
 import 'package:places/mock.dart';
 import 'package:places/svg_path_const.dart';
 import 'package:places/text_string_const.dart';
@@ -99,6 +99,8 @@ class _FiltersScreenState extends State<FiltersScreen> {
             onChanged: (newValues) {
               setState(() {
                 _rangeValues = newValues;
+                sortedByRadius =
+                    listAreaByRadius(mocks, userLat, userLng, _rangeValues);
               });
             },
           ),
@@ -109,17 +111,7 @@ class _FiltersScreenState extends State<FiltersScreen> {
               style: ElevatedButton.styleFrom(
                 minimumSize: Size(double.infinity, 48),
               ),
-              onPressed: () {
-                listAreaByRadius(mocks, userLat, userLng, _rangeValues)
-                    .forEach((element) {
-                  print(element.nameSights);
-                  filters.forEach(
-                    (key, value) {
-                      print('$key : $value');
-                    },
-                  );
-                });
-              },
+              onPressed: () {},
               child: Text(
                 '$show (${listAreaByRadius(mocks, userLat, userLng, _rangeValues).length})',
                 style: Theme.of(context).textTheme.bodyText2,
@@ -177,28 +169,4 @@ class _FiltersScreenState extends State<FiltersScreen> {
       ],
     );
   }
-}
-
-List<Sight> listAreaByRadius(
-    List<Sight> inputList, userLat, userLng, RangeValues rangeValues) {
-  List<Sight> listAreaByRadius = [];
-  inputList.forEach((element) {
-    if (arePointsNear(userLat, userLng, element.lat, element.lon,
-        rangeValues.start, rangeValues.end)) listAreaByRadius.add(element);
-  });
-  return listAreaByRadius;
-}
-
-bool arePointsNear(
-    userPointLat, userPointLng, checkPointLat, checkPointLng, kmStart, kmEnd) {
-  const double pi = 3.1415926535897932;
-  const ky = 40000 / 360;
-  double kx = cos(pi * userPointLat / 180.0) * ky;
-  var dx = (userPointLng - checkPointLng).abs() * kx;
-  var dy = (userPointLat - checkPointLat).abs() * ky;
-  if (sqrt(dx * dx + dy * dy) <= kmEnd * 0.001 &&
-      sqrt(dx * dx + dy * dy) >= kmStart * 0.001)
-    return true;
-  else
-    return false;
 }

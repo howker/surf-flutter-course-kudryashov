@@ -148,8 +148,18 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
   void _onCompleteUserSearchInput() {
     if (_textEditingController.text != '') {
       newFoundList = mocks
-          .where((element) =>
-              element.nameSights.contains(_textEditingController.text.trim()))
+          .where(
+            (element) => element.nameSights.contains(
+              _textEditingController.text.trim(),
+            ),
+          )
+          .toList();
+      newFoundList = sortedByRadius
+          .where(
+            (element) => element.nameSights.contains(
+              _textEditingController.text.trim(),
+            ),
+          )
           .toList();
 
       newFoundList.forEach((element) =>
