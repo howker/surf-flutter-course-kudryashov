@@ -171,14 +171,36 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
       (element) => foundPlacesListlist.add(
         Column(
           children: [
-            ListTile(
-              contentPadding: const EdgeInsets.all(0),
-              title: Text(
-                element.nameSights,
-                style: Theme.of(context).textTheme.caption,
+            InkWell(
+              onTap: () {
+                Sight sight = Sight(
+                  nameSights: element.nameSights,
+                  lat: element.lat,
+                  lon: element.lon,
+                  url: element.url,
+                  details: element.details,
+                  type: element.type,
+                );
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (BuildContext context) =>
+                        SightDetails(sight: sight),
+                  ),
+                );
+              },
+              child: ListTile(
+                contentPadding: const EdgeInsets.all(0),
+                title: Text(
+                  element.nameSights,
+                  style: Theme.of(context).textTheme.caption,
+                ),
+                subtitle: Text(
+                  element.type,
+                  style: textRegular14Grey,
+                ),
+                leading: _buildImageCardItem(element),
               ),
-              subtitle: Text(element.type),
-              leading: _buildImageCardItem(element),
             ),
             const Divider(),
           ],
@@ -225,42 +247,24 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
   Widget _buildImageCardItem(element) {
     return ClipRRect(
       borderRadius: BorderRadius.circular(12),
-      child: InkWell(
-        onTap: () {
-          Sight sight = Sight(
-            nameSights: element.nameSights,
-            lat: element.lat,
-            lon: element.lon,
-            url: element.url,
-            details: element.details,
-            type: element.type,
-          );
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (BuildContext context) => SightDetails(sight: sight),
-            ),
-          );
-        },
-        child: Container(
-          height: 56,
-          width: 56,
-          child: Image.network(
-            element.url,
-            fit: BoxFit.cover,
-            loadingBuilder: (BuildContext context, Widget child,
-                ImageChunkEvent loadingProgress) {
-              if (loadingProgress == null) return child;
-              return Center(
-                child: CircularProgressIndicator(
-                  value: loadingProgress.expectedTotalBytes != null
-                      ? loadingProgress.cumulativeBytesLoaded /
-                          loadingProgress.expectedTotalBytes
-                      : null,
-                ),
-              );
-            },
-          ),
+      child: Container(
+        height: 56,
+        width: 56,
+        child: Image.network(
+          element.url,
+          fit: BoxFit.cover,
+          loadingBuilder: (BuildContext context, Widget child,
+              ImageChunkEvent loadingProgress) {
+            if (loadingProgress == null) return child;
+            return Center(
+              child: CircularProgressIndicator(
+                value: loadingProgress.expectedTotalBytes != null
+                    ? loadingProgress.cumulativeBytesLoaded /
+                        loadingProgress.expectedTotalBytes
+                    : null,
+              ),
+            );
+          },
         ),
       ),
     );
