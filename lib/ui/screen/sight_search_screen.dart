@@ -10,6 +10,13 @@ import 'package:places/ui/screen/sight_details.dart';
 import 'package:places/ui/widgets/bottom_navibar.dart';
 
 ///Экран поиска мест
+enum States {
+  error,
+  found,
+  history,
+  empty,
+}
+
 class SightSearchScreen extends StatefulWidget {
   @override
   _SightSearchScreenState createState() => _SightSearchScreenState();
@@ -19,6 +26,8 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
   final TextEditingController _textEditingController = TextEditingController();
   final FocusNode focusNodeSearchBar = FocusNode();
   List newFoundList = [];
+  States state = States.empty;
+
   @override
   void dispose() {
     _textEditingController.dispose();
@@ -44,45 +53,27 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
         padding: const EdgeInsets.symmetric(horizontal: 16),
         child: SingleChildScrollView(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
+            //mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               _buildTopSearchBar(context),
               const SizedBox(height: 38),
-              Text(
-                sightSearchScreenYouSearched,
-                style: Theme.of(context).textTheme.bodyText1.copyWith(
-                      fontSize: 12,
-                      color: lmInactiveBlackColor,
-                    ),
-              ),
-              Column(
-                children: _buildFoundPlacesList(context),
-              ),
-              newFoundList.length != 0
-                  ? const SizedBox()
-                  : Column(
+              state == States.found
+                  ? Column(
+                      children: _buildFoundPlacesList(context),
+                    )
+                  : const SizedBox(),
+              state == States.history
+                  ? Column(
                       children: _buildHistoryPlacesList(context),
-                    ),
+                    )
+                  : const SizedBox(),
               const SizedBox(height: 14),
-              TextButton(
-                onPressed: () {
-                  setState(() {
-                    _textEditingController.clear();
-                    searchHistory.clear();
-                  });
-                },
-                child: Text(
-                  sightSearchScreenClear,
-                  style: Theme.of(context)
-                      .textTheme
-                      .headline5
-                      .copyWith(color: Colors.green),
-                ),
-                style: TextButton.styleFrom(
-                  padding: EdgeInsets.zero,
-                ),
-              ),
+              state == States.error
+                  ? Column(
+                      children: _searchErrorState(),
+                    )
+                  : const SizedBox(),
             ],
           ),
         ),
@@ -160,6 +151,8 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
           .toList();
       newFoundList.forEach((element) => searchHistory.add(element.nameSights));
 
+      if (newFoundList.isEmpty) state = States.error;
+
       setState(() {});
     }
   }
@@ -195,6 +188,7 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
       Center(
         child: Column(
           children: [
+            const SizedBox(height: 170),
             SvgPicture.asset(
               searchSvg,
               color: lmInactiveBlackColor,
@@ -265,7 +259,20 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
   }
 
   List<Widget> _buildHistoryPlacesList(BuildContext context) {
-    List<Widget> searchHistoryList = [];
+    List<Widget> searchHistoryList = [
+      Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Text(
+            sightSearchScreenYouSearched,
+            style: Theme.of(context).textTheme.bodyText1.copyWith(
+                  fontSize: 12,
+                  color: lmInactiveBlackColor,
+                ),
+          ),
+        ],
+      ),
+    ];
     searchHistory.forEach(
       (element) => searchHistoryList.add(
         Column(
@@ -276,9 +283,11 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
               trailing: IconButton(
                 icon: const Icon(Icons.close),
                 onPressed: () {
-                  setState(() {
-                    searchHistory.remove(element);
-                  });
+                  setState(
+                    () {
+                      searchHistory.remove(element);
+                    },
+                  );
                 },
               ),
               leading: Text(
@@ -289,6 +298,32 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
             const Divider(),
           ],
         ),
+      ),
+    );
+
+    searchHistoryList.add(
+      Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          TextButton(
+            onPressed: () {
+              setState(() {
+                _textEditingController.clear();
+                searchHistory.clear();
+              });
+            },
+            child: Text(
+              sightSearchScreenClear,
+              style: Theme.of(context)
+                  .textTheme
+                  .headline5
+                  .copyWith(color: Colors.green),
+            ),
+            style: TextButton.styleFrom(
+              padding: EdgeInsets.zero,
+            ),
+          ),
+        ],
       ),
     );
 
