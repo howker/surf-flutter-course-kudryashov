@@ -5,6 +5,7 @@ import 'package:places/domain/sight.dart';
 import 'package:places/mock.dart';
 import 'package:places/svg_path_const.dart';
 import 'package:places/text_string_const.dart';
+import 'package:places/ui/screen/sight_details.dart';
 import 'package:places/ui/widgets/bottom_navibar.dart';
 
 ///Экран поиска мест
@@ -25,6 +26,7 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: Text(
           listInterestingPlaces,
@@ -37,42 +39,49 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
       bottomNavigationBar: BottomNaviBar(),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _buildTopSearchBar(context),
-            const SizedBox(height: 38),
-            Text(
-              sightSearchScreenYouSearched,
-              style: Theme.of(context).textTheme.bodyText1.copyWith(
-                    fontSize: 12,
-                    color: lmInactiveBlackColor,
-                  ),
-            ),
-            Column(
-              children: _buildHistoryPlacesList(context),
-            ),
-            const SizedBox(height: 14),
-            TextButton(
-              onPressed: () {
-                setState(() {
-                  _textEditingController.clear();
-                  searchHistory.clear();
-                });
-              },
-              child: Text(
-                sightSearchScreenClear,
-                style: Theme.of(context)
-                    .textTheme
-                    .headline5
-                    .copyWith(color: Colors.green),
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              _buildTopSearchBar(context),
+              const SizedBox(height: 38),
+              Text(
+                sightSearchScreenYouSearched,
+                style: Theme.of(context).textTheme.bodyText1.copyWith(
+                      fontSize: 12,
+                      color: lmInactiveBlackColor,
+                    ),
               ),
-              style: TextButton.styleFrom(
-                padding: EdgeInsets.zero,
+              Column(
+                children: _buildFoundPlacesList(context),
               ),
-            ),
-          ],
+              newFoundList.length != 0
+                  ? const SizedBox()
+                  : Column(
+                      children: _buildHistoryPlacesList(context),
+                    ),
+              const SizedBox(height: 14),
+              TextButton(
+                onPressed: () {
+                  setState(() {
+                    _textEditingController.clear();
+                    searchHistory.clear();
+                  });
+                },
+                child: Text(
+                  sightSearchScreenClear,
+                  style: Theme.of(context)
+                      .textTheme
+                      .headline5
+                      .copyWith(color: Colors.green),
+                ),
+                style: TextButton.styleFrom(
+                  padding: EdgeInsets.zero,
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -91,21 +100,9 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
           child: TextField(
             controller: _textEditingController,
             onChanged: (String newValue) {
-              // if (newValue.endsWith(' ')) print(newValue);
-              // _textEditingController.clear();
+              if (newValue.endsWith(' ')) _onCompleteUserSearchInput();
             },
-            onEditingComplete: () {
-              print(_textEditingController.text);
-
-              newFoundList = mocks
-                  .where((element) =>
-                      element.nameSights.contains(_textEditingController.text))
-                  .toList();
-              newFoundList
-                  .forEach((element) => searchHistory.add(element.nameSights));
-
-              setState(() {});
-            },
+            onEditingComplete: _onCompleteUserSearchInput,
             textCapitalization: TextCapitalization.sentences,
             style: Theme.of(context).textTheme.caption,
             cursorWidth: 1,
@@ -142,13 +139,25 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
               _textEditingController.clear();
 
               setState(() {
-                _buildHistoryPlacesList(context);
+                newFoundList.clear();
               });
             },
           ),
         ),
       ],
     );
+  }
+
+  void _onCompleteUserSearchInput() {
+    if (_textEditingController.text != '') {
+      newFoundList = mocks
+          .where((element) =>
+              element.nameSights.contains(_textEditingController.text.trim()))
+          .toList();
+      newFoundList.forEach((element) => searchHistory.add(element.nameSights));
+
+      setState(() {});
+    }
   }
 
   List<Widget> _buildFoundPlacesList(BuildContext context) {
@@ -158,18 +167,65 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
         Column(
           children: [
             ListTile(
+              contentPadding: const EdgeInsets.all(0),
               title: Text(
                 element.nameSights,
                 style: Theme.of(context).textTheme.caption,
               ),
+              subtitle: Text(element.type),
+              leading: _buildImageCardItem(element),
             ),
             const Divider(),
           ],
         ),
       ),
     );
-
+//if (newFoundList.isEmpty) return NothingFound
     return foundPlacesListlist;
+  }
+
+  Widget _buildImageCardItem(element) {
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(12),
+      child: InkWell(
+        onTap: () {
+          Sight sight = Sight(
+            nameSights: element.nameSights,
+            lat: element.lat,
+            lon: element.lon,
+            url: element.url,
+            details: element.details,
+            type: element.type,
+          );
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (BuildContext context) => SightDetails(sight: sight),
+            ),
+          );
+        },
+        child: Container(
+          height: 56,
+          width: 56,
+          child: Image.network(
+            element.url,
+            fit: BoxFit.cover,
+            loadingBuilder: (BuildContext context, Widget child,
+                ImageChunkEvent loadingProgress) {
+              if (loadingProgress == null) return child;
+              return Center(
+                child: CircularProgressIndicator(
+                  value: loadingProgress.expectedTotalBytes != null
+                      ? loadingProgress.cumulativeBytesLoaded /
+                          loadingProgress.expectedTotalBytes
+                      : null,
+                ),
+              );
+            },
+          ),
+        ),
+      ),
+    );
   }
 
   List<Widget> _buildHistoryPlacesList(BuildContext context) {
@@ -180,9 +236,9 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             ListTile(
-              contentPadding: EdgeInsets.all(0),
+              contentPadding: const EdgeInsets.all(0),
               trailing: IconButton(
-                icon: Icon(Icons.close),
+                icon: const Icon(Icons.close),
                 onPressed: () {
                   setState(() {
                     searchHistory.remove(element);

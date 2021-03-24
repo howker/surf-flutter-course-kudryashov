@@ -54,10 +54,15 @@ class SightDetails extends StatelessWidget {
                       height: 32,
                       child: Padding(
                         padding: const EdgeInsets.only(left: 6),
-                        child: Icon(
-                          Icons.arrow_back_ios,
-                          color: Theme.of(context).primaryColorDark,
-                          size: 15,
+                        child: InkWell(
+                          onTap: () {
+                            Navigator.pop(context);
+                          },
+                          child: Icon(
+                            Icons.arrow_back_ios,
+                            color: Theme.of(context).primaryColorDark,
+                            size: 15,
+                          ),
                         ),
                       ),
                     ),
