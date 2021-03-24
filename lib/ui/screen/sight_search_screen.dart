@@ -26,7 +26,7 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
   final TextEditingController _textEditingController = TextEditingController();
   final FocusNode focusNodeSearchBar = FocusNode();
   List newFoundList = [];
-  States state = States.empty;
+  States state = States.history;
 
   @override
   void dispose() {
@@ -53,7 +53,6 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
         padding: const EdgeInsets.symmetric(horizontal: 16),
         child: SingleChildScrollView(
           child: Column(
-            //mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               _buildTopSearchBar(context),
@@ -269,18 +268,20 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
 
   List<Widget> _buildHistoryPlacesList(BuildContext context) {
     List<Widget> searchHistoryList = [
-      Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          Text(
-            sightSearchScreenYouSearched,
-            style: Theme.of(context).textTheme.bodyText1.copyWith(
-                  fontSize: 12,
-                  color: lmInactiveBlackColor,
+      searchHistory.isNotEmpty
+          ? Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Text(
+                  sightSearchScreenYouSearched,
+                  style: Theme.of(context).textTheme.bodyText1.copyWith(
+                        fontSize: 12,
+                        color: lmInactiveBlackColor,
+                      ),
                 ),
-          ),
-        ],
-      ),
+              ],
+            )
+          : const SizedBox(),
     ];
     searchHistory.forEach(
       (element) => searchHistoryList.add(
@@ -311,32 +312,34 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
       ),
     );
 
-    searchHistoryList.add(
-      Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          TextButton(
-            onPressed: () {
-              setState(() {
-                _textEditingController.clear();
-                searchHistory.clear();
-                state = States.empty;
-              });
-            },
-            child: Text(
-              sightSearchScreenClear,
-              style: Theme.of(context)
-                  .textTheme
-                  .headline5
-                  .copyWith(color: Colors.green),
+    searchHistory.isNotEmpty
+        ? searchHistoryList.add(
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                TextButton(
+                  onPressed: () {
+                    setState(() {
+                      _textEditingController.clear();
+                      searchHistory.clear();
+                      state = States.empty;
+                    });
+                  },
+                  child: Text(
+                    sightSearchScreenClear,
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline5
+                        .copyWith(color: Colors.green),
+                  ),
+                  style: TextButton.styleFrom(
+                    padding: EdgeInsets.zero,
+                  ),
+                ),
+              ],
             ),
-            style: TextButton.styleFrom(
-              padding: EdgeInsets.zero,
-            ),
-          ),
-        ],
-      ),
-    );
+          )
+        : const SizedBox();
 
     return searchHistoryList;
   }
