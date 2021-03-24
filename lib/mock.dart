@@ -32,7 +32,7 @@ final List<Sight> mocks = [
       details: 'Астраханский кремль',
       type: 'Музей'),
   Sight(
-      nameSights: 'Ресторан Белуга',
+      nameSights: 'Ресторан  Белуга',
       lat: 46.354357,
       lon: 48.033053,
       url:
@@ -40,11 +40,19 @@ final List<Sight> mocks = [
       details: 'славится своими рыбными блюдами',
       type: 'Ресторан'),
   Sight(
-      nameSights: 'Ресторан Пряности',
+      nameSights: 'Ресторан  Пряности',
       lat: 46.352273,
       lon: 48.033619,
       url: 'https://fb.ru/misc/i/gallery/43527/3214514.jpg',
       details: 'Кухня: европейская, итальянская, японская',
+      type: 'Ресторан'),
+  Sight(
+      nameSights: 'Ресторан  Брюнетка и браконьер',
+      lat: 46.349953,
+      lon: 48.041677,
+      url:
+          'https://avatars.mds.yandex.net/get-altay/1899727/2a0000016b902917279fc4dea94440130f4b/XXXL',
+      details: 'Кухня:европейская, авторская, смешанная',
       type: 'Ресторан'),
 ];
 

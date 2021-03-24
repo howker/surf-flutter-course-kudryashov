@@ -51,7 +51,7 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
                   ),
             ),
             Column(
-              children: _buildFoundPlacesList(context),
+              children: _buildHistoryPlacesList(context),
             ),
             const SizedBox(height: 14),
             TextButton(
@@ -179,13 +179,20 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            CheckboxListTile(
-              title: Text(
+            ListTile(
+              contentPadding: EdgeInsets.all(0),
+              trailing: IconButton(
+                icon: Icon(Icons.close),
+                onPressed: () {
+                  setState(() {
+                    searchHistory.remove(element);
+                  });
+                },
+              ),
+              leading: Text(
                 element,
                 style: Theme.of(context).textTheme.caption,
               ),
-              onChanged: (bool value) {},
-              value: true,
             ),
             const Divider(),
           ],
