@@ -16,6 +16,7 @@ class SightCard extends StatelessWidget {
   String details;
   String closed;
   TextStyle detailsStyle;
+  Key key;
 
   SightCard({
     Key key,
@@ -27,7 +28,7 @@ class SightCard extends StatelessWidget {
     this.details = sight.details;
     this.closed = close;
   }
-  SightCard.wantToVisit(this.sight) {
+  SightCard.wantToVisit(this.sight, this.key) {
     firstIcon = calendar;
     secondIcon = const Icon(Icons.close);
     descriptionCardHeight = 102;

@@ -9,8 +9,8 @@ class WantToVisitTab extends StatelessWidget {
     return SingleChildScrollView(
       child: Column(
         children: [
-          SightCard.wantToVisit(mocks[0]),
-          SightCard.wantToVisit(mocks[1]),
+          SightCard.wantToVisit(mocks[3], ValueKey('firstCard')),
+          SightCard.wantToVisit(mocks[4], ValueKey('secondCard')),
         ],
       ),
     );
