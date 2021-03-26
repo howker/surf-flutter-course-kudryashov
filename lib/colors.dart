@@ -11,7 +11,10 @@ const Color lmBackgroundColor = _milkWhite,
     lmHeadline3Color = _white,
     lmElevatedButtonColor = _green,
     lmRangeSliderActiveColor = _green,
-    lmThumbColor = _white;
+    lmThumbColor = _white,
+    lmTextFieldCursorColor = _ferricBlack,
+    lmToggleableActiveColor = _green,
+    lmUnselectedWidgetColor = _white;
 
 /// Цвета для тёмной темы
 const Color dmPrimaryColor = _lightBlack,
@@ -22,7 +25,10 @@ const Color dmPrimaryColor = _lightBlack,
     dmHeadline3Color = _darkGrey,
     dmElevatedButtonColor = _green,
     dmRangeSliderActiveColor = _green,
-    dmThumbColor = _white;
+    dmThumbColor = _white,
+    dmTextFieldCursorColor = _white,
+    dmToggleableActiveColor = _green,
+    dmUnselectedWidgetColor = _lightBlack;
 
 /// Цвета по умолчанию
 const Color defaultIconColor = _white;

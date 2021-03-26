@@ -54,7 +54,7 @@ class SightDetails extends StatelessWidget {
                       height: 32,
                       child: Padding(
                         padding: const EdgeInsets.only(left: 6),
-                        child: const Icon(
+                        child: Icon(
                           Icons.arrow_back_ios,
                           color: Theme.of(context).primaryColorDark,
                           size: 15,
@@ -149,7 +149,7 @@ class SightDetails extends StatelessWidget {
               children: [
                 IconButton(
                   padding: EdgeInsets.only(left: 33),
-                  icon: const Icon(
+                  icon: Icon(
                     Icons.calendar_today,
                     color: lmInactiveBlackColor,
                   ),
