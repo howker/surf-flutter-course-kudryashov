@@ -26,7 +26,7 @@ class _AddSightScreenState extends State<AddSightScreen> {
   String urlSight = urlByDefault;
   String detailsSight = '';
   String typeSight = '';
-  
+
   @override
   void dispose() {
     textControllerLat.dispose();
@@ -247,14 +247,8 @@ class _AddSightScreenState extends State<AddSightScreen> {
                   },
                   color: Theme.of(context).primaryColorDark,
                 ),
-                enabledBorder: OutlineInputBorder(
-                  borderSide: const BorderSide(color: Colors.green, width: 1.0),
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderSide: const BorderSide(color: Colors.green, width: 1.0),
-                  borderRadius: BorderRadius.circular(8),
-                ),
+                enabledBorder: _outlineInputBorder(),
+                focusedBorder: _outlineInputBorder(),
               ),
               onEditingComplete: () {
                 focusNodeNewPlaceScreenDescription.requestFocus();
@@ -266,6 +260,13 @@ class _AddSightScreenState extends State<AddSightScreen> {
           ),
         ),
       ],
+    );
+  }
+
+  OutlineInputBorder _outlineInputBorder() {
+    return OutlineInputBorder(
+      borderSide: const BorderSide(color: Colors.green, width: 1.0),
+      borderRadius: BorderRadius.circular(8),
     );
   }
 
