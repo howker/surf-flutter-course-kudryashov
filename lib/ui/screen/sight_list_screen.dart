@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:places/mock.dart';
 import 'package:places/text_string_const.dart';
 import 'package:places/ui/widgets/bottom_navibar.dart';
+import 'package:places/ui/widgets/search_bar.dart';
 import 'package:places/ui/widgets/sight_card.dart';
 
 /// список карточек интересных мест
@@ -19,6 +20,7 @@ class _SightListScreenState extends State<SightListScreen> {
     return Scaffold(
       appBar: CustomAppBar(
         title: listInterestingPlaces,
+        searchBar: SearchBar(),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -62,29 +64,36 @@ class _SightListScreenState extends State<SightListScreen> {
 }
 
 ///кастомизированный AppBar
-class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
+class CustomAppBar extends StatefulWidget implements PreferredSizeWidget {
   final String title;
-
-  const CustomAppBar({Key key, this.title}) : super(key: key);
+  final Widget searchBar;
+  const CustomAppBar({Key key, this.title, this.searchBar}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return Padding(
-      child: Text(
-        title,
-        textAlign: TextAlign.left,
-        maxLines: 2,
-        style: Theme.of(context).textTheme.headline6,
-      ),
-      padding: const EdgeInsets.only(
-        left: 16.0,
-        top: 64.0,
-        right: 16.0,
-        bottom: 16.0,
-      ),
-    );
-  }
+  _CustomAppBarState createState() => _CustomAppBarState();
 
   @override
   Size get preferredSize => const Size.fromHeight(136.0);
+}
+
+class _CustomAppBarState extends State<CustomAppBar> {
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      child: Column(
+        children: [
+          const SizedBox(height: 40),
+          Text(
+            widget.title,
+            textAlign: TextAlign.left,
+            maxLines: 2,
+            style: Theme.of(context).textTheme.headline1,
+          ),
+          const SizedBox(height: 22),
+          widget.searchBar,
+        ],
+      ),
+    );
+  }
 }

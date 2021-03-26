@@ -30,7 +30,30 @@ final List<Sight> mocks = [
       lon: 48.030772,
       url: 'https://cdn.photosight.ru/img/8/2a2/6386165_large.jpg',
       details: 'Астраханский кремль',
-      type: 'Музей, достопримечательность'),
+      type: 'Музей'),
+  Sight(
+      nameSights: 'Ресторан  Белуга',
+      lat: 46.354357,
+      lon: 48.033053,
+      url:
+          'https://i1.photo.2gis.com/images/branch/8/1125899943872413_ffb7.jpg',
+      details: 'славится своими рыбными блюдами',
+      type: 'Ресторан'),
+  Sight(
+      nameSights: 'Ресторан  Пряности',
+      lat: 46.352273,
+      lon: 48.033619,
+      url: 'https://fb.ru/misc/i/gallery/43527/3214514.jpg',
+      details: 'Кухня: европейская, итальянская, японская',
+      type: 'Ресторан'),
+  Sight(
+      nameSights: 'Ресторан  Брюнетка и браконьер',
+      lat: 46.349953,
+      lon: 48.041677,
+      url:
+          'https://avatars.mds.yandex.net/get-altay/1899727/2a0000016b902917279fc4dea94440130f4b/XXXL',
+      details: 'Кухня:европейская, авторская, смешанная',
+      type: 'Ресторан'),
 ];
 
 Map filters = {
@@ -50,3 +73,10 @@ Map placesCategory = {
   'Музей': false,
   'Кафе': false,
 };
+
+List searchHistory = [];
+
+const double userLat = 46.348838;
+const double userLng = 48.029816;
+
+List<Sight> sortedByRadius = [];

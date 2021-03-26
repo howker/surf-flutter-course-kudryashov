@@ -13,3 +13,5 @@ const String particular_place = 'res/icons/Particular_place.svg';
 const String restourant = 'res/icons/Restourant.svg';
 const String settings = 'res/icons/Settings.svg';
 const String share = 'res/icons/Share.svg';
+const String filterSvg = 'res/icons/Filter.svg';
+const String searchSvg = 'res/icons/Search.svg';

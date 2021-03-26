@@ -1,6 +1,6 @@
 /// Текстовые константы
 
-const String listInterestingPlaces = 'Список\nинтересных мест';
+const String listInterestingPlaces = 'Список интересных мест';
 const String placesN = 'писок\n';
 const String nPlaces = 'нтересных мест';
 const String favorites = 'Избранное';
@@ -50,7 +50,7 @@ const String buildRoute = 'ПОСТРОИТЬ МАРШРУТ';
 const String toPlain = 'Запланировать';
 const String toFavorites = 'В Избранное';
 
-///AddSightScreen
+/// AddSightScreen
 const String newPlaceScreenTitle = 'Новое место';
 const String newPlaceScreenCancel = 'Отмена';
 const String newPlaceScreenCategory = 'КАТЕГОРИЯ';
@@ -65,9 +65,19 @@ const String newPlaceScreenCreateButton = 'СОЗДАТЬ';
 const String urlByDefault =
     'https://cdn.photosight.ru/img/8/2a2/6386165_large.jpg';
 
-///NewPlaceCategoryScreen
+/// NewPlaceCategoryScreen
 const String newPlaceCategoryScreenCategory = 'Категория';
 const String newPlaceCategoryScreenSave = 'СОХРАНИТЬ';
 
 /// SightListScreen
 const String sightListScreenAddNewPlace = 'НОВОЕ МЕСТО';
+
+/// SearchBar
+const String searchBarHint = 'Поиск';
+
+/// SightSearchScreen
+const String sightSearchScreenYouSearched = 'ВЫ ИСКАЛИ';
+const String sightSearchScreenClear = 'Очистить историю';
+const String sightSearchScreenNothingFound = 'Ничего не найдено.';
+const String sightSearchScreenTryToChange =
+    'Попробуйте изменить параметры\nпоиска';
