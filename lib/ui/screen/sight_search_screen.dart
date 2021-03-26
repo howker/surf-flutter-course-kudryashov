@@ -223,37 +223,6 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
       return foundPlacesListlist;
   }
 
-  List<Widget> _searchErrorState() {
-    List<Widget> searchErrorState = [
-      Center(
-        child: Column(
-          children: [
-            const SizedBox(height: 170),
-            SvgPicture.asset(
-              searchSvg,
-              color: lmInactiveBlackColor,
-              width: 50,
-              height: 48,
-            ),
-            const SizedBox(height: 32),
-            const Text(
-              sightSearchScreenNothingFound,
-              style: textSubtitleRegular18Grey,
-            ),
-            const SizedBox(height: 8),
-            const Text(
-              sightSearchScreenTryToChange,
-              style: textSmallRegular14Grey,
-              textAlign: TextAlign.center,
-            ),
-          ],
-        ),
-      ),
-    ];
-
-    return searchErrorState;
-  }
-
   Widget _buildImageCardItem(element) {
     return ClipRRect(
       borderRadius: BorderRadius.circular(12),
@@ -356,5 +325,36 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
         : const SizedBox();
 
     return searchHistoryList;
+  }
+
+  List<Widget> _searchErrorState() {
+    List<Widget> searchErrorState = [
+      Center(
+        child: Column(
+          children: [
+            const SizedBox(height: 170),
+            SvgPicture.asset(
+              searchSvg,
+              color: lmInactiveBlackColor,
+              width: 50,
+              height: 48,
+            ),
+            const SizedBox(height: 32),
+            const Text(
+              sightSearchScreenNothingFound,
+              style: textSubtitleRegular18Grey,
+            ),
+            const SizedBox(height: 8),
+            const Text(
+              sightSearchScreenTryToChange,
+              style: textSmallRegular14Grey,
+              textAlign: TextAlign.center,
+            ),
+          ],
+        ),
+      ),
+    ];
+
+    return searchErrorState;
   }
 }
