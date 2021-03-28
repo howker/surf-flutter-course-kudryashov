@@ -7,6 +7,7 @@ import 'package:places/ui/screen/settings_screen.dart';
 import 'package:places/ui/screen/sight_details.dart';
 import 'package:places/ui/screen/sight_list_screen.dart';
 import 'package:places/ui/screen/visiting_screen.dart';
+import 'package:places/ui/widgets/sight_card.dart';
 
 final themeModel = ThemeModel();
 void main() {

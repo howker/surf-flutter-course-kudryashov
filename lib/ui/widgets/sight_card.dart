@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-
 import 'package:places/domain/sight.dart';
 import 'package:places/mock.dart';
 import 'package:places/styles.dart';
@@ -17,33 +16,36 @@ class SightCard extends StatelessWidget {
   String closed;
   TextStyle detailsStyle;
   Key key;
+  Function onRemoveCard;
 
-  SightCard({
-    Key key,
-    this.sight,
-  }) {
+  SightCard({this.sight, this.key, this.onRemoveCard}) : super(key: key) {
     this.sight = sight ?? mocks[0];
     this.secondIcon = secondIcon ?? const Icon(Icons.favorite_border);
     this.descriptionCardHeight = 92;
     this.details = sight.details;
     this.closed = close;
+    this.key = key ?? ValueKey(this.sight.nameSights);
   }
-  SightCard.wantToVisit(this.sight, this.key) {
+  SightCard.wantToVisit({this.sight, this.key, this.onRemoveCard})
+      : super(key: key) {
     firstIcon = calendar;
     secondIcon = const Icon(Icons.close);
     descriptionCardHeight = 102;
     details = planned;
     closed = close;
     detailsStyle = textRegular14Grey.copyWith(color: Colors.green);
+    this.key = key ?? ValueKey(this.sight.nameSights);
   }
 
-  SightCard.alreadyVisited(this.sight) {
+  SightCard.alreadyVisited({this.sight, this.key, this.onRemoveCard})
+      : super(key: key) {
     firstIcon = share;
     secondIcon = const Icon(Icons.close);
     descriptionCardHeight = 102;
     details = aimReached;
     closed = close;
     detailsStyle = textRegular14Grey;
+    this.key = key ?? ValueKey(this.sight.nameSights);
   }
 
   @override
@@ -174,7 +176,8 @@ class SightCard extends StatelessWidget {
 
   void _onSecondIconTap() {
     if (secondIcon.icon == Icons.close) {
-      print('close');
+      print('delete card');
+      onRemoveCard();
     } else
       print('to favourites');
   }
