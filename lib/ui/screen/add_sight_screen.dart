@@ -146,7 +146,7 @@ class _AddSightScreenState extends State<AddSightScreen> {
       photoCardList.add(
         Dismissible(
           key: ValueKey(element.nameSights),
-          direction: DismissDirection.vertical,
+          direction: DismissDirection.up,
           onDismissed: (direction) {
             setState(() {
               mocksPhotos.remove(element);
