@@ -1,6 +1,9 @@
+import 'package:flutter/material.dart';
+
 /// моковые (тестовые) объекты для имитации интересных мест
 
 import 'package:places/domain/sight.dart';
+import 'package:places/ui/widgets/sight_card.dart';
 
 final List<Sight> mocks = [
   Sight(

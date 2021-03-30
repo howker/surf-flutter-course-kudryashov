@@ -7,6 +7,7 @@ import 'package:places/ui/screen/settings_screen.dart';
 import 'package:places/ui/screen/sight_details.dart';
 import 'package:places/ui/screen/sight_list_screen.dart';
 import 'package:places/ui/screen/visiting_screen.dart';
+import 'package:places/ui/widgets/sight_card.dart';
 
 final themeModel = ThemeModel();
 void main() {
@@ -29,11 +30,12 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: themeModel.isDark ? darkTheme : lightTheme,
-      title: 'TITLE',
+      title: 'Intresting places',
       home: //AddSightScreen(),
           //SettingsScreen(),
           //FiltersScreen(),
-          SightListScreen(), //VisitingScreen(),
+          //SightListScreen(),
+          VisitingScreen(),
 
       //     SightDetails(
       //   sight: mocks[0],
