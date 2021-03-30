@@ -13,15 +13,14 @@ class _AlreadyVisitedTabState extends State<AlreadyVisitedTab> {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Column(
-        children: mocks
-            .map(
-              (e) => SightCard.alreadyVisited(
-                key: ValueKey(e.nameSights),
-                sight: e,
-                onRemoveCard: () => onRemoveCard(e),
-              ),
-            )
-            .toList(),
+        children: [
+          for (var e in mocks)
+            SightCard.alreadyVisited(
+              key: ValueKey(e.nameSights),
+              sight: e,
+              onRemoveCard: () => onRemoveCard(e),
+            ),
+        ],
       ),
     );
   }
