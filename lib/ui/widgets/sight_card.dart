@@ -61,29 +61,36 @@ class SightCard extends StatelessWidget {
   Widget buildStack(BuildContext context) {
     return Stack(
       children: [
-        Image.network(
-          sight.url,
-          height: 198,
-          width: double.infinity,
-          fit: BoxFit.cover,
-          loadingBuilder: (BuildContext context, Widget child,
-              ImageChunkEvent loadingProgress) {
-            if (loadingProgress == null) return child;
-            return Center(
-              child: CircularProgressIndicator(
-                value: loadingProgress.expectedTotalBytes != null
-                    ? loadingProgress.cumulativeBytesLoaded /
-                        loadingProgress.expectedTotalBytes
-                    : null,
-              ),
-            );
-          },
+        Container(
+          constraints: BoxConstraints(
+              maxWidth: MediaQuery.of(context).size.width, maxHeight: 198),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(16),
+            child: Image.network(
+              sight.url,
+              height: 198,
+              width: double.infinity,
+              fit: BoxFit.cover,
+              loadingBuilder: (BuildContext context, Widget child,
+                  ImageChunkEvent loadingProgress) {
+                if (loadingProgress == null) return child;
+                return Center(
+                  child: CircularProgressIndicator(
+                    value: loadingProgress.expectedTotalBytes != null
+                        ? loadingProgress.cumulativeBytesLoaded /
+                            loadingProgress.expectedTotalBytes
+                        : null,
+                  ),
+                );
+              },
+            ),
+          ),
         ),
         Positioned(
           top: 96,
           child: Container(
             height: descriptionCardHeight,
-            width: MediaQuery.of(context).size.width,
+            width: MediaQuery.of(context).size.width - 32,
             decoration: BoxDecoration(
               color: Theme.of(context).backgroundColor,
               borderRadius: const BorderRadius.only(

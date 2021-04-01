@@ -32,10 +32,14 @@ class _WantToVisitTabState extends State<WantToVisitTab> {
                       ),
                     ),
                   ),
-                  child: SightCard.wantToVisit(
-                    key: ValueKey(e.nameSights),
-                    sight: e,
-                    onRemoveCard: () => onRemoveCard(e),
+                  child: ConstrainedBox(
+                    constraints: BoxConstraints(
+                        maxWidth: MediaQuery.of(context).size.width),
+                    child: SightCard.wantToVisit(
+                      key: ValueKey(e.nameSights),
+                      sight: e,
+                      onRemoveCard: () => onRemoveCard(e),
+                    ),
                   ),
                 ),
               ),
