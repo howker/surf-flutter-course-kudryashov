@@ -28,6 +28,7 @@ class _WantToVisitTabState extends State<WantToVisitTab> {
                     key: ValueKey(e.nameSights),
                     sight: e,
                     onRemoveCard: () => onRemoveCard(e),
+                    onReorderCard: () => setState(() {}),
                   ),
                 ),
               ),
