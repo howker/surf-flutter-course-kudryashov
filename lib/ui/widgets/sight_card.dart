@@ -69,10 +69,10 @@ class SightCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Stack(
-      clipBehavior: Clip.hardEdge,
       children: [
-        _buildSecondaryBackground(context),
         Dismissible(
+          background: const SizedBox.shrink(),
+          secondaryBackground: _buildSecondaryBackground(context),
           direction: DismissDirection.endToStart,
           key: key,
           onDismissed: (direction) {
