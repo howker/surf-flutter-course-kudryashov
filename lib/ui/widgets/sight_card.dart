@@ -50,129 +50,137 @@ class SightCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(16),
-      child: Material(
-        child: buildStack(context),
-      ),
+    return LongPressDraggable(
+      data: sight,
+      axis: Axis.vertical,
+      feedback: _buildCard(context),
+      child: _buildCard(context),
+      childWhenDragging: const SizedBox.shrink(),
     );
   }
 
-  Widget buildStack(BuildContext context) {
-    return Stack(
-      children: [
-        Container(
-          constraints: BoxConstraints(
-              maxWidth: MediaQuery.of(context).size.width, maxHeight: 198),
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(16),
-            child: Image.network(
-              sight.url,
-              height: 198,
-              width: double.infinity,
-              fit: BoxFit.cover,
-              loadingBuilder: (BuildContext context, Widget child,
-                  ImageChunkEvent loadingProgress) {
-                if (loadingProgress == null) return child;
-                return Center(
-                  child: CircularProgressIndicator(
-                    value: loadingProgress.expectedTotalBytes != null
-                        ? loadingProgress.cumulativeBytesLoaded /
-                            loadingProgress.expectedTotalBytes
-                        : null,
-                  ),
-                );
-              },
-            ),
-          ),
-        ),
-        Positioned(
-          top: 96,
-          child: Container(
-            height: descriptionCardHeight,
-            width: MediaQuery.of(context).size.width - 32,
-            decoration: BoxDecoration(
-              color: Theme.of(context).backgroundColor,
-              borderRadius: const BorderRadius.only(
-                bottomLeft: const Radius.circular(15),
-                bottomRight: const Radius.circular(15),
+  Widget _buildCard(BuildContext context) {
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(16),
+      child: Material(
+        child: Stack(
+          children: [
+            Container(
+              constraints: BoxConstraints(
+                maxWidth: MediaQuery.of(context).size.width - 32,
+                maxHeight: 198,
+              ),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(16),
+                child: Image.network(
+                  sight.url,
+                  height: 198,
+                  width: double.infinity,
+                  fit: BoxFit.cover,
+                  loadingBuilder: (BuildContext context, Widget child,
+                      ImageChunkEvent loadingProgress) {
+                    if (loadingProgress == null) return child;
+                    return Center(
+                      child: CircularProgressIndicator(
+                        value: loadingProgress.expectedTotalBytes != null
+                            ? loadingProgress.cumulativeBytesLoaded /
+                                loadingProgress.expectedTotalBytes
+                            : null,
+                      ),
+                    );
+                  },
+                ),
               ),
             ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const SizedBox(
-                  height: 16,
-                ),
-                Container(
-                  padding: const EdgeInsets.only(
-                    left: 16,
-                    right: 16,
-                  ),
-                  child: Text(
-                    sight.nameSights,
-                    style: Theme.of(context).textTheme.headline5,
+            Positioned(
+              top: 96,
+              child: Container(
+                height: descriptionCardHeight,
+                width: MediaQuery.of(context).size.width - 32,
+                decoration: BoxDecoration(
+                  color: Theme.of(context).backgroundColor,
+                  borderRadius: const BorderRadius.only(
+                    bottomLeft: const Radius.circular(15),
+                    bottomRight: const Radius.circular(15),
                   ),
                 ),
-                const SizedBox(
-                  height: 2,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const SizedBox(
+                      height: 16,
+                    ),
+                    Container(
+                      padding: const EdgeInsets.only(
+                        left: 16,
+                        right: 16,
+                      ),
+                      child: Text(
+                        sight.nameSights,
+                        style: Theme.of(context).textTheme.headline5,
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 2,
+                    ),
+                    Expanded(
+                      child: Container(
+                        padding: const EdgeInsets.only(
+                          left: 16,
+                          right: 16,
+                        ),
+                        child: Text(
+                          closed,
+                          style: textRegular14Grey,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-                Expanded(
-                  child: Container(
-                    padding: const EdgeInsets.only(
-                      left: 16,
-                      right: 16,
-                    ),
-                    child: Text(
-                      closed,
-                      style: textRegular14Grey,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-        Positioned.fill(
-          bottom: 57,
-          child: Material(
-            type: MaterialType.transparency,
-            child: InkWell(
-              borderRadius: BorderRadius.circular(16),
-              onTap: () {
-                print('onTap');
-              },
-            ),
-          ),
-        ),
-        Positioned(
-          top: 19,
-          left: 16,
-          child: Text(
-            sight.type,
-            style: textBold14Black.copyWith(color: Colors.white),
-          ),
-        ),
-        Positioned(
-          top: 19,
-          right: 16,
-          child: Row(
-            children: [
-              firstIcon == null
-                  ? const SizedBox()
-                  : InkWell(
-                      child: SvgPicture.asset(firstIcon),
-                      onTap: _onFirstIconTap,
-                    ),
-              const SizedBox(width: 23),
-              InkWell(
-                child: secondIcon,
-                onTap: _onSecondIconTap,
               ),
-            ],
-          ),
+            ),
+            Positioned.fill(
+              bottom: 57,
+              child: Material(
+                type: MaterialType.transparency,
+                child: InkWell(
+                  borderRadius: BorderRadius.circular(16),
+                  onTap: () {
+                    print('onTap');
+                  },
+                ),
+              ),
+            ),
+            Positioned(
+              top: 19,
+              left: 16,
+              child: Text(
+                sight.type,
+                style: textBold14Black.copyWith(color: Colors.white),
+              ),
+            ),
+            Positioned(
+              top: 19,
+              right: 16,
+              child: Row(
+                children: [
+                  firstIcon == null
+                      ? const SizedBox()
+                      : InkWell(
+                          child: SvgPicture.asset(firstIcon),
+                          onTap: _onFirstIconTap,
+                        ),
+                  const SizedBox(width: 23),
+                  InkWell(
+                    child: secondIcon,
+                    onTap: _onSecondIconTap,
+                  ),
+                ],
+              ),
+            ),
+          ],
         ),
-      ],
+      ),
     );
   }
 
@@ -191,120 +199,3 @@ class SightCard extends StatelessWidget {
       print('share');
   }
 }
-
-// Stack buildStack(BuildContext context) {
-//     return Stack(
-//         children: [
-//           Container(
-//             height: 188,
-//             width: double.infinity,
-//             child: ClipRRect(
-//               borderRadius: BorderRadius.circular(15),
-//               child: Image.network(
-//                 sight.url,
-//                 fit: BoxFit.cover,
-//                 loadingBuilder: (BuildContext context, Widget child,
-//                     ImageChunkEvent loadingProgress) {
-//                   if (loadingProgress == null) return child;
-//                   return Center(
-//                     child: CircularProgressIndicator(
-//                       value: loadingProgress.expectedTotalBytes != null
-//                           ? loadingProgress.cumulativeBytesLoaded /
-//                               loadingProgress.expectedTotalBytes
-//                           : null,
-//                     ),
-//                   );
-//                 },
-//               ),
-//             ),
-//           ),
-//           Positioned(
-//             top: 120,
-//             left: 0,
-//             child: Container(
-//               height: descriptionCardHeight,
-//               width: 380,
-//               decoration: BoxDecoration(
-//                 color: Theme.of(context).backgroundColor,
-//                 borderRadius: const BorderRadius.only(
-//                   bottomLeft: const Radius.circular(15),
-//                   bottomRight: const Radius.circular(15),
-//                 ),
-//               ),
-//               child: Column(
-//                 crossAxisAlignment: CrossAxisAlignment.start,
-//                 children: [
-//                   const SizedBox(
-//                     height: 16,
-//                   ),
-//                   Container(
-//                     padding: const EdgeInsets.only(
-//                       left: 16,
-//                       right: 16,
-//                     ),
-//                     child: Text(
-//                       sight.nameSights,
-//                       style: Theme.of(context).textTheme.headline5,
-//                     ),
-//                   ),
-//                   const SizedBox(
-//                     height: 2,
-//                   ),
-//                   Expanded(
-//                     child: Container(
-//                       padding: const EdgeInsets.only(
-//                         left: 16,
-//                         right: 16,
-//                       ),
-//                       child: Text(
-//                         closed,
-//                         style: textRegular14Grey,
-//                       ),
-//                     ),
-//                   ),
-//                 ],
-//               ),
-//             ),
-//           ),
-//           Positioned.fill(
-//             bottom: 62,
-//             child: Material(
-//               type: MaterialType.transparency,
-//               child: InkWell(
-//                 borderRadius: BorderRadius.circular(16),
-//                 onTap: () {
-//                   print('onTap');
-//                 },
-//               ),
-//             ),
-//           ),
-//           Positioned(
-//             top: 19,
-//             left: 16,
-//             child: Text(
-//               sight.type,
-//               style: textBold14Black.copyWith(color: Colors.white),
-//             ),
-//           ),
-//           Positioned(
-//             top: 19,
-//             right: 16,
-//             child: Row(
-//               children: [
-//                 firstIcon == null
-//                     ? const SizedBox()
-//                     : InkWell(
-//                         child: SvgPicture.asset(firstIcon),
-//                         onTap: _onFirstIconTap,
-//                       ),
-//                 const SizedBox(width: 23),
-//                 InkWell(
-//                   child: secondIcon,
-//                   onTap: _onSecondIconTap,
-//                 ),
-//               ],
-//             ),
-//           ),
-//         ],
-//       );
-//   }
