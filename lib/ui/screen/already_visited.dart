@@ -27,6 +27,7 @@ class _AlreadyVisitedTabState extends State<AlreadyVisitedTab> {
                     sight: e,
                     onRemoveCard: () => onRemoveCard(e),
                     onReorderCard: () => setState(() {}),
+                    onDismissedCard: () => onDismissedCard(e),
                   ),
                 ),
               ),
@@ -39,6 +40,12 @@ class _AlreadyVisitedTabState extends State<AlreadyVisitedTab> {
   void onRemoveCard(sight) {
     setState(() {
       mocks.remove(sight);
+    });
+  }
+
+  void onDismissedCard(sight) {
+    setState(() {
+      onRemoveCard(sight);
     });
   }
 }

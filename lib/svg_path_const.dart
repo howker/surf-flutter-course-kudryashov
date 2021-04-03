@@ -15,3 +15,4 @@ const String settings = 'res/icons/Settings.svg';
 const String share = 'res/icons/Share.svg';
 const String filterSvg = 'res/icons/Filter.svg';
 const String searchSvg = 'res/icons/Search.svg';
+const String bucketSvg = 'res/icons/Bucket.svg';
