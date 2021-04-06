@@ -144,46 +144,55 @@ class _AddSightScreenState extends State<AddSightScreen> {
 
     for (var element in mocksPhotos) {
       photoCardList.add(
-        Padding(
-          padding: const EdgeInsets.only(right: 16),
-          child: Stack(
-            children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(12),
-                child: Container(
-                  height: 72,
-                  width: 72,
-                  child: Image.network(
-                    element.url,
-                    fit: BoxFit.cover,
-                    loadingBuilder: (BuildContext context, Widget child,
-                        ImageChunkEvent loadingProgress) {
-                      if (loadingProgress == null) return child;
-                      return Center(
-                        child: CircularProgressIndicator(
-                          value: loadingProgress.expectedTotalBytes != null
-                              ? loadingProgress.cumulativeBytesLoaded /
-                                  loadingProgress.expectedTotalBytes
-                              : null,
-                        ),
-                      );
+        Dismissible(
+          key: ValueKey(element.nameSights),
+          direction: DismissDirection.up,
+          onDismissed: (direction) {
+            setState(() {
+              mocksPhotos.remove(element);
+            });
+          },
+          child: Padding(
+            padding: const EdgeInsets.only(right: 16),
+            child: Stack(
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(12),
+                  child: Container(
+                    height: 72,
+                    width: 72,
+                    child: Image.network(
+                      element.url,
+                      fit: BoxFit.cover,
+                      loadingBuilder: (BuildContext context, Widget child,
+                          ImageChunkEvent loadingProgress) {
+                        if (loadingProgress == null) return child;
+                        return Center(
+                          child: CircularProgressIndicator(
+                            value: loadingProgress.expectedTotalBytes != null
+                                ? loadingProgress.cumulativeBytesLoaded /
+                                    loadingProgress.expectedTotalBytes
+                                : null,
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                ),
+                Positioned(
+                  right: 5,
+                  top: 5,
+                  child: GestureDetector(
+                    child: const Icon(Icons.cancel),
+                    onTap: () {
+                      setState(() {
+                        mocksPhotos.remove(element);
+                      });
                     },
                   ),
                 ),
-              ),
-              Positioned(
-                right: 5,
-                top: 5,
-                child: GestureDetector(
-                  child: const Icon(Icons.cancel),
-                  onTap: () {
-                    setState(() {
-                      mocksPhotos.remove(element);
-                    });
-                  },
-                ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       );
