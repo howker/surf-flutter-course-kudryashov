@@ -18,53 +18,25 @@ class _NewPlaceCategoryScreenState extends State<NewPlaceCategoryScreen> {
       appBar: _buildAppBar(context),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16),
-        child: ListView.separated(
-          itemBuilder: (BuildContext context, int index) {
-            return CheckboxListTile(
-              activeColor: Theme.of(context).primaryColor,
-              checkColor: Colors.green,
-              title: Text(
-                placesCategory[index].key,
-                style: Theme.of(context).textTheme.caption,
-              ),
-              value: placesCategory[index].value,
-              onChanged: (bool newValue) {
-                setState(() {
-                  //placesCategory.updateAll((placesCategory[index].key, placesCategory[index].value) => false);
-                  placesCategory.update(
-                      placesCategory[index].key, (value) => newValue);
-                  newPlaceCategory = placesCategory[index].key;
-                });
-              },
-            );
-          },
-          separatorBuilder: (BuildContext context, int index) {
-            return const Divider();
-          },
-          itemCount: placesCategory.length,
-          padding: const EdgeInsets.symmetric(horizontal: 16),
+        child: ListView(
+          children: [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: _buildCheckboxListTile(context),
+            ),
+            _buildSaveButton(context),
+          ],
           physics: Platform.isAndroid
               ? ClampingScrollPhysics()
               : BouncingScrollPhysics(),
         ),
-
-        // Column(
-        //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        //   crossAxisAlignment: CrossAxisAlignment.start,
-        //   children: [
-        //     Column(
-        //       children: _buildCheckboxListTile(context),
-        //     ),
-        //     _buildSaveButton(context),
-        //   ],
-        // ),
       ),
     );
   }
 
   Widget _buildSaveButton(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 8),
+      padding: const EdgeInsets.only(bottom: 8, top: 210),
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
           minimumSize: Size(double.infinity, 48),
