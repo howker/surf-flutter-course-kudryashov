@@ -7,6 +7,12 @@ import 'package:places/ui/widgets/sight_card.dart';
 
 final List<Sight> mocks = [
   Sight(
+      urlsImages: [
+        'https://cdn.photosight.ru/img/8/2a2/6386165_large.jpg',
+        'https://www.miroworld.ru/wp-content/uploads/2018/10/Astrahanskij-kreml.jpg',
+        'https://wikiway.com/upload/resize_cache/hl-photo/437/628/1024_800_1/astrahanskiy_kreml_15.jpg',
+        'https://wikiway.com/upload/hl-photo/20c/6f4/astrahanskiy_kreml_4.jpg',
+      ],
       nameSights: 'Астраханский кремль',
       lat: 46.349540,
       lon: 48.030772,
