@@ -17,8 +17,13 @@ class SightCard extends StatelessWidget {
   TextStyle detailsStyle;
   Key key;
   Function onRemoveCard;
+  Function onReorderCard;
 
-  SightCard({this.sight, this.key, this.onRemoveCard}) : super(key: key) {
+  SightCard({
+    this.sight,
+    this.key,
+    this.onRemoveCard,
+  }) : super(key: key) {
     this.sight = sight ?? mocks[0];
     this.secondIcon = secondIcon ?? const Icon(Icons.favorite_border);
     this.descriptionCardHeight = 92;
@@ -26,8 +31,12 @@ class SightCard extends StatelessWidget {
     this.closed = close;
     this.key = key ?? ValueKey(this.sight.nameSights);
   }
-  SightCard.wantToVisit({this.sight, this.key, this.onRemoveCard})
-      : super(key: key) {
+  SightCard.wantToVisit({
+    this.sight,
+    this.key,
+    this.onRemoveCard,
+    this.onReorderCard,
+  }) : super(key: key) {
     firstIcon = calendar;
     secondIcon = const Icon(Icons.close);
     descriptionCardHeight = 102;
@@ -37,8 +46,12 @@ class SightCard extends StatelessWidget {
     this.key = key ?? ValueKey(this.sight.nameSights);
   }
 
-  SightCard.alreadyVisited({this.sight, this.key, this.onRemoveCard})
-      : super(key: key) {
+  SightCard.alreadyVisited({
+    this.sight,
+    this.key,
+    this.onRemoveCard,
+    this.onReorderCard,
+  }) : super(key: key) {
     firstIcon = share;
     secondIcon = const Icon(Icons.close);
     descriptionCardHeight = 102;
@@ -50,128 +63,164 @@ class SightCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      child: AspectRatio(
-        aspectRatio: 3 / 2,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: Stack(
-            children: [
-              Container(
-                height: 188,
-                width: double.infinity,
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(15),
-                  child: Image.network(
-                    sight.url,
-                    fit: BoxFit.cover,
-                    loadingBuilder: (BuildContext context, Widget child,
-                        ImageChunkEvent loadingProgress) {
-                      if (loadingProgress == null) return child;
-                      return Center(
-                        child: CircularProgressIndicator(
-                          value: loadingProgress.expectedTotalBytes != null
-                              ? loadingProgress.cumulativeBytesLoaded /
-                                  loadingProgress.expectedTotalBytes
-                              : null,
-                        ),
-                      );
-                    },
-                  ),
+    return _buildTarget(context);
+  }
+
+  Widget _buildTarget(context) {
+    return DragTarget<Sight>(
+      builder: (
+        BuildContext context,
+        List<Sight> candidateData,
+        List<dynamic> rejectedData,
+      ) {
+        return LongPressDraggable(
+          data: sight,
+          axis: Axis.vertical,
+          feedback: _buildCard(context),
+          child: _buildCard(context),
+          childWhenDragging: const SizedBox.shrink(),
+        );
+      },
+      onAccept: (acceptedSight) {
+        final int targetIndex = mocks.indexOf(sight);
+        final int acceptedIndex = mocks.indexOf(acceptedSight);
+        mocks[targetIndex] = acceptedSight;
+        mocks[acceptedIndex] = sight;
+        onReorderCard();
+      },
+    );
+  }
+
+  Widget _buildCard(BuildContext context) {
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(16),
+      child: Material(
+        child: Stack(
+          children: [
+            Container(
+              constraints: BoxConstraints(
+                maxWidth: MediaQuery.of(context).size.width - 32,
+                maxHeight: 198,
+              ),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(16),
+                child: Image.network(
+                  sight.url,
+                  height: 198,
+                  width: double.infinity,
+                  fit: BoxFit.cover,
+                  loadingBuilder: (BuildContext context, Widget child,
+                      ImageChunkEvent loadingProgress) {
+                    if (loadingProgress == null) return child;
+                    return Center(
+                      child: CircularProgressIndicator(
+                        value: loadingProgress.expectedTotalBytes != null
+                            ? loadingProgress.cumulativeBytesLoaded /
+                                loadingProgress.expectedTotalBytes
+                            : null,
+                      ),
+                    );
+                  },
                 ),
               ),
-              Positioned(
-                top: 120,
-                left: 0,
-                child: Container(
-                  height: descriptionCardHeight,
-                  width: 380,
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).backgroundColor,
-                    borderRadius: const BorderRadius.only(
-                      bottomLeft: const Radius.circular(15),
-                      bottomRight: const Radius.circular(15),
-                    ),
+            ),
+            Positioned(
+              top: 96,
+              child: Container(
+                height: descriptionCardHeight,
+                width: MediaQuery.of(context).size.width - 32,
+                decoration: BoxDecoration(
+                  color: Theme.of(context).backgroundColor,
+                  borderRadius: const BorderRadius.only(
+                    bottomLeft: const Radius.circular(15),
+                    bottomRight: const Radius.circular(15),
                   ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const SizedBox(
-                        height: 16,
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const SizedBox(
+                      height: 16,
+                    ),
+                    Container(
+                      padding: const EdgeInsets.only(
+                        left: 16,
+                        right: 16,
                       ),
-                      Container(
+                      child: Text(
+                        sight.nameSights,
+                        style: Theme.of(context).textTheme.headline5,
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 2,
+                    ),
+                    Expanded(
+                      child: Container(
                         padding: const EdgeInsets.only(
                           left: 16,
                           right: 16,
                         ),
                         child: Text(
-                          sight.nameSights,
-                          style: Theme.of(context).textTheme.headline5,
+                          closed,
+                          style: textRegular14Grey,
                         ),
                       ),
-                      const SizedBox(
-                        height: 2,
-                      ),
-                      Expanded(
-                        child: Container(
-                          padding: const EdgeInsets.only(
-                            left: 16,
-                            right: 16,
-                          ),
-                          child: Text(
-                            closed,
-                            style: textRegular14Grey,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              Positioned.fill(
-                bottom: 62,
-                child: Material(
-                  type: MaterialType.transparency,
-                  child: InkWell(
-                    borderRadius: BorderRadius.circular(16),
-                    onTap: () {
-                      print('onTap');
-                    },
-                  ),
-                ),
-              ),
-              Positioned(
-                top: 19,
-                left: 16,
-                child: Text(
-                  sight.type,
-                  style: textBold14Black.copyWith(color: Colors.white),
-                ),
-              ),
-              Positioned(
-                top: 19,
-                right: 16,
-                child: Row(
-                  children: [
-                    firstIcon == null
-                        ? const SizedBox()
-                        : InkWell(
-                            child: SvgPicture.asset(firstIcon),
-                            onTap: _onFirstIconTap,
-                          ),
-                    const SizedBox(width: 23),
-                    InkWell(
-                      child: secondIcon,
-                      onTap: _onSecondIconTap,
                     ),
                   ],
                 ),
               ),
-            ],
-          ),
+            ),
+            Positioned.fill(
+              bottom: 57,
+              child: Material(
+                type: MaterialType.transparency,
+                child: InkWell(
+                  borderRadius: BorderRadius.circular(16),
+                  onTap: () {
+                    print('onTap');
+                  },
+                ),
+              ),
+            ),
+            Positioned(
+              top: 19,
+              left: 16,
+              child: Text(
+                sight.type,
+                style: textBold14Black.copyWith(color: Colors.white),
+              ),
+            ),
+            Positioned(
+              top: 19,
+              right: 16,
+              child: Row(
+                children: [
+                  firstIcon == null
+                      ? const SizedBox()
+                      : InkWell(
+                          child: SvgPicture.asset(firstIcon),
+                          onTap: _onFirstIconTap,
+                        ),
+                  const SizedBox(width: 23),
+                  InkWell(
+                    child: secondIcon,
+                    onTap: _onSecondIconTap,
+                  ),
+                ],
+              ),
+            ),
+          ],
         ),
       ),
     );
+  }
+
+  void _onFirstIconTap() {
+    if (firstIcon == calendar) {
+      print('calendar');
+    } else
+      print('share');
   }
 
   void _onSecondIconTap() {
@@ -180,12 +229,5 @@ class SightCard extends StatelessWidget {
       onRemoveCard();
     } else
       print('to favourites');
-  }
-
-  void _onFirstIconTap() {
-    if (firstIcon == calendar) {
-      print('calendar');
-    } else
-      print('share');
   }
 }

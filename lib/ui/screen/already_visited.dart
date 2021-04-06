@@ -12,15 +12,26 @@ class _AlreadyVisitedTabState extends State<AlreadyVisitedTab> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      child: Column(
-        children: [
-          for (var e in mocks)
-            SightCard.alreadyVisited(
-              key: ValueKey(e.nameSights),
-              sight: e,
-              onRemoveCard: () => onRemoveCard(e),
-            ),
-        ],
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        child: Column(
+          children: [
+            for (var e in mocks)
+              AspectRatio(
+                aspectRatio: 3 / 2,
+                child: ConstrainedBox(
+                  constraints: BoxConstraints(
+                      maxWidth: MediaQuery.of(context).size.width),
+                  child: SightCard.alreadyVisited(
+                    key: ValueKey(e.nameSights),
+                    sight: e,
+                    onRemoveCard: () => onRemoveCard(e),
+                    onReorderCard: () => setState(() {}),
+                  ),
+                ),
+              ),
+          ],
+        ),
       ),
     );
   }
