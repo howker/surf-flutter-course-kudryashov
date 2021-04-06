@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:places/domain/sight.dart';
 import 'package:places/mock.dart';
 import 'package:places/ui/widgets/sight_card.dart';
 
@@ -29,6 +28,7 @@ class _WantToVisitTabState extends State<WantToVisitTab> {
                     sight: e,
                     onRemoveCard: () => onRemoveCard(e),
                     onReorderCard: () => setState(() {}),
+                    onDismissedCard: () => onDismissedCard(e),
                   ),
                 ),
               ),
@@ -41,6 +41,12 @@ class _WantToVisitTabState extends State<WantToVisitTab> {
   void onRemoveCard(sight) {
     setState(() {
       mocks.remove(sight);
+    });
+  }
+
+  void onDismissedCard(sight) {
+    setState(() {
+      onRemoveCard(sight);
     });
   }
 }

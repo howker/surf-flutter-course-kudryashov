@@ -81,3 +81,6 @@ const String sightSearchScreenClear = 'Очистить историю';
 const String sightSearchScreenNothingFound = 'Ничего не найдено.';
 const String sightSearchScreenTryToChange =
     'Попробуйте изменить параметры\nпоиска';
+
+///Sight card background
+const String sightBackgroundDelete = 'Удалить';
