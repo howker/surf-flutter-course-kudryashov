@@ -170,7 +170,7 @@ class SightCard extends StatelessWidget {
               borderRadius: BorderRadius.circular(16),
               child: Image.network(
                 sight.url,
-                height: 198,
+                height: 188,
                 width: double.infinity,
                 fit: BoxFit.cover,
                 loadingBuilder: (BuildContext context, Widget child,

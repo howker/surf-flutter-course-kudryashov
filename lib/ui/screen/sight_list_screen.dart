@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:places/mock.dart';
 import 'package:places/text_string_const.dart';
@@ -12,9 +14,6 @@ class SightListScreen extends StatefulWidget {
 }
 
 class _SightListScreenState extends State<SightListScreen> {
-  SightCard sightCard = SightCard(
-    sight: mocks[0],
-  );
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,18 +21,20 @@ class _SightListScreenState extends State<SightListScreen> {
         title: listInterestingPlaces,
         searchBar: SearchBar(),
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            SightCard(sight: mocks[3]),
-            const SizedBox(height: 16),
-            SightCard(sight: mocks[1]),
-            const SizedBox(height: 16),
-            SightCard(sight: mocks[2]),
-            const SizedBox(height: 16),
-            SightCard(sight: mocks[0]),
-          ],
-        ),
+      body: ListView.separated(
+        itemBuilder: (BuildContext context, int index) {
+          return SightCard(
+            sight: mocks[index],
+          );
+        },
+        separatorBuilder: (BuildContext context, int index) {
+          return const SizedBox(height: 16);
+        },
+        itemCount: mocks.length,
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        physics: Platform.isAndroid
+            ? ClampingScrollPhysics()
+            : BouncingScrollPhysics(),
       ),
       bottomNavigationBar: const BottomNaviBar(),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
