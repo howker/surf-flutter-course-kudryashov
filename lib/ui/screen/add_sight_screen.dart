@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:places/colors.dart';
 import 'package:places/domain/sight.dart';
@@ -26,6 +28,7 @@ class _AddSightScreenState extends State<AddSightScreen> {
   String urlSight = urlByDefault;
   String detailsSight = '';
   String typeSight = '';
+  List<Widget> photoCardList = [];
 
   @override
   void dispose() {
@@ -36,6 +39,7 @@ class _AddSightScreenState extends State<AddSightScreen> {
 
   @override
   Widget build(BuildContext context) {
+    _buildPhotoCardList();
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: _buildAppBar(context),
@@ -47,10 +51,17 @@ class _AddSightScreenState extends State<AddSightScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(height: 40),
-              SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: _buildPhotoCardList(),
+              SizedBox(
+                height: 72,
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemBuilder: (BuildContext context, int index) {
+                    return photoCardList[index];
+                  },
+                  itemCount: photoCardList.length,
+                  physics: Platform.isAndroid
+                      ? ClampingScrollPhysics()
+                      : BouncingScrollPhysics(),
                 ),
               ),
               const SizedBox(height: 24),
@@ -119,8 +130,8 @@ class _AddSightScreenState extends State<AddSightScreen> {
     );
   }
 
-  List<Widget> _buildPhotoCardList() {
-    List<Widget> photoCardList = [
+  _buildPhotoCardList() {
+    photoCardList = [
       Padding(
         padding: const EdgeInsets.only(right: 16),
         child: Container(
@@ -197,7 +208,6 @@ class _AddSightScreenState extends State<AddSightScreen> {
         ),
       );
     }
-    return photoCardList;
   }
 
   Widget _buildCategoryFrame(BuildContext context) {
