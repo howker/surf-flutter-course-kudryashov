@@ -32,9 +32,6 @@ class _SightListScreenState extends State<SightListScreen> {
         },
         itemCount: mocks.length,
         padding: const EdgeInsets.symmetric(horizontal: 16),
-        physics: Platform.isAndroid
-            ? ClampingScrollPhysics()
-            : BouncingScrollPhysics(),
       ),
       bottomNavigationBar: const BottomNaviBar(),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,

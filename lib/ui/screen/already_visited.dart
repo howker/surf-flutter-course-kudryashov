@@ -32,9 +32,6 @@ class _AlreadyVisitedTabState extends State<AlreadyVisitedTab> {
       },
       itemCount: mocks.length,
       padding: const EdgeInsets.symmetric(horizontal: 16),
-      physics: Platform.isAndroid
-          ? ClampingScrollPhysics()
-          : BouncingScrollPhysics(),
     );
   }
 

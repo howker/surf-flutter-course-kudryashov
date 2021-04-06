@@ -26,27 +26,6 @@ class _NewPlaceCategoryScreenState extends State<NewPlaceCategoryScreen> {
             ),
             _buildSaveButton(context),
           ],
-          physics: Platform.isAndroid
-              ? ClampingScrollPhysics()
-              : BouncingScrollPhysics(),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildSaveButton(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 8, top: 210),
-      child: ElevatedButton(
-        style: ElevatedButton.styleFrom(
-          minimumSize: Size(double.infinity, 48),
-        ),
-        onPressed: () {
-          Navigator.pop(context, newPlaceCategory);
-        },
-        child: Text(
-          newPlaceCategoryScreenSave,
-          style: Theme.of(context).textTheme.bodyText2,
         ),
       ),
     );
@@ -99,5 +78,23 @@ class _NewPlaceCategoryScreenState extends State<NewPlaceCategoryScreen> {
         .toList();
 
     return listCategory;
+  }
+
+  Widget _buildSaveButton(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 8, top: 210),
+      child: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          minimumSize: Size(double.infinity, 48),
+        ),
+        onPressed: () {
+          Navigator.pop(context, newPlaceCategory);
+        },
+        child: Text(
+          newPlaceCategoryScreenSave,
+          style: Theme.of(context).textTheme.bodyText2,
+        ),
+      ),
+    );
   }
 }

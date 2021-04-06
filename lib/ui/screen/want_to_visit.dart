@@ -32,9 +32,6 @@ class _WantToVisitTabState extends State<WantToVisitTab> {
       },
       itemCount: mocks.length,
       padding: const EdgeInsets.symmetric(horizontal: 16),
-      physics: Platform.isAndroid
-          ? ClampingScrollPhysics()
-          : BouncingScrollPhysics(),
     );
   }
 

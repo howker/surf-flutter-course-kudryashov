@@ -59,9 +59,6 @@ class _AddSightScreenState extends State<AddSightScreen> {
                     return photoCardList[index];
                   },
                   itemCount: photoCardList.length,
-                  physics: Platform.isAndroid
-                      ? ClampingScrollPhysics()
-                      : BouncingScrollPhysics(),
                 ),
               ),
               const SizedBox(height: 24),
