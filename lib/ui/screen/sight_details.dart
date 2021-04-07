@@ -19,17 +19,19 @@ class SightDetails extends StatelessWidget {
 
   void _initPageController() {
     int currentPage = 0;
+
     Timer.periodic(
       Duration(seconds: 3),
       (timer) {
-        _pageController.nextPage(
-          duration: Duration(seconds: 3),
-          curve: Curves.linear,
-        );
         currentPage++;
         if (currentPage > 3) {
           currentPage = 0;
         }
+        _pageController.animateToPage(
+          currentPage,
+          duration: Duration(milliseconds: 500),
+          curve: Curves.linear,
+        );
       },
     );
   }
@@ -45,7 +47,11 @@ class SightDetails extends StatelessWidget {
               controller: _pageController,
               itemCount: sight.urlsImages.length,
               itemBuilder: (BuildContext context, int index) {
-                return ImageGallery(sight: sight, index: index);
+                return ImageGallery(
+                  sight: sight,
+                  index: index,
+                  photoCount: sight.urlsImages.length,
+                );
               },
             ),
           ),
@@ -178,10 +184,12 @@ class ImageGallery extends StatelessWidget {
     Key key,
     this.sight,
     this.index,
+    this.photoCount,
   });
 
   final Sight sight;
   final int index;
+  final int photoCount;
 
   @override
   Widget build(BuildContext context) {
@@ -237,7 +245,19 @@ class ImageGallery extends StatelessWidget {
               ),
             ),
           ),
-        )
+        ),
+        Positioned(
+          bottom: 0,
+          left: index * MediaQuery.of(context).size.width / photoCount,
+          child: Container(
+            height: 7.57,
+            width: MediaQuery.of(context).size.width / photoCount,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(8),
+              color: lmBackgroundBlackColor,
+            ),
+          ),
+        ),
       ],
     );
   }
