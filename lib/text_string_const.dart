@@ -84,3 +84,22 @@ const String sightSearchScreenTryToChange =
 
 ///Sight card background
 const String sightBackgroundDelete = 'Удалить';
+
+///OnboardingScreen
+const String onboardingScreenMiss = 'Пропустить';
+const String onboardingScreenCaptionWelcome =
+    'Добро пожаловать\nв Путеводитель';
+const String onboardingScreenCaptionBag =
+    'Построй маршрут\nи отправляйся в путь';
+const String onboardingScreenCaptionClickHand =
+    'Добавляй места,\nкоторые нашёл сам';
+
+const String onboardingScreenMissSubCaptionWelcome =
+    'Ищи новые локации и сохраняй\nсамые любимые.';
+const String onboardingScreenSubCaptionBag =
+    'Достигай цели максимально\nбыстро и комфортно.';
+
+const String onboardingScreenSubCaptionClickHand =
+    'Делись самыми интересными\nи помоги нам стать лучше!';
+
+const String onboardingScreenToStartButton = 'НА СТАРТ';

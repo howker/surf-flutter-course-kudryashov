@@ -16,3 +16,6 @@ const String share = 'res/icons/Share.svg';
 const String filterSvg = 'res/icons/Filter.svg';
 const String searchSvg = 'res/icons/Search.svg';
 const String bucketSvg = 'res/icons/Bucket.svg';
+const String bagSvg = 'res/icons/Bag.svg';
+const String clickHandSvg = 'res/icons/ClickHand.svg';
+const String welcomeSvg = 'res/icons/Welcome.svg';
