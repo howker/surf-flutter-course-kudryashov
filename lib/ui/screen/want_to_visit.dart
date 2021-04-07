@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:places/mock.dart';
 import 'package:places/ui/widgets/sight_card.dart';
@@ -9,32 +11,27 @@ class WantToVisitTab extends StatefulWidget {
 }
 
 class _WantToVisitTabState extends State<WantToVisitTab> {
-  var currentSight = mocks[0];
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16),
-        child: Column(
-          children: [
-            for (var e in mocks)
-              AspectRatio(
-                aspectRatio: 3 / 2,
-                child: ConstrainedBox(
-                  constraints: BoxConstraints(
-                      maxWidth: MediaQuery.of(context).size.width),
-                  child: SightCard.wantToVisit(
-                    key: ValueKey(e.nameSights),
-                    sight: e,
-                    onRemoveCard: () => onRemoveCard(e),
-                    onReorderCard: () => setState(() {}),
-                    onDismissedCard: () => onDismissedCard(e),
-                  ),
-                ),
-              ),
-          ],
-        ),
-      ),
+    return ListView.builder(
+      itemBuilder: (BuildContext context, int index) {
+        return AspectRatio(
+          aspectRatio: 3 / 2,
+          child: ConstrainedBox(
+            constraints:
+                BoxConstraints(maxWidth: MediaQuery.of(context).size.width),
+            child: SightCard.wantToVisit(
+              key: ValueKey(mocks[index].nameSights),
+              sight: mocks[index],
+              onRemoveCard: () => onRemoveCard(mocks[index]),
+              onReorderCard: () => setState(() {}),
+              onDismissedCard: () => onDismissedCard(mocks[index]),
+            ),
+          ),
+        );
+      },
+      itemCount: mocks.length,
+      padding: const EdgeInsets.symmetric(horizontal: 16),
     );
   }
 

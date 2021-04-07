@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:places/colors.dart';
 import 'package:places/domain/sight.dart';
@@ -36,6 +38,7 @@ class _AddSightScreenState extends State<AddSightScreen> {
 
   @override
   Widget build(BuildContext context) {
+    List<Widget> photoCardList = _buildPhotoCardList();
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: _buildAppBar(context),
@@ -47,10 +50,14 @@ class _AddSightScreenState extends State<AddSightScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(height: 40),
-              SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: _buildPhotoCardList(),
+              SizedBox(
+                height: 72,
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemBuilder: (BuildContext context, int index) {
+                    return photoCardList[index];
+                  },
+                  itemCount: photoCardList.length,
                 ),
               ),
               const SizedBox(height: 24),
@@ -102,20 +109,6 @@ class _AddSightScreenState extends State<AddSightScreen> {
           ),
         ),
       ),
-    );
-  }
-
-  Widget _buildAppBar(BuildContext context) {
-    return AppBar(
-      leadingWidth: 80,
-      backgroundColor: Theme.of(context).primaryColor,
-      title: Text(
-        newPlaceScreenTitle,
-        style: Theme.of(context).textTheme.headline1,
-      ),
-      elevation: 0,
-      centerTitle: true,
-      leading: _buildCancelButton(context),
     );
   }
 
@@ -198,6 +191,20 @@ class _AddSightScreenState extends State<AddSightScreen> {
       );
     }
     return photoCardList;
+  }
+
+  Widget _buildAppBar(BuildContext context) {
+    return AppBar(
+      leadingWidth: 80,
+      backgroundColor: Theme.of(context).primaryColor,
+      title: Text(
+        newPlaceScreenTitle,
+        style: Theme.of(context).textTheme.headline1,
+      ),
+      elevation: 0,
+      centerTitle: true,
+      leading: _buildCancelButton(context),
+    );
   }
 
   Widget _buildCategoryFrame(BuildContext context) {

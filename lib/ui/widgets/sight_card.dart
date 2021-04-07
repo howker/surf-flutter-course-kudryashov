@@ -29,7 +29,7 @@ class SightCard extends StatelessWidget {
   }) : super(key: key) {
     this.sight = sight ?? mocks[0];
     this.secondIcon = secondIcon ?? const Icon(Icons.favorite_border);
-    this.descriptionCardHeight = 92;
+    this.descriptionCardHeight = 102;
     this.details = sight.details;
     this.closed = close;
     this.key = key ?? ValueKey(this.sight.nameSights);

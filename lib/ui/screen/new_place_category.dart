@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:places/mock.dart';
 import 'package:places/text_string_const.dart';
@@ -16,33 +18,14 @@ class _NewPlaceCategoryScreenState extends State<NewPlaceCategoryScreen> {
       appBar: _buildAppBar(context),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.start,
+        child: ListView(
           children: [
             Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: _buildCheckboxListTile(context),
             ),
             _buildSaveButton(context),
           ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildSaveButton(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 8),
-      child: ElevatedButton(
-        style: ElevatedButton.styleFrom(
-          minimumSize: Size(double.infinity, 48),
-        ),
-        onPressed: () {
-          Navigator.pop(context, newPlaceCategory);
-        },
-        child: Text(
-          newPlaceCategoryScreenSave,
-          style: Theme.of(context).textTheme.bodyText2,
         ),
       ),
     );
@@ -95,5 +78,23 @@ class _NewPlaceCategoryScreenState extends State<NewPlaceCategoryScreen> {
         .toList();
 
     return listCategory;
+  }
+
+  Widget _buildSaveButton(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 8, top: 210),
+      child: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          minimumSize: Size(double.infinity, 48),
+        ),
+        onPressed: () {
+          Navigator.pop(context, newPlaceCategory);
+        },
+        child: Text(
+          newPlaceCategoryScreenSave,
+          style: Theme.of(context).textTheme.bodyText2,
+        ),
+      ),
+    );
   }
 }
