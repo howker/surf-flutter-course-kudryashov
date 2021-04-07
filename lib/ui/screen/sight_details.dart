@@ -179,6 +179,7 @@ class SightDetails extends StatelessWidget {
   }
 }
 
+/// Блок фото для экрана детализации интересного места
 class ImageGallery extends StatelessWidget {
   ImageGallery({
     Key key,
