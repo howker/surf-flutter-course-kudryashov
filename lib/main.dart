@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:places/mock.dart';
 import 'package:places/ui/screen/add_sight_screen.dart';
 import 'package:places/ui/screen/filters_screen.dart';
+import 'package:places/ui/screen/onboarding_screen.dart';
 import 'package:places/ui/screen/res/themes.dart';
 import 'package:places/ui/screen/settings_screen.dart';
 import 'package:places/ui/screen/sight_details.dart';
@@ -37,15 +38,6 @@ class _MyAppState extends State<MyApp> {
           //FiltersScreen(),
           //SightListScreen(),
           //VisitingScreen(),
-
-         // SightDetails(
-        //sight: mocks[0],
-     // );
-
-
-
-     
-     
 
     );
   }
