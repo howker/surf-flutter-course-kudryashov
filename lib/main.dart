@@ -35,11 +35,11 @@ class _MyAppState extends State<MyApp> {
       home: //AddSightScreen(),
           //SettingsScreen(),
           //FiltersScreen(),
-          //SightListScreen(),
-          //VisitingScreen(),
-          SightDetails(
-        sight: mocks[0],
-      ),
+          SightListScreen(),
+      //VisitingScreen(),
+      //SightDetails(
+      //sight: mocks[0],
+      //),
     );
   }
 }

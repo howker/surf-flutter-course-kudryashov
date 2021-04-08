@@ -1,7 +1,7 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
+import 'package:places/colors.dart';
 import 'package:places/mock.dart';
+import 'package:places/styles.dart';
 import 'package:places/text_string_const.dart';
 import 'package:places/ui/widgets/bottom_navibar.dart';
 import 'package:places/ui/widgets/search_bar.dart';
@@ -17,21 +17,41 @@ class _SightListScreenState extends State<SightListScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(
-        title: listInterestingPlaces,
-        searchBar: SearchBar(),
-      ),
-      body: ListView.separated(
-        itemBuilder: (BuildContext context, int index) {
-          return SightCard(
-            sight: mocks[index],
-          );
-        },
-        separatorBuilder: (BuildContext context, int index) {
-          return const SizedBox(height: 16);
-        },
-        itemCount: mocks.length,
-        padding: const EdgeInsets.symmetric(horizontal: 16),
+      body: SafeArea(
+        child: CustomScrollView(
+          slivers: [
+            SliverPadding(
+              padding: const EdgeInsets.only(top: 25, bottom: 20),
+              sliver: SliverPersistentHeader(
+                pinned: true,
+                delegate: AppBarPersistentHeaderDelegate(),
+              ),
+            ),
+            SliverList(
+              delegate: SliverChildListDelegate(
+                [
+                  Padding(
+                    padding:
+                        const EdgeInsets.only(left: 16, right: 16, bottom: 20),
+                    child: SearchBar(),
+                  ),
+                ],
+              ),
+            ),
+            SliverList(
+              delegate: SliverChildBuilderDelegate(
+                (BuildContext context, int index) {
+                  return Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: SightCard(
+                      sight: mocks[index],
+                    ),
+                  );
+                },
+              ),
+            ),
+          ],
+        ),
       ),
       bottomNavigationBar: const BottomNaviBar(),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
@@ -63,9 +83,9 @@ class _SightListScreenState extends State<SightListScreen> {
 
 ///кастомизированный AppBar
 class CustomAppBar extends StatefulWidget implements PreferredSizeWidget {
-  final String title;
-  final Widget searchBar;
-  const CustomAppBar({Key key, this.title, this.searchBar}) : super(key: key);
+  final Text title;
+
+  const CustomAppBar({Key key, this.title}) : super(key: key);
 
   @override
   _CustomAppBarState createState() => _CustomAppBarState();
@@ -78,20 +98,58 @@ class _CustomAppBarState extends State<CustomAppBar> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
+      padding: EdgeInsets.only(left: 16, right: 16),
       child: Column(
         children: [
-          const SizedBox(height: 40),
-          Text(
-            widget.title,
-            textAlign: TextAlign.left,
-            maxLines: 2,
-            style: Theme.of(context).textTheme.headline1,
+          Expanded(
+            child: ConstrainedBox(
+              constraints: BoxConstraints(minWidth: double.infinity),
+              child: Container(
+                padding: EdgeInsets.only(top: 30),
+                color: Theme.of(context).canvasColor,
+                child: widget.title,
+              ),
+            ),
           ),
-          const SizedBox(height: 22),
-          widget.searchBar,
         ],
       ),
     );
+  }
+}
+
+///AppBar делегат
+class AppBarPersistentHeaderDelegate extends SliverPersistentHeaderDelegate {
+  @override
+  Widget build(
+    BuildContext context,
+    double shrinkOffset,
+    bool overlapsContent,
+  ) {
+    return CustomAppBar(
+      title: shrinkOffset > 40
+          ? Text(
+              listInterestingPlacesMin,
+              style: textRegular18Black,
+              textAlign: TextAlign.center,
+            )
+          : Text(
+              listInterestingPlaces,
+              style: Theme.of(context)
+                  .textTheme
+                  .headline6
+                  .copyWith(color: lmBackgroundBlackColor),
+            ),
+    );
+  }
+
+  @override
+  double get maxExtent => 120;
+
+  @override
+  double get minExtent => 80;
+
+  @override
+  bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) {
+    return true;
   }
 }
