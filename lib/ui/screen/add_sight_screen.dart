@@ -28,7 +28,6 @@ class _AddSightScreenState extends State<AddSightScreen> {
   String urlSight = urlByDefault;
   String detailsSight = '';
   String typeSight = '';
-  List<Widget> photoCardList = [];
 
   @override
   void dispose() {
@@ -39,7 +38,7 @@ class _AddSightScreenState extends State<AddSightScreen> {
 
   @override
   Widget build(BuildContext context) {
-    _buildPhotoCardList();
+    List<Widget> photoCardList = _buildPhotoCardList();
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: _buildAppBar(context),
@@ -113,22 +112,8 @@ class _AddSightScreenState extends State<AddSightScreen> {
     );
   }
 
-  Widget _buildAppBar(BuildContext context) {
-    return AppBar(
-      leadingWidth: 80,
-      backgroundColor: Theme.of(context).primaryColor,
-      title: Text(
-        newPlaceScreenTitle,
-        style: Theme.of(context).textTheme.headline1,
-      ),
-      elevation: 0,
-      centerTitle: true,
-      leading: _buildCancelButton(context),
-    );
-  }
-
-  _buildPhotoCardList() {
-    photoCardList = [
+  List<Widget> _buildPhotoCardList() {
+    List<Widget> photoCardList = [
       Padding(
         padding: const EdgeInsets.only(right: 16),
         child: Container(
@@ -205,6 +190,21 @@ class _AddSightScreenState extends State<AddSightScreen> {
         ),
       );
     }
+    return photoCardList;
+  }
+
+  Widget _buildAppBar(BuildContext context) {
+    return AppBar(
+      leadingWidth: 80,
+      backgroundColor: Theme.of(context).primaryColor,
+      title: Text(
+        newPlaceScreenTitle,
+        style: Theme.of(context).textTheme.headline1,
+      ),
+      elevation: 0,
+      centerTitle: true,
+      leading: _buildCancelButton(context),
+    );
   }
 
   Widget _buildCategoryFrame(BuildContext context) {
