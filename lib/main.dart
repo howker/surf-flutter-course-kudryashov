@@ -32,13 +32,14 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       theme: themeModel.isDark ? darkTheme : lightTheme,
       title: 'Intresting places',
-
-      home: AddSightScreen(),
+      home: //AddSightScreen(),
           //SettingsScreen(),
           //FiltersScreen(),
           //SightListScreen(),
           //VisitingScreen(),
-
+          SightDetails(
+        sight: mocks[0],
+      ),
     );
   }
 }

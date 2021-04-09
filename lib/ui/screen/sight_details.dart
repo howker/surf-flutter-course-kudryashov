@@ -39,141 +39,155 @@ class SightDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
-      child: Column(
-        children: [
-          SizedBox(
-            height: 360,
-            child: PageView.builder(
-              controller: _pageController,
-              itemCount: sight.urlsImages.length,
-              itemBuilder: (BuildContext context, int index) {
-                return ImageGallery(
-                  sight: sight,
-                  index: index,
-                  photoCount: sight.urlsImages.length,
-                );
-              },
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: Column(
-              children: [
-                const SizedBox(
-                  height: 24,
-                ),
-                Container(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    sight.nameSights,
-                    style: Theme.of(context).textTheme.subtitle1,
-                  ),
-                ),
-                const SizedBox(
-                  height: 2,
-                ),
-                Container(
-                  alignment: Alignment.centerLeft,
-                  child: Row(
-                    children: [
-                      Text(
-                        sight.type,
-                        style: Theme.of(context).textTheme.subtitle2,
-                      ),
-                      const SizedBox(
-                        width: 16,
-                      ),
-                      Text(
-                        close,
-                        style: Theme.of(context).textTheme.headline4,
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(
-                  height: 24,
-                ),
-                Container(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    sight.details,
-                    style: Theme.of(context).textTheme.bodyText1,
-                  ),
-                ),
-                const SizedBox(
-                  height: 24,
-                ),
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    minimumSize: Size(double.infinity, 48),
-                  ),
-                  onPressed: () {
-                    print('ПОСТРОИТЬ МАРШРУТ');
+      child: SafeArea(
+        child: CustomScrollView(
+          slivers: [
+            SliverAppBar(
+              elevation: 0,
+              primary: true,
+              stretch: true,
+              automaticallyImplyLeading: false,
+              expandedHeight: 360,
+              flexibleSpace: FlexibleSpaceBar(
+                background: PageView.builder(
+                  controller: _pageController,
+                  itemCount: sight.urlsImages.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return ImageGallery(
+                      sight: sight,
+                      index: index,
+                      photoCount: sight.urlsImages.length,
+                    );
                   },
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      SvgPicture.asset(
-                        go,
-                        color: Colors.white,
-                      ),
-                      const SizedBox(
-                        width: 10,
-                      ),
-                      Text(
-                        buildRoute,
-                        style: Theme.of(context).textTheme.bodyText2,
-                      ),
-                    ],
-                  ),
                 ),
-                const SizedBox(
-                  height: 24,
-                ),
-                const Divider(),
-                Container(
-                  alignment: Alignment.centerLeft,
-                  child: Row(
-                    children: [
-                      IconButton(
-                        padding: EdgeInsets.only(left: 33),
-                        icon: Icon(
-                          Icons.calendar_today,
-                          color: lmInactiveBlackColor,
-                        ),
-                        onPressed: () {
-                          print('Запланировать');
-                        },
-                      ),
-                      const SizedBox(width: 9),
-                      Text(
-                        toPlain,
-                        style: textRegular14Grey.copyWith(
-                          color: lmInactiveBlackColor,
-                        ),
-                      ),
-                      IconButton(
-                        padding: EdgeInsets.only(left: 40),
-                        icon: Icon(
-                          Icons.favorite_border,
-                          color: Theme.of(context).primaryColorDark,
-                        ),
-                        onPressed: () {
-                          print('В избранное');
-                        },
-                      ),
-                      const SizedBox(width: 9),
-                      Text(
-                        toFavorites,
-                        style: Theme.of(context).textTheme.bodyText1,
-                      ),
-                    ],
-                  ),
-                ),
-              ],
+              ),
             ),
-          ),
-        ],
+            SliverFillRemaining(
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: Column(
+                      children: [
+                        const SizedBox(
+                          height: 24,
+                        ),
+                        Container(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            sight.nameSights,
+                            style: Theme.of(context).textTheme.subtitle1,
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 2,
+                        ),
+                        Container(
+                          alignment: Alignment.centerLeft,
+                          child: Row(
+                            children: [
+                              Text(
+                                sight.type,
+                                style: Theme.of(context).textTheme.subtitle2,
+                              ),
+                              const SizedBox(
+                                width: 16,
+                              ),
+                              Text(
+                                close,
+                                style: Theme.of(context).textTheme.headline4,
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 24,
+                        ),
+                        Container(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            sight.details,
+                            style: Theme.of(context).textTheme.bodyText1,
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 24,
+                        ),
+                        ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            minimumSize: Size(double.infinity, 48),
+                          ),
+                          onPressed: () {
+                            print('ПОСТРОИТЬ МАРШРУТ');
+                          },
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              SvgPicture.asset(
+                                go,
+                                color: Colors.white,
+                              ),
+                              const SizedBox(
+                                width: 10,
+                              ),
+                              Text(
+                                buildRoute,
+                                style: Theme.of(context).textTheme.bodyText2,
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 24,
+                        ),
+                        const Divider(),
+                        Container(
+                          alignment: Alignment.centerLeft,
+                          child: Row(
+                            children: [
+                              IconButton(
+                                padding: EdgeInsets.only(left: 33),
+                                icon: Icon(
+                                  Icons.calendar_today,
+                                  color: lmInactiveBlackColor,
+                                ),
+                                onPressed: () {
+                                  print('Запланировать');
+                                },
+                              ),
+                              const SizedBox(width: 9),
+                              Text(
+                                toPlain,
+                                style: textRegular14Grey.copyWith(
+                                  color: lmInactiveBlackColor,
+                                ),
+                              ),
+                              IconButton(
+                                padding: EdgeInsets.only(left: 40),
+                                icon: Icon(
+                                  Icons.favorite_border,
+                                  color: Theme.of(context).primaryColorDark,
+                                ),
+                                onPressed: () {
+                                  print('В избранное');
+                                },
+                              ),
+                              const SizedBox(width: 9),
+                              Text(
+                                toFavorites,
+                                style: Theme.of(context).textTheme.bodyText1,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
