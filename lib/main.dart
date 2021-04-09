@@ -7,6 +7,7 @@ import 'package:places/ui/screen/res/themes.dart';
 import 'package:places/ui/screen/settings_screen.dart';
 import 'package:places/ui/screen/sight_details.dart';
 import 'package:places/ui/screen/sight_list_screen.dart';
+import 'package:places/ui/screen/splash_screen.dart';
 import 'package:places/ui/screen/visiting_screen.dart';
 import 'package:places/ui/widgets/sight_card.dart';
 
@@ -32,10 +33,11 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       theme: themeModel.isDark ? darkTheme : lightTheme,
       title: 'Intresting places',
-      home: //AddSightScreen(),
-          //SettingsScreen(),
-          //FiltersScreen(),
-          SightListScreen(),
+      home: SplashScreen(),
+      //AddSightScreen(),
+      //SettingsScreen(),
+      //FiltersScreen(),
+      //SightListScreen(),
       //VisitingScreen(),
       //SightDetails(
       //sight: mocks[0],
