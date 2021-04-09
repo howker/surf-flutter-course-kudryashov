@@ -1,6 +1,7 @@
 /// Текстовые константы
 
-const String listInterestingPlaces = 'Список интересных мест';
+const String listInterestingPlaces = 'Список\nинтересных мест';
+const String listInterestingPlacesMin = 'Список интересных мест';
 const String placesN = 'писок\n';
 const String nPlaces = 'нтересных мест';
 const String favorites = 'Избранное';
