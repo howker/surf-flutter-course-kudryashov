@@ -18,7 +18,7 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
   }
 
-  void _navigateToNext() async {
+  Future<void> _navigateToNext() async {
     if (await isInitialized()) print("Переход на следующий экран");
   }
 
