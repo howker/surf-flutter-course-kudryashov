@@ -49,7 +49,7 @@ class _AddSightScreenState extends State<AddSightScreen> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SizedBox(height: 40),
+              const SizedBox(height: 20),
               SizedBox(
                 height: 72,
                 child: ListView.builder(
@@ -68,10 +68,10 @@ class _AddSightScreenState extends State<AddSightScreen> {
                       color: lmInactiveBlackColor,
                     ),
               ),
-              const SizedBox(height: 14),
+              const SizedBox(height: 7),
               _buildCategoryFrame(context),
               const Divider(thickness: 0.8),
-              const SizedBox(height: 24),
+              const SizedBox(height: 14),
               Text(
                 newPlaceScreenName,
                 style: Theme.of(context).textTheme.bodyText1.copyWith(
@@ -81,7 +81,7 @@ class _AddSightScreenState extends State<AddSightScreen> {
               ),
               const SizedBox(height: 12),
               _buildNameFrame(context),
-              const SizedBox(height: 24),
+              const SizedBox(height: 14),
               _buildLatLonLabels(context),
               const SizedBox(height: 12),
               _buildLatLonFrame(context),
@@ -93,7 +93,7 @@ class _AddSightScreenState extends State<AddSightScreen> {
                     .headline5
                     .copyWith(color: Colors.green),
               ),
-              const SizedBox(height: 37),
+              const SizedBox(height: 17),
               Text(
                 newPlaceScreenDescription,
                 style: Theme.of(context).textTheme.bodyText1.copyWith(
@@ -103,7 +103,7 @@ class _AddSightScreenState extends State<AddSightScreen> {
               ),
               const SizedBox(height: 12),
               _buildDescriptionFrame(context),
-              const SizedBox(height: 58),
+              const SizedBox(height: 28),
               _buildCreateButton(context),
             ],
           ),
@@ -126,10 +126,21 @@ class _AddSightScreenState extends State<AddSightScreen> {
           ),
           height: 72,
           width: 72,
-          child: const Icon(
-            Icons.add,
-            color: Colors.green,
-            size: 34,
+          child: GestureDetector(
+            onTap: () {
+              showDialog(
+                barrierDismissible: false,
+                context: context,
+                builder: (_) {
+                  return Container();
+                },
+              );
+            },
+            child: const Icon(
+              Icons.add,
+              color: Colors.green,
+              size: 34,
+            ),
           ),
         ),
       ),
