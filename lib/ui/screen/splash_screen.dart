@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:places/main.dart';
 import 'package:places/svg_path_const.dart';
 
 ///сплэш-экран
 class SplashScreen extends StatefulWidget {
+  final bool isFirstLoading = true;
   @override
   _SplashScreenState createState() => _SplashScreenState();
 }
@@ -19,7 +21,11 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   Future<void> _navigateToNext() async {
-    if (await isInitialized()) print("Переход на следующий экран");
+    if (await isInitialized()) {
+      widget.isFirstLoading
+          ? Navigator.pushReplacementNamed(context, AppRoutes.onboarding)
+          : Navigator.pushReplacementNamed(context, AppRoutes.sightList);
+    }
   }
 
   @override

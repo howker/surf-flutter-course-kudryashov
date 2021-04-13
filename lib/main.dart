@@ -33,16 +33,21 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       theme: themeModel.isDark ? darkTheme : lightTheme,
       title: 'Intresting places',
-      home: OnboardingScreen(),
-      //SplashScreen(),
-      //AddSightScreen(),
-      //SettingsScreen(),
-      //FiltersScreen(),
-      //SightListScreen(),
-      //VisitingScreen(),
-      //SightDetails(
-      //sight: mocks[0],
-      //),
+      home: SplashScreen(),
+      routes: {
+        AppRoutes.visiting: (context) => VisitingScreen(),
+        AppRoutes.settings: (context) => SettingsScreen(),
+        AppRoutes.onboarding: (context) => OnboardingScreen(),
+        AppRoutes.sightList: (context) => SightListScreen(),
+      },
     );
   }
+}
+
+class AppRoutes {
+  static const String sightList = '/sightList';
+  static const String visiting = '/visiting';
+  static const String settings = '/settings';
+  static const String onboarding = '/onboarding';
+  static const String details = '/details';
 }
