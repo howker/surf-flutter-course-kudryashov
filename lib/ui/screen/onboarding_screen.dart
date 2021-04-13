@@ -5,31 +5,13 @@ import 'package:places/svg_path_const.dart';
 import 'package:places/text_string_const.dart';
 
 ///Экран онбординга
-class OnboardingScreen extends StatelessWidget {
+class OnboardingScreen extends StatefulWidget {
+  int screenIndex = 0;
   @override
-  Widget build(BuildContext context) {
-    return Material(
-      child: Column(
-        children: [
-          Expanded(
-            child: PageView.builder(
-              itemCount: 3,
-              itemBuilder: (BuildContext context, int index) {
-                return OnboardCard(index: index);
-              },
-            ),
-          ),
-        ],
-      ),
-    );
-  }
+  _OnboardingScreenState createState() => _OnboardingScreenState();
 }
 
-///Карточка экрана OnboardingScreen
-class OnboardCard extends StatelessWidget {
-  final int index;
-
-  OnboardCard({Key key, this.index}) : super(key: key);
+class _OnboardingScreenState extends State<OnboardingScreen> {
   @override
   Widget build(BuildContext context) {
     List<Widget> pagesIndicatorList = [
@@ -58,37 +40,78 @@ class OnboardCard extends StatelessWidget {
         ),
       ),
     ];
+    if (widget.screenIndex == 1)
+      pagesIndicatorList.insert(widget.screenIndex,
+          pagesIndicatorList.removeAt(widget.screenIndex - 1));
+    if (widget.screenIndex == 2)
+      pagesIndicatorList.insert(
+          widget.screenIndex, pagesIndicatorList.removeAt(0));
+    return Material(
+      child: Column(
+        children: [
+          const SizedBox(height: 42),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              TextButton(
+                onPressed: () {},
+                child: Text(
+                  onboardingScreenMiss,
+                  style: Theme.of(context)
+                      .textTheme
+                      .headline5
+                      .copyWith(color: Colors.green),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 110),
+          SizedBox(
+            height: 246,
+            child: PageView.builder(
+              onPageChanged: (value) {
+                widget.screenIndex = value;
 
-    if (index == 1)
-      pagesIndicatorList.insert(index, pagesIndicatorList.removeAt(index - 1));
-    if (index == 2)
-      pagesIndicatorList.insert(index, pagesIndicatorList.removeAt(0));
+                setState(() {});
+              },
+              itemCount: 3,
+              itemBuilder: (BuildContext context, int index) {
+                return OnboardCard(index: index);
+              },
+            ),
+          ),
+          SizedBox(
+            height: 117,
+            width: 56,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: pagesIndicatorList,
+            ),
+          ),
+          const SizedBox(height: 55),
+          widget.screenIndex == 2
+              ? const StartButton()
+              : const SizedBox.shrink(),
+        ],
+      ),
+    );
+  }
+}
 
+///Карточка экрана OnboardingScreen
+class OnboardCard extends StatelessWidget {
+  final int index;
+
+  OnboardCard({Key key, this.index}) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
     return Column(
       children: [
-        const SizedBox(height: 42),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            TextButton(
-              onPressed: () {},
-              child: Text(
-                onboardingScreenMiss,
-                style: Theme.of(context)
-                    .textTheme
-                    .headline5
-                    .copyWith(color: Colors.green),
-              ),
-            ),
-            const SizedBox(width: 16),
-          ],
-        ),
-        const SizedBox(height: 198),
         SvgPicture.asset(
           OnboardCardItem.listSvgPath[index],
           color: lmBackgroundBlackColor,
         ),
-        const SizedBox(height: 47),
+        const SizedBox(height: 42),
         Text(
           OnboardCardItem.listCaption[index],
           style: Theme.of(context).textTheme.subtitle1.copyWith(
@@ -102,16 +125,6 @@ class OnboardCard extends StatelessWidget {
           style: Theme.of(context).textTheme.headline4,
           textAlign: TextAlign.center,
         ),
-        const SizedBox(height: 117),
-        SizedBox(
-          width: 56,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: pagesIndicatorList,
-          ),
-        ),
-        const SizedBox(height: 32),
-        index == 2 ? const StartButton() : const SizedBox.shrink(),
       ],
     );
   }

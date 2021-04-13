@@ -33,7 +33,8 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       theme: themeModel.isDark ? darkTheme : lightTheme,
       title: 'Intresting places',
-      home: SplashScreen(),
+      home: OnboardingScreen(),
+      //SplashScreen(),
       //AddSightScreen(),
       //SettingsScreen(),
       //FiltersScreen(),
