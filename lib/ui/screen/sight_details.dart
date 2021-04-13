@@ -243,11 +243,11 @@ class ImageGallery extends StatelessWidget {
           ),
         ),
         Positioned(
-          top: 36,
-          left: 16,
+          top: 16,
+          right: 16,
           child: DecoratedBox(
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
+              borderRadius: BorderRadius.circular(16),
               color: Theme.of(context).primaryColor,
             ),
             child: InkWell(
@@ -257,17 +257,14 @@ class ImageGallery extends StatelessWidget {
               child: Container(
                 width: 32,
                 height: 32,
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 6),
-                  child: InkWell(
-                    onTap: () {
-                      Navigator.pop(context);
-                    },
-                    child: Icon(
-                      Icons.arrow_back_ios,
-                      color: Theme.of(context).primaryColorDark,
-                      size: 15,
-                    ),
+                child: InkWell(
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                  child: Icon(
+                    Icons.close,
+                    color: Theme.of(context).primaryColorDark,
+                    size: 30,
                   ),
                 ),
               ),

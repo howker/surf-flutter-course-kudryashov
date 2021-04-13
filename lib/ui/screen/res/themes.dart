@@ -68,6 +68,9 @@ final lightTheme = ThemeData(
       TextSelectionThemeData(cursorColor: lmTextFieldCursorColor),
   toggleableActiveColor: lmToggleableActiveColor,
   unselectedWidgetColor: lmUnselectedWidgetColor,
+  bottomSheetTheme: BottomSheetThemeData(
+    backgroundColor: Colors.transparent,
+  ),
 );
 
 final darkTheme = ThemeData(
