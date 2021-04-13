@@ -181,12 +181,17 @@ class SightCard extends StatelessWidget {
                   return Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      CircularProgressIndicator(
-                        value: loadingProgress.expectedTotalBytes != null
-                            ? loadingProgress.cumulativeBytesLoaded /
-                                loadingProgress.expectedTotalBytes
-                            : null,
-                        valueColor: AlwaysStoppedAnimation<Color>(Colors.grey),
+                      Padding(
+                        padding: const EdgeInsets.all(3.0),
+                        child: CircularProgressIndicator(
+                          value: loadingProgress.expectedTotalBytes != null
+                              ? loadingProgress.cumulativeBytesLoaded /
+                                  loadingProgress.expectedTotalBytes
+                              : null,
+                          valueColor:
+                              AlwaysStoppedAnimation<Color>(Colors.grey),
+                          strokeWidth: 6,
+                        ),
                       ),
                     ],
                   );
