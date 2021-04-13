@@ -58,7 +58,7 @@ class _VisitingScreenState extends State with SingleTickerProviderStateMixin {
           buildEmptyState(go, finishRoute),
         ],
       ),
-      bottomNavigationBar: BottomNaviBar(),
+      bottomNavigationBar: BottomNaviBar(current: 2),
     );
   }
 

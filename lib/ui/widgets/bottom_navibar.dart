@@ -7,13 +7,15 @@ import 'package:places/svg_path_const.dart';
 class BottomNaviBar extends StatelessWidget {
   const BottomNaviBar({
     Key key,
+    this.current,
   }) : super(key: key);
+  final int current;
 
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
-      onTap: (index) {
-        switch (index) {
+      onTap: (current) {
+        switch (current) {
           case 0:
             Navigator.of(context).pushReplacementNamed(AppRoutes.sightList);
             break;
@@ -29,33 +31,49 @@ class BottomNaviBar extends StatelessWidget {
         }
       },
       showSelectedLabels: false,
-      currentIndex: 1,
+      currentIndex: current,
       items: [
         BottomNavigationBarItem(
           icon: SvgPicture.asset(
-            list,
-            color: Theme.of(context).bottomNavigationBarTheme.selectedItemColor,
+            current == 0 ? listFill : list,
+            color: current == 0
+                ? Theme.of(context).bottomNavigationBarTheme.selectedItemColor
+                : Theme.of(context)
+                    .bottomNavigationBarTheme
+                    .unselectedItemColor,
           ),
           label: '',
         ),
         BottomNavigationBarItem(
           icon: SvgPicture.asset(
-            map,
-            color: Theme.of(context).bottomNavigationBarTheme.selectedItemColor,
+            current == 1 ? mapFill : map,
+            color: current == 0
+                ? Theme.of(context).bottomNavigationBarTheme.selectedItemColor
+                : Theme.of(context)
+                    .bottomNavigationBarTheme
+                    .unselectedItemColor,
           ),
           label: '',
         ),
         BottomNavigationBarItem(
           icon: SvgPicture.asset(
-            heart,
-            color: Theme.of(context).bottomNavigationBarTheme.selectedItemColor,
+            current == 2 ? heartFill : heart,
+            color: current == 0
+                ? Theme.of(context).bottomNavigationBarTheme.selectedItemColor
+                : Theme.of(context)
+                    .bottomNavigationBarTheme
+                    .unselectedItemColor,
           ),
           label: '',
         ),
         BottomNavigationBarItem(
           icon: SvgPicture.asset(
-            settings,
-            color: Theme.of(context).bottomNavigationBarTheme.selectedItemColor,
+            current == 3 ? settingsFill : settings,
+            color: current == 0
+                ? Theme.of(context).bottomNavigationBarTheme.selectedItemColor
+                : Theme.of(context)
+                    .bottomNavigationBarTheme
+                    .unselectedItemColor,
           ),
           label: '',
         ),

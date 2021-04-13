@@ -55,7 +55,7 @@ class _SightListScreenState extends State<SightListScreen> {
           ],
         ),
       ),
-      bottomNavigationBar: const BottomNaviBar(),
+      bottomNavigationBar: const BottomNaviBar(current: 0),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: _buildFloatingButtonAddPlace(),
     );

@@ -19,3 +19,8 @@ const String bucketSvg = 'res/icons/Bucket.svg';
 const String bagSvg = 'res/icons/Bag.svg';
 const String clickHandSvg = 'res/icons/ClickHand.svg';
 const String welcomeSvg = 'res/icons/Welcome.svg';
+
+const String listFill = 'res/icons/List_fill.svg';
+const String mapFill = 'res/icons/Map_fill.svg';
+const String heartFill = 'res/icons/Heart_fill.svg';
+const String settingsFill = 'res/icons/Settings_fill.svg';
