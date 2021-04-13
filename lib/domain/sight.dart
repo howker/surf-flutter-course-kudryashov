@@ -6,6 +6,7 @@ class Sight {
   final String details;
   final String type;
   final List<String> urlsImages;
+  final String id;
 
   Sight({
     this.nameSights,
@@ -15,5 +16,6 @@ class Sight {
     this.details,
     this.type,
     this.urlsImages,
+    this.id,
   });
 }

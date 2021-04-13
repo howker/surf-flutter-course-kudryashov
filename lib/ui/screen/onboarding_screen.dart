@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:places/colors.dart';
+import 'package:places/main.dart';
 import 'package:places/svg_path_const.dart';
 import 'package:places/text_string_const.dart';
 
@@ -54,7 +55,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushReplacementNamed(context, AppRoutes.sightList);
+                },
                 child: Text(
                   onboardingScreenMiss,
                   style: Theme.of(context)
@@ -65,7 +68,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               ),
             ],
           ),
-          const SizedBox(height: 110),
+          const SizedBox(height: 100),
           SizedBox(
             height: 246,
             child: PageView.builder(
@@ -88,7 +91,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               children: pagesIndicatorList,
             ),
           ),
-          const SizedBox(height: 55),
+          const SizedBox(height: 73),
           widget.screenIndex == 2
               ? const StartButton()
               : const SizedBox.shrink(),
@@ -170,7 +173,9 @@ class StartButton extends StatelessWidget {
         style: ElevatedButton.styleFrom(
           minimumSize: Size(double.infinity, 48),
         ),
-        onPressed: () {},
+        onPressed: () {
+          Navigator.pushReplacementNamed(context, AppRoutes.sightList);
+        },
         child: Text(
           onboardingScreenToStartButton,
           style: Theme.of(context).textTheme.bodyText2,

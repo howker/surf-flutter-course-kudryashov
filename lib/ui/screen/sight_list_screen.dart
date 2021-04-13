@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:places/colors.dart';
+import 'package:places/main.dart';
 import 'package:places/mock.dart';
 import 'package:places/styles.dart';
 import 'package:places/text_string_const.dart';
@@ -48,6 +49,7 @@ class _SightListScreenState extends State<SightListScreen> {
                     ),
                   );
                 },
+                childCount: mocks.length,
               ),
             ),
           ],
@@ -60,22 +62,27 @@ class _SightListScreenState extends State<SightListScreen> {
   }
 
   Widget _buildFloatingButtonAddPlace() {
-    return Container(
-      padding: const EdgeInsets.fromLTRB(22, 12, 22, 12),
-      width: 177,
-      height: 48,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(24),
-        gradient: const LinearGradient(
-          colors: [Colors.yellow, Colors.green],
+    return GestureDetector(
+      onTap: () {
+        Navigator.of(context).pushNamed(AppRoutes.newPlace);
+      },
+      child: Container(
+        padding: const EdgeInsets.fromLTRB(22, 12, 22, 12),
+        width: 177,
+        height: 48,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(24),
+          gradient: const LinearGradient(
+            colors: [Colors.yellow, Colors.green],
+          ),
         ),
-      ),
-      child: Row(
-        children: [
-          const Icon(Icons.add),
-          const SizedBox(width: 8),
-          const Text(sightListScreenAddNewPlace),
-        ],
+        child: Row(
+          children: [
+            const Icon(Icons.add),
+            const SizedBox(width: 8),
+            const Text(sightListScreenAddNewPlace),
+          ],
+        ),
       ),
     );
   }

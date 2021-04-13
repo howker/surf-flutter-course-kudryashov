@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:places/main.dart';
 import 'package:places/svg_path_const.dart';
 
 ///Нижняя навигационная панель
@@ -11,7 +12,22 @@ class BottomNaviBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
-      onTap: _onBottomItemTap,
+      onTap: (index) {
+        switch (index) {
+          case 0:
+            Navigator.of(context).pushReplacementNamed(AppRoutes.sightList);
+            break;
+          case 1:
+            print('Map was tapped');
+            break;
+          case 2:
+            Navigator.of(context).pushReplacementNamed(AppRoutes.visiting);
+            break;
+          case 3:
+            Navigator.of(context).pushReplacementNamed(AppRoutes.settings);
+            break;
+        }
+      },
       showSelectedLabels: false,
       currentIndex: 1,
       items: [
@@ -45,9 +61,5 @@ class BottomNaviBar extends StatelessWidget {
         ),
       ],
     );
-  }
-
-  void _onBottomItemTap(index) {
-    print(index);
   }
 }

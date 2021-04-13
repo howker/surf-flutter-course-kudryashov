@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:places/domain/sight.dart';
+import 'package:places/main.dart';
 import 'package:places/mock.dart';
 import 'package:places/styles.dart';
 import 'package:places/svg_path_const.dart';
 import 'package:places/text_string_const.dart';
+import 'package:places/ui/screen/sight_details.dart';
 
 /// Карточка интересного места
 class SightCard extends StatelessWidget {
@@ -241,7 +243,12 @@ class SightCard extends StatelessWidget {
               child: InkWell(
                 borderRadius: BorderRadius.circular(16),
                 onTap: () {
-                  print('onTap');
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (BuildContext context) =>
+                          SightDetails(sight: sight, sightId: sight.id),
+                    ),
+                  );
                 },
               ),
             ),
