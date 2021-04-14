@@ -48,7 +48,7 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
         automaticallyImplyLeading: false,
         elevation: 0,
       ),
-      bottomNavigationBar: BottomNaviBar(),
+      bottomNavigationBar: BottomNaviBar(current: 0),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16),
         child: SingleChildScrollView(

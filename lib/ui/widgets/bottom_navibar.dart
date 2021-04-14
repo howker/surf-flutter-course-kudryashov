@@ -1,53 +1,83 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:places/main.dart';
 import 'package:places/svg_path_const.dart';
 
 ///Нижняя навигационная панель
 class BottomNaviBar extends StatelessWidget {
   const BottomNaviBar({
     Key key,
+    this.current,
   }) : super(key: key);
+  final int current;
 
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
-      onTap: _onBottomItemTap,
+      onTap: (current) {
+        switch (current) {
+          case 0:
+            Navigator.of(context).pushReplacementNamed(AppRoutes.sightList);
+            break;
+          case 1:
+            print('Map was tapped');
+            break;
+          case 2:
+            Navigator.of(context).pushReplacementNamed(AppRoutes.visiting);
+            break;
+          case 3:
+            Navigator.of(context).pushReplacementNamed(AppRoutes.settings);
+            break;
+        }
+      },
       showSelectedLabels: false,
-      currentIndex: 1,
+      currentIndex: current,
       items: [
         BottomNavigationBarItem(
           icon: SvgPicture.asset(
-            list,
-            color: Theme.of(context).bottomNavigationBarTheme.selectedItemColor,
+            current == 0 ? listFill : list,
+            color: current == 0
+                ? Theme.of(context).bottomNavigationBarTheme.selectedItemColor
+                : Theme.of(context)
+                    .bottomNavigationBarTheme
+                    .unselectedItemColor,
           ),
           label: '',
         ),
         BottomNavigationBarItem(
           icon: SvgPicture.asset(
-            map,
-            color: Theme.of(context).bottomNavigationBarTheme.selectedItemColor,
+            current == 1 ? mapFill : map,
+            color: current == 0
+                ? Theme.of(context).bottomNavigationBarTheme.selectedItemColor
+                : Theme.of(context)
+                    .bottomNavigationBarTheme
+                    .unselectedItemColor,
           ),
           label: '',
         ),
         BottomNavigationBarItem(
           icon: SvgPicture.asset(
-            heart,
-            color: Theme.of(context).bottomNavigationBarTheme.selectedItemColor,
+            current == 2 ? heartFill : heart,
+            color: current == 0
+                ? Theme.of(context).bottomNavigationBarTheme.selectedItemColor
+                : Theme.of(context)
+                    .bottomNavigationBarTheme
+                    .unselectedItemColor,
           ),
           label: '',
         ),
         BottomNavigationBarItem(
           icon: SvgPicture.asset(
-            settings,
-            color: Theme.of(context).bottomNavigationBarTheme.selectedItemColor,
+            current == 3 ? settingsFill : settings,
+            color: current == 0
+                ? Theme.of(context).bottomNavigationBarTheme.selectedItemColor
+                : Theme.of(context)
+                    .bottomNavigationBarTheme
+                    .unselectedItemColor,
           ),
           label: '',
         ),
       ],
     );
-  }
-
-  void _onBottomItemTap(index) {
-    print(index);
   }
 }

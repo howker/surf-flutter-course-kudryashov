@@ -60,13 +60,18 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   watchTutorial,
                   style: Theme.of(context).textTheme.caption,
                 ),
-                Icon(Icons.info_outline, color: Colors.green),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.of(context).pushNamed(AppRoutes.onboarding);
+                  },
+                  child: Icon(Icons.info_outline, color: Colors.green),
+                ),
               ],
             ),
           ),
         ],
       ),
-      bottomNavigationBar: BottomNaviBar(),
+      bottomNavigationBar: BottomNaviBar(current: 3),
     );
   }
 }

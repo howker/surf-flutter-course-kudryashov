@@ -9,15 +9,21 @@ import 'package:places/svg_path_const.dart';
 import 'package:places/text_string_const.dart';
 
 /// Экран детализации интересного места
-class SightDetails extends StatelessWidget {
+class SightDetails extends StatefulWidget {
   final Sight sight;
+  final String sightId;
+
+  SightDetails({this.sight, this.sightId});
+
+  @override
+  _SightDetailsState createState() => _SightDetailsState();
+}
+
+class _SightDetailsState extends State<SightDetails> {
   PageController _pageController = PageController();
 
-  SightDetails({this.sight}) {
-    _initPageController();
-  }
-
-  void _initPageController() {
+  @override
+  void initState() {
     int currentPage = 0;
 
     Timer.periodic(
@@ -34,6 +40,13 @@ class SightDetails extends StatelessWidget {
         );
       },
     );
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
   }
 
   @override
@@ -51,12 +64,12 @@ class SightDetails extends StatelessWidget {
               flexibleSpace: FlexibleSpaceBar(
                 background: PageView.builder(
                   controller: _pageController,
-                  itemCount: sight.urlsImages.length,
+                  itemCount: widget.sight.urlsImages.length,
                   itemBuilder: (BuildContext context, int index) {
                     return ImageGallery(
-                      sight: sight,
+                      sight: widget.sight,
                       index: index,
-                      photoCount: sight.urlsImages.length,
+                      photoCount: widget.sight.urlsImages.length,
                     );
                   },
                 ),
@@ -75,7 +88,7 @@ class SightDetails extends StatelessWidget {
                         Container(
                           alignment: Alignment.centerLeft,
                           child: Text(
-                            sight.nameSights,
+                            widget.sight.nameSights,
                             style: Theme.of(context).textTheme.subtitle1,
                           ),
                         ),
@@ -87,7 +100,7 @@ class SightDetails extends StatelessWidget {
                           child: Row(
                             children: [
                               Text(
-                                sight.type,
+                                widget.sight.type,
                                 style: Theme.of(context).textTheme.subtitle2,
                               ),
                               const SizedBox(
@@ -106,7 +119,7 @@ class SightDetails extends StatelessWidget {
                         Container(
                           alignment: Alignment.centerLeft,
                           child: Text(
-                            sight.details,
+                            widget.sight.details,
                             style: Theme.of(context).textTheme.bodyText1,
                           ),
                         ),

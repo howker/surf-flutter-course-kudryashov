@@ -20,7 +20,10 @@ final lightTheme = ThemeData(
   bottomNavigationBarTheme: BottomNavigationBarThemeData(
     backgroundColor: lmPrimaryColor,
     selectedItemColor: lmBottomBarSelectedColor,
-    unselectedItemColor: lmBottomBarSelectedColor,
+    unselectedItemColor: lmBottomBarUnselectedColor,
+    showSelectedLabels: false,
+    showUnselectedLabels: false,
+    type: BottomNavigationBarType.fixed,
   ),
   textTheme: TextTheme(
     headline6: textRegular32DarkGrey.copyWith(
@@ -84,6 +87,9 @@ final darkTheme = ThemeData(
     backgroundColor: dmPrimaryColor,
     selectedItemColor: dmBottomBarSelectedColor,
     unselectedItemColor: dmBottomBarSelectedColor,
+    showSelectedLabels: false,
+    showUnselectedLabels: false,
+    type: BottomNavigationBarType.fixed,
   ),
   textTheme: TextTheme(
     headline6: textRegular32DarkGrey.copyWith(
