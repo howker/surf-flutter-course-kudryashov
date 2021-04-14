@@ -1,9 +1,11 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:places/colors.dart';
 import 'package:places/domain/sight.dart';
 import 'package:places/mock.dart';
+import 'package:places/svg_path_const.dart';
 import 'package:places/text_string_const.dart';
 import 'package:places/ui/screen/new_place_category.dart';
 
@@ -103,7 +105,7 @@ class _AddSightScreenState extends State<AddSightScreen> {
               ),
               const SizedBox(height: 12),
               _buildDescriptionFrame(context),
-              const SizedBox(height: 28),
+              const SizedBox(height: 142),
               _buildCreateButton(context),
             ],
           ),
@@ -132,7 +134,7 @@ class _AddSightScreenState extends State<AddSightScreen> {
                 barrierDismissible: false,
                 context: context,
                 builder: (_) {
-                  return Container();
+                  return DialogToAddPhotoSource();
                 },
               );
             },
@@ -456,5 +458,122 @@ class _AddSightScreenState extends State<AddSightScreen> {
       typeSight = newPlaceCategory;
       focusNodeNewPlaceScreenName.requestFocus();
     });
+  }
+}
+
+class DialogToAddPhotoSource extends StatelessWidget {
+  const DialogToAddPhotoSource({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          ClipRRect(
+            borderRadius: BorderRadius.circular(12),
+            child: Container(
+              height: 152,
+              width: double.infinity,
+              color: Colors.white,
+              child: Padding(
+                padding: const EdgeInsets.only(top: 8, left: 17, right: 17),
+                child: DialogItems(),
+              ),
+            ),
+          ),
+          const SizedBox(height: 8),
+          CancelDialogButton(),
+          const SizedBox(height: 8),
+        ],
+      ),
+    );
+  }
+}
+
+/// Пункты меню диалогового окна
+class DialogItems extends StatelessWidget {
+  const DialogItems({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        TextButton.icon(
+          icon: SvgPicture.asset(camera),
+          onPressed: () {},
+          label: Text(
+            newPlaceScreenDialogCamera,
+            style: Theme.of(context)
+                .textTheme
+                .headline5
+                .copyWith(color: lmHeadline4Color),
+          ),
+        ),
+        const Divider(thickness: 0.8, height: 0),
+        TextButton.icon(
+          icon: SvgPicture.asset(photo),
+          onPressed: () {},
+          label: Text(
+            newPlaceScreenDialogPhoto,
+            style: Theme.of(context)
+                .textTheme
+                .headline5
+                .copyWith(color: lmHeadline4Color),
+          ),
+        ),
+        const Divider(thickness: 0.8, height: 0),
+        TextButton.icon(
+          style: TextButton.styleFrom(padding: EdgeInsets.only(left: 10)),
+          icon: SvgPicture.asset(file),
+          onPressed: () {},
+          label: Text(
+            newPlaceScreenDialogFile,
+            style: Theme.of(context)
+                .textTheme
+                .headline5
+                .copyWith(color: lmHeadline4Color),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+///Кнопка "отмена" диалога
+class CancelDialogButton extends StatelessWidget {
+  const CancelDialogButton({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(12),
+      child: GestureDetector(
+        onTap: () {
+          Navigator.pop(context);
+        },
+        child: Container(
+          height: 48,
+          width: double.infinity,
+          color: Colors.white,
+          child: Center(
+            child: Text(
+              newPlaceScreenCancelDialogButton,
+              style: Theme.of(context).textTheme.bodyText2.copyWith(
+                    color: Colors.green,
+                  ),
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }

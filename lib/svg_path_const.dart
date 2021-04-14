@@ -24,3 +24,7 @@ const String listFill = 'res/icons/List_fill.svg';
 const String mapFill = 'res/icons/Map_fill.svg';
 const String heartFill = 'res/icons/Heart_fill.svg';
 const String settingsFill = 'res/icons/Settings_fill.svg';
+
+const String camera = 'res/icons/Camera.svg';
+const String photo = 'res/icons/Photo.svg';
+const String file = 'res/icons/File.svg';
