@@ -18,71 +18,109 @@ class _SightListScreenState extends State<SightListScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: CustomScrollView(
-          slivers: [
-            SliverPadding(
-              padding: const EdgeInsets.only(top: 25, bottom: 20),
-              sliver: SliverPersistentHeader(
-                pinned: true,
-                delegate: AppBarPersistentHeaderDelegate(),
-              ),
-            ),
-            SliverList(
-              delegate: SliverChildListDelegate(
-                [
-                  Padding(
-                    padding:
-                        const EdgeInsets.only(left: 16, right: 16, bottom: 20),
-                    child: SearchBar(),
-                  ),
-                ],
-              ),
-            ),
-            SliverList(
-              delegate: SliverChildBuilderDelegate(
-                (BuildContext context, int index) {
-                  return Padding(
-                    padding: const EdgeInsets.all(16),
-                    child: SightCard(
-                      sight: mocks[index],
-                    ),
-                  );
-                },
-                childCount: mocks.length,
-              ),
-            ),
-          ],
-        ),
+      body: OrientationBuilder(
+        builder: (BuildContext context, Orientation orientation) {
+          if (orientation == Orientation.portrait) {
+            return PortraitModeList();
+          } else {
+            return LandscapeModeList();
+          }
+        },
       ),
       bottomNavigationBar: const BottomNaviBar(current: 0),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: _buildFloatingButtonAddPlace(),
+      floatingActionButton: FloatingButtonAddPlace(context: context),
     );
   }
+}
 
-  Widget _buildFloatingButtonAddPlace() {
-    return GestureDetector(
-      onTap: () {
-        Navigator.of(context).pushNamed(AppRoutes.newPlace);
-      },
-      child: Container(
-        padding: const EdgeInsets.fromLTRB(22, 12, 22, 12),
-        width: 177,
-        height: 48,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(24),
-          gradient: const LinearGradient(
-            colors: [Colors.yellow, Colors.green],
+/// Список карточек для портретного режима
+class PortraitModeList extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea(
+      child: CustomScrollView(
+        slivers: [
+          SliverPadding(
+            padding: const EdgeInsets.only(top: 25, bottom: 20),
+            sliver: SliverPersistentHeader(
+              pinned: true,
+              delegate: AppBarPersistentHeaderDelegate(),
+            ),
           ),
-        ),
-        child: Row(
-          children: [
-            const Icon(Icons.add),
-            const SizedBox(width: 8),
-            const Text(sightListScreenAddNewPlace),
-          ],
-        ),
+          SliverList(
+            delegate: SliverChildListDelegate(
+              [
+                Padding(
+                  padding:
+                      const EdgeInsets.only(left: 16, right: 16, bottom: 20),
+                  child: SearchBar(),
+                ),
+              ],
+            ),
+          ),
+          SliverList(
+            delegate: SliverChildBuilderDelegate(
+              (BuildContext context, int index) {
+                return Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: SightCard(
+                    sight: mocks[index],
+                  ),
+                );
+              },
+              childCount: mocks.length,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+/// Список карточек для горизонтального режима
+class LandscapeModeList extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea(
+      child: CustomScrollView(
+        slivers: [
+          SliverPadding(
+            padding: const EdgeInsets.only(top: 25, bottom: 20),
+            sliver: SliverPersistentHeader(
+              pinned: true,
+              delegate: AppBarPersistentHeaderDelegate(),
+            ),
+          ),
+          SliverList(
+            delegate: SliverChildListDelegate(
+              [
+                Padding(
+                  padding:
+                      const EdgeInsets.only(left: 16, right: 16, bottom: 20),
+                  child: SearchBar(),
+                ),
+              ],
+            ),
+          ),
+          SliverGrid(
+            delegate: SliverChildBuilderDelegate(
+              (BuildContext context, int index) {
+                return Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: SightCard(
+                    sight: mocks[index],
+                  ),
+                );
+              },
+              childCount: mocks.length,
+            ),
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              childAspectRatio: 1.5,
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -158,5 +196,42 @@ class AppBarPersistentHeaderDelegate extends SliverPersistentHeaderDelegate {
   @override
   bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) {
     return true;
+  }
+}
+
+///Кнопка добавления нового места
+class FloatingButtonAddPlace extends StatelessWidget {
+  const FloatingButtonAddPlace({
+    Key key,
+    @required this.context,
+  }) : super(key: key);
+
+  final BuildContext context;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        Navigator.of(context).pushNamed(AppRoutes.newPlace);
+      },
+      child: Container(
+        padding: const EdgeInsets.fromLTRB(22, 12, 22, 12),
+        width: 177,
+        height: 48,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(24),
+          gradient: const LinearGradient(
+            colors: [Colors.yellow, Colors.green],
+          ),
+        ),
+        child: Row(
+          children: [
+            const Icon(Icons.add),
+            const SizedBox(width: 8),
+            const Text(sightListScreenAddNewPlace),
+          ],
+        ),
+      ),
+    );
   }
 }
