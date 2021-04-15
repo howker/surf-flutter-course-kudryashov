@@ -12,6 +12,7 @@ class FilterItem extends StatefulWidget {
   final String svgPath;
   final String description;
   bool isChecked;
+  final double elementPadding;
 
   FilterItem({
     Key key,
@@ -22,6 +23,7 @@ class FilterItem extends StatefulWidget {
     @required this.svgPath,
     this.description = '',
     this.isChecked = false,
+    this.elementPadding = 0,
   }) : super(key: key);
   @override
   _FilterItemState createState() => _FilterItemState();
@@ -63,30 +65,33 @@ class _FilterItemState extends State<FilterItem> {
               },
             );
           },
-          child: Stack(
-            alignment: Alignment.bottomRight,
-            children: [
-              SvgPicture.asset(
-                widget.svgPath,
-                width: 64,
-                height: 64,
-              ),
-              Container(
-                height: 16,
-                width: 16,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: widget.checkRoundcolor,
+          child: Padding(
+            padding: EdgeInsets.only(right: widget.elementPadding),
+            child: Stack(
+              alignment: Alignment.bottomRight,
+              children: [
+                SvgPicture.asset(
+                  widget.svgPath,
+                  width: 64,
+                  height: 64,
                 ),
-                child: widget.isChecked
-                    ? Icon(
-                        Icons.check,
-                        size: 9,
-                        color: widget.checkMarkColor,
-                      )
-                    : const SizedBox(),
-              ),
-            ],
+                Container(
+                  height: 16,
+                  width: 16,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: widget.checkRoundcolor,
+                  ),
+                  child: widget.isChecked
+                      ? Icon(
+                          Icons.check,
+                          size: 9,
+                          color: widget.checkMarkColor,
+                        )
+                      : const SizedBox(),
+                ),
+              ],
+            ),
           ),
         ),
         const SizedBox(height: 8),
