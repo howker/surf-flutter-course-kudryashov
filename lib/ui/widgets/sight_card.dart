@@ -252,11 +252,21 @@ class SightCard extends StatelessWidget {
               child: InkWell(
                 borderRadius: BorderRadius.circular(16),
                 onTap: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (BuildContext context) =>
-                          SightDetails(sight: sight, sightId: sight.id),
-                    ),
+                  showModalBottomSheet(
+                    isScrollControlled: true,
+                    context: context,
+                    builder: (context) {
+                      return SafeArea(
+                        minimum: const EdgeInsets.only(top: 50),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(16),
+                            topRight: Radius.circular(16),
+                          ),
+                          child: SightDetails(sight: sight),
+                        ),
+                      );
+                    },
                   );
                 },
               ),
