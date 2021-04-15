@@ -289,7 +289,19 @@ class SightCard extends StatelessWidget {
                     ? const SizedBox()
                     : InkWell(
                         child: SvgPicture.asset(firstIcon),
-                        onTap: _onFirstIconTap,
+                        onTap: () async {
+                          if (firstIcon == calendar) {
+                            var resDate = await showDatePicker(
+                              context: context,
+                              initialDate: DateTime.now(),
+                              firstDate:
+                                  DateTime.now().subtract(Duration(days: 30)),
+                              lastDate: DateTime.now().add(Duration(days: 30)),
+                            );
+                            print(resDate);
+                          } else
+                            print('share');
+                        },
                       ),
                 const SizedBox(width: 23),
                 InkWell(
@@ -302,13 +314,6 @@ class SightCard extends StatelessWidget {
         ],
       ),
     );
-  }
-
-  void _onFirstIconTap() {
-    if (firstIcon == calendar) {
-      print('calendar');
-    } else
-      print('share');
   }
 
   void _onSecondIconTap() {
