@@ -65,6 +65,11 @@ const String newPlaceScreenInputText = 'введите текст';
 const String newPlaceScreenCreateButton = 'СОЗДАТЬ';
 const String urlByDefault =
     'https://cdn.photosight.ru/img/8/2a2/6386165_large.jpg';
+const String newPlaceScreenCancelDialogButton = 'ОТМЕНА';
+
+const String newPlaceScreenDialogCamera = ' Камера';
+const String newPlaceScreenDialogPhoto = 'Фотография';
+const String newPlaceScreenDialogFile = ' Файл';
 
 /// NewPlaceCategoryScreen
 const String newPlaceCategoryScreenCategory = 'Категория';
