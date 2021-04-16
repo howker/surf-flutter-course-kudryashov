@@ -71,8 +71,7 @@ class _FiltersScreenState extends State<FiltersScreen> {
           const SizedBox(height: 24),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
-            //
-            child: deviceHeigh > 780 && deviceWidth > 420
+            child: deviceHeigh > 800 && deviceWidth > 480
                 ? FilterItemsGrid()
                 : FilterItemsHorizontalList(),
           ),
@@ -108,7 +107,7 @@ class _FiltersScreenState extends State<FiltersScreen> {
               });
             },
           ),
-          const SizedBox(height: 140),
+          const SizedBox(height: 120),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: ElevatedButton(
