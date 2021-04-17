@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:places/domain/sight.dart';
@@ -291,14 +294,36 @@ class SightCard extends StatelessWidget {
                         child: SvgPicture.asset(firstIcon),
                         onTap: () async {
                           if (firstIcon == calendar) {
-                            var resDate = await showDatePicker(
-                              context: context,
-                              initialDate: DateTime.now(),
-                              firstDate:
-                                  DateTime.now().subtract(Duration(days: 30)),
-                              lastDate: DateTime.now().add(Duration(days: 30)),
-                            );
-                            print(resDate);
+                            if (Platform.isAndroid) {
+                              var resDate = await showDatePicker(
+                                context: context,
+                                initialDate: DateTime.now(),
+                                firstDate:
+                                    DateTime.now().subtract(Duration(days: 30)),
+                                lastDate:
+                                    DateTime.now().add(Duration(days: 30)),
+                              );
+                              print(resDate);
+                            } else if (Platform.isIOS) {
+                              showCupertinoModalPopup(
+                                context: context,
+                                builder: (context) => Container(
+                                  height: 300,
+                                  child: CupertinoDatePicker(
+                                    onDateTimeChanged: (DateTime value) {
+                                      print(value);
+                                    },
+                                    initialDateTime: DateTime.now(),
+                                    minimumDate: DateTime.now()
+                                        .subtract(Duration(days: 30)),
+                                    maximumDate:
+                                        DateTime.now().add(Duration(days: 30)),
+                                    backgroundColor:
+                                        Theme.of(context).backgroundColor,
+                                  ),
+                                ),
+                              );
+                            }
                           } else
                             print('share');
                         },
