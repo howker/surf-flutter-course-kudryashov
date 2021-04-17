@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:places/colors.dart';
-import 'package:places/domain/sight.dart';
 import 'package:places/domain/utils.dart';
 import 'package:places/mock.dart';
 import 'package:places/svg_path_const.dart';
@@ -18,6 +17,8 @@ class _FiltersScreenState extends State<FiltersScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final double deviceHeigh = MediaQuery.of(context).size.height;
+    final double deviceWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
@@ -50,7 +51,7 @@ class _FiltersScreenState extends State<FiltersScreen> {
         ],
       ),
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
           const SizedBox(height: 24),
           Padding(
@@ -70,7 +71,9 @@ class _FiltersScreenState extends State<FiltersScreen> {
           const SizedBox(height: 24),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: _buildFilterItems(),
+            child: deviceHeigh > 800 && deviceWidth > 480
+                ? FilterItemsGrid()
+                : FilterItemsHorizontalList(),
           ),
           const SizedBox(height: 60),
           Padding(
@@ -104,7 +107,7 @@ class _FiltersScreenState extends State<FiltersScreen> {
               });
             },
           ),
-          const SizedBox(height: 140),
+          const SizedBox(height: 120),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: ElevatedButton(
@@ -123,8 +126,11 @@ class _FiltersScreenState extends State<FiltersScreen> {
       ),
     );
   }
+}
 
-  Widget _buildFilterItems() {
+class FilterItemsGrid extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
     return Wrap(
       spacing: 44,
       alignment: WrapAlignment.spaceEvenly,
@@ -167,6 +173,61 @@ class _FiltersScreenState extends State<FiltersScreen> {
           isChecked: filters[filterTypeCafe],
         ),
       ],
+    );
+  }
+}
+
+class FilterItemsHorizontalList extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 86,
+      child: ListView(
+        scrollDirection: Axis.horizontal,
+        children: [
+          FilterItem(
+            svgPath: hotel,
+            value: 1,
+            description: filterTypeHotel,
+            isChecked: filters[filterTypeHotel],
+            elementPadding: 44,
+          ),
+          FilterItem(
+            svgPath: restourant,
+            value: 2,
+            description: filterTypeRestaurant,
+            isChecked: filters[filterTypeRestaurant],
+            elementPadding: 44,
+          ),
+          FilterItem(
+            svgPath: particular_place,
+            value: 3,
+            description: filterTypeSpecial,
+            isChecked: filters[filterTypeSpecial],
+            elementPadding: 44,
+          ),
+          FilterItem(
+            svgPath: park,
+            value: 4,
+            description: filterTypePark,
+            isChecked: filters[filterTypePark],
+            elementPadding: 44,
+          ),
+          FilterItem(
+            svgPath: museum,
+            value: 5,
+            description: filterTypeMuseum,
+            isChecked: filters[filterTypeMuseum],
+            elementPadding: 44,
+          ),
+          FilterItem(
+            svgPath: cafe,
+            value: 6,
+            description: filterTypeCafe,
+            isChecked: filters[filterTypeCafe],
+          )
+        ],
+      ),
     );
   }
 }
