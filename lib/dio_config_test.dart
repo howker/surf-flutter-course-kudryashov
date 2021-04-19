@@ -19,9 +19,11 @@ void initInterceptors() {
       onRequest: (options, handler) {
         print(
             'Request is sending: ${options.method} ${options.baseUrl}${options.path}');
+        return handler.next(options);
       },
       onResponse: (responce, handler) {
         print('Answer was received: ${responce.data}');
+        return handler.next(responce);
       },
     ),
   );
@@ -31,7 +33,7 @@ Future<dynamic> getTestData() async {
   initInterceptors();
   final response = await dio.get(
     '/users',
-    onReceiveProgress: (count, total) => print('There is: $count'),
+    onReceiveProgress: (count, total) => print('Count...: $count'),
   );
   if (response.statusCode == 200) {
     return response.data;
