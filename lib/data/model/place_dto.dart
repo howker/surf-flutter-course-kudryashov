@@ -1,29 +1,29 @@
-class Place {
+class PlaceDto {
   final int id;
   final double lat;
   final double lng;
   final String name;
   final List<dynamic> urls;
-  final String placeType;
   final String description;
+  final double distance;
 
-  Place(
+  PlaceDto(
     this.id,
     this.lat,
     this.lng,
     this.name,
     this.urls,
     this.description,
-    this.placeType,
+    this.distance,
   );
 
-  Place.fromJson(Map<String, dynamic> json)
+  PlaceDto.fromJson(Map<String, dynamic> json)
       : id = json['id'],
         lat = json['lat'],
         lng = json['lng'],
         name = json['name'],
         urls = json['urls'],
-        placeType = json['placeType'],
+        distance = json['distance'],
         description = json['description'];
 
   Map<String, dynamic> toJson() {
@@ -33,7 +33,7 @@ class Place {
     data['lng'] = this.lng;
     data['name'] = this.name;
     data['urls'] = this.urls;
-    data['placeType'] = this.placeType;
+    data['distance'] = this.distance;
     data['description'] = this.description;
     return data;
   }
