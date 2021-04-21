@@ -1,14 +1,14 @@
-import 'dart:math';
-
 import 'package:dio/dio.dart';
 import 'package:places/data/model/place.dart';
 import 'package:places/data/model/place_dto.dart';
+import 'package:places/data/model/places_filter_request_dto.dart';
 
+///Репозиторий с запросами к api
 class PlaceRepository {
   final Dio dio = Dio(
     BaseOptions(
       baseUrl: 'https://test-backend-flutter.surfstudio.ru',
-      connectTimeout: 10000,
+      connectTimeout: 5000,
       receiveTimeout: 5000,
       sendTimeout: 5000,
       responseType: ResponseType.json,
@@ -36,33 +36,19 @@ class PlaceRepository {
 
   Future<List<dynamic>> getPlaces() async {
     initInterceptors();
-    final response = await dio.get(ApiConsts.getPlaces);
+    final response = await dio.get(ApiConsts.places);
     if (response.statusCode == 200) {
       return response.data.map((json) => Place.fromJson(json)).toList();
     }
     throw Exception('HTTP request error: ${response.statusCode}');
   }
 
-  Future<List<dynamic>> getFilteredPlaces() async {
+  Future<List<dynamic>> getFilteredPlaces(PlacesFilterRequestDto filter) async {
     initInterceptors();
     final response = await dio.post(
       ApiConsts.getFilteredPlaces,
       data: {
-        'lat': 55.753215,
-        'lng': 37.622504,
-        'radius': 10000.0,
-        'typeFilter': [
-          'temple',
-          'monument',
-          'park',
-          'theatre',
-          'museum',
-          'hotel',
-          'restaurant',
-          'cafe',
-          'other'
-        ],
-        'nameFilter': '',
+        filter.toJson(),
       },
     );
     if (response.statusCode == 200) {
@@ -71,34 +57,63 @@ class PlaceRepository {
     throw Exception('HTTP request error: ${response.statusCode}');
   }
 
-  Future<dynamic> createPlace() async {
+  Future<PlaceDto> createPlace(PlaceDto place) async {
     initInterceptors();
     final response = await dio.post(
-      ApiConsts.createPlace,
-      data: {
-        'id': Random(),
-        'lat': 46.349540,
-        'lng': 48.030772,
-        'placeType': 'museum',
-        'description': '''историко-архитектурный комплекс, крепость,
-            история которой началась в 1558 году. Изначально крепость была деревянной,
-             но давление со стороны турецко-татарских войск, междоусобицы и военные конфликты,
-              мешающие укреплению и росту страны, привели к строительству более мощной и защищённой 
-              крепости''',
-      },
+      ApiConsts.places,
+      data: place.toJson(),
     );
     if (response.statusCode == 200) {
-      return response.data.map((json) => Place.fromJson(json)).toList();
+      return PlaceDto.fromJson(response.data);
+    } else if (response.statusCode == 400) {
+      print('Invalid request.');
+    } else if (response.statusCode == 409) {
+      print('Object already exists');
+    }
+    throw Exception('HTTP request error: ${response.statusCode}');
+  }
+
+  Future<PlaceDto> getPlaceById(int id) async {
+    initInterceptors();
+    final response = await dio.get(ApiConsts.places + '/$id');
+    if (response.statusCode == 200) {
+      return PlaceDto.fromJson(response.data);
+    }
+    throw Exception('HTTP request error: ${response.statusCode}');
+  }
+
+  Future<PlaceDto> deletePlaceById(int id) async {
+    initInterceptors();
+    final response = await dio.delete(ApiConsts.places + '/$id');
+    if (response.statusCode == 200) {
+      print('Object successfully deleted.');
+    } else if (response.statusCode == 400) {
+      print('No object found.');
+    }
+    throw Exception('HTTP request error: ${response.statusCode}');
+  }
+
+  Future<PlaceDto> updatePlace(PlaceDto place) async {
+    initInterceptors();
+    final response = await dio.put(
+      ApiConsts.places + '${place.id}',
+      data: place.toJson(),
+    );
+    if (response.statusCode == 200) {
+      return PlaceDto.fromJson(response.data);
+    } else if (response.statusCode == 400) {
+      print('Invalid request.');
+    } else if (response.statusCode == 404) {
+      print('No object found.');
+    } else if (response.statusCode == 409) {
+      print('Object already exists');
     }
     throw Exception('HTTP request error: ${response.statusCode}');
   }
 }
 
+///Константы для запросов к серверу
 class ApiConsts {
-  static const String getPlaces = '/place';
+  static const String places = '/place';
   static const String getFilteredPlaces = '/filtered_places';
-  static const String createPlace = '/place';
-  // /upload_file
-  // /files/{path}
-  // /client/{path}
 }
