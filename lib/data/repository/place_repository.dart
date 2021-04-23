@@ -43,16 +43,17 @@ class PlaceRepository {
     throw Exception('HTTP request error: ${response.statusCode}');
   }
 
-  Future<List<dynamic>> getFilteredPlaces(PlacesFilterRequestDto filter) async {
+  Future<List<PlaceDto>> getFilteredPlaces(
+      PlacesFilterRequestDto filter) async {
     initInterceptors();
     final response = await dio.post(
       ApiConsts.getFilteredPlaces,
-      data: {
-        filter.toJson(),
-      },
+      data: filter.toJson(),
     );
     if (response.statusCode == 200) {
-      return response.data.map((json) => PlaceDto.fromJson(json)).toList();
+      return (response.data as List)
+          .map((json) => PlaceDto.fromJson(json))
+          .toList();
     }
     throw Exception('HTTP request error: ${response.statusCode}');
   }
