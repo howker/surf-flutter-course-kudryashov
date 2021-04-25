@@ -34,17 +34,18 @@ class PlaceRepository {
     );
   }
 
-  Future<List<dynamic>> getPlaces() async {
+  Future<List<Place>> getPlaces() async {
     initInterceptors();
     final response = await dio.get(ApiConsts.places);
     if (response.statusCode == 200) {
-      return response.data.map((json) => Place.fromJson(json)).toList();
+      return (response.data as List)
+          .map((json) => Place.fromJson(json))
+          .toList();
     }
     throw Exception('HTTP request error: ${response.statusCode}');
   }
 
-  Future<List<PlaceDto>> getFilteredPlaces(
-      PlacesFilterRequestDto filter) async {
+  Future<List<Place>> getFilteredPlaces(PlacesFilterRequestDto filter) async {
     initInterceptors();
     final response = await dio.post(
       ApiConsts.getFilteredPlaces,
@@ -52,20 +53,20 @@ class PlaceRepository {
     );
     if (response.statusCode == 200) {
       return (response.data as List)
-          .map((json) => PlaceDto.fromJson(json))
+          .map((json) => Place.fromJson(json))
           .toList();
     }
     throw Exception('HTTP request error: ${response.statusCode}');
   }
 
-  Future<PlaceDto> createPlace(PlaceDto place) async {
+  Future<Place> createPlace(Place place) async {
     initInterceptors();
     final response = await dio.post(
       ApiConsts.places,
       data: place.toJson(),
     );
     if (response.statusCode == 200) {
-      return PlaceDto.fromJson(response.data);
+      return Place.fromJson(response.data);
     } else if (response.statusCode == 400) {
       print('Invalid request.');
     } else if (response.statusCode == 409) {
@@ -110,6 +111,12 @@ class PlaceRepository {
       print('Object already exists');
     }
     throw Exception('HTTP request error: ${response.statusCode}');
+  }
+
+  ///Для теста временно список для имитации избранного
+  Future<List<Place>> testSetFavoritesPlaces() async {
+    List<Place> favorites = await getPlaces();
+    return favorites;
   }
 }
 

@@ -5,7 +5,7 @@ class Sight {
   final String url;
   final String details;
   final String type;
-  final List<String> urlsImages;
+  final List<dynamic> urlsImages;
   final String id;
 
   Sight({

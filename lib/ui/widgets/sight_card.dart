@@ -226,7 +226,7 @@ class SightCard extends StatelessWidget {
                       right: 16,
                     ),
                     child: Text(
-                      sight.nameSights,
+                      sight.nameSights ?? '',
                       style: Theme.of(context).textTheme.headline5,
                     ),
                   ),
@@ -279,7 +279,7 @@ class SightCard extends StatelessWidget {
             top: 19,
             left: 16,
             child: Text(
-              sight.type,
+              sight.type ?? '',
               style: textBold14Black.copyWith(color: Colors.white),
             ),
           ),

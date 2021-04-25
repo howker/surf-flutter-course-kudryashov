@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:places/colors.dart';
+import 'package:places/data/interactor/place_interactor.dart';
+import 'package:places/data/model/place.dart';
+import 'package:places/data/model/places_filter_request_dto.dart';
+import 'package:places/domain/sight.dart';
 import 'package:places/main.dart';
 import 'package:places/mock.dart';
 import 'package:places/styles.dart';
@@ -38,6 +42,7 @@ class _SightListScreenState extends State<SightListScreen> {
 class PortraitModeList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    int childCount;
     return SafeArea(
       child: CustomScrollView(
         slivers: [
@@ -64,12 +69,43 @@ class PortraitModeList extends StatelessWidget {
               (BuildContext context, int index) {
                 return Padding(
                   padding: const EdgeInsets.all(16),
-                  child: SightCard(
-                    sight: mocks[index],
+                  child: FutureBuilder(
+                    future: PlaceInteractor.getPlaces(
+                      PlacesFilterRequestDto(
+                        lat: GeoUtils.getMyCoordinates()['lat'],
+                        lng: GeoUtils.getMyCoordinates()['lon'],
+                        radius: 10000.0,
+                        typeFilter: mockTypeFilters,
+                        nameFilter: '',
+                      ),
+                    ),
+                    builder: (BuildContext context,
+                        AsyncSnapshot<List<Place>> snapshot) {
+                      if (snapshot.hasData) {
+                        childCount = snapshot.data.length;
+                        final placesList = snapshot.data;
+                        if (placesList.isEmpty) {
+                          return const SizedBox.shrink();
+                        } else if (index <= snapshot.data.length - 1)
+                          return SightCard(
+                            sight: Sight(
+                              nameSights: placesList[index].name,
+                              lat: placesList[index].lat,
+                              lon: placesList[index].lng,
+                              url: placesList[index].urls.first,
+                              details: placesList[index].description,
+                              urlsImages: placesList[index].urls,
+                            ),
+                          );
+                      } else if (snapshot.hasError) {
+                        print('error');
+                      }
+                      return const SizedBox.shrink();
+                    },
                   ),
                 );
               },
-              childCount: mocks.length,
+              childCount: childCount,
             ),
           ),
         ],
@@ -108,12 +144,42 @@ class LandscapeModeList extends StatelessWidget {
               (BuildContext context, int index) {
                 return Padding(
                   padding: const EdgeInsets.all(16),
-                  child: SightCard(
-                    sight: mocks[index],
+                  child: FutureBuilder(
+                    future: PlaceInteractor.getPlaces(
+                      PlacesFilterRequestDto(
+                        lat: GeoUtils.getMyCoordinates()['lat'],
+                        lng: GeoUtils.getMyCoordinates()['lon'],
+                        radius: 10000.0,
+                        typeFilter: mockTypeFilters,
+                        nameFilter: '',
+                      ),
+                    ),
+                    builder: (BuildContext context,
+                        AsyncSnapshot<List<Place>> snapshot) {
+                      if (snapshot.hasData) {
+                        final placesList = snapshot.data;
+                        if (placesList.isEmpty) {
+                          return const SizedBox.shrink();
+                        } else
+                          return SightCard(
+                            sight: Sight(
+                              nameSights: placesList[index].name,
+                              lat: placesList[index].lat,
+                              lon: placesList[index].lng,
+                              url: placesList[index].urls.first,
+                              details: placesList[index].description,
+                              urlsImages: placesList[index].urls,
+                            ),
+                          );
+                      } else if (snapshot.hasError) {
+                        print('error');
+                      }
+                      return const SizedBox.shrink();
+                    },
                   ),
                 );
               },
-              childCount: mocks.length,
+              childCount: null,
             ),
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,

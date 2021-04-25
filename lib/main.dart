@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:places/data/interactor/place_interactor.dart';
-import 'package:places/data/model/places_filter_request_dto.dart';
-import 'package:places/data/repository/place_repository.dart';
 import 'package:places/ui/screen/add_sight_screen.dart';
 import 'package:places/ui/screen/onboarding_screen.dart';
 import 'package:places/ui/screen/res/themes.dart';
@@ -22,18 +19,9 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  PlacesFilterRequestDto filter = PlacesFilterRequestDto(
-    radius: 10000.0,
-    typeFilter: ['other'],
-    lat: 55.989198,
-    lng: 37.601605,
-    nameFilter: '',
-  );
   @override
   void initState() {
     themeModel.addListener(() => setState(() {}));
-    PlaceInteractor.getPlaces(filter);
-
     super.initState();
   }
 

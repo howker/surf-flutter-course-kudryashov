@@ -143,3 +143,15 @@ final List<Sight> mocksPhotos = [
       details: 'Кладбище кораблей в городе Чернобыль Киевской области, Украина',
       type: 'необычное место'),
 ];
+
+List<String> mockTypeFilters = [
+  'temple',
+  'monument',
+  'park',
+  'theatre',
+  'museum',
+  'hotel',
+  'restaurant',
+  'cafe',
+  'other'
+];

@@ -100,7 +100,7 @@ class _SightDetailsState extends State<SightDetails> {
                           child: Row(
                             children: [
                               Text(
-                                widget.sight.type,
+                                widget.sight.type ?? '',
                                 style: Theme.of(context).textTheme.subtitle2,
                               ),
                               const SizedBox(
@@ -119,7 +119,7 @@ class _SightDetailsState extends State<SightDetails> {
                         Container(
                           alignment: Alignment.centerLeft,
                           child: Text(
-                            widget.sight.details,
+                            widget.sight.details ?? '',
                             style: Theme.of(context).textTheme.bodyText1,
                           ),
                         ),
