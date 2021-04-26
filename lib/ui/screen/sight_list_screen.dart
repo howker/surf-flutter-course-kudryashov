@@ -42,7 +42,6 @@ class _SightListScreenState extends State<SightListScreen> {
 class PortraitModeList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    int childCount;
     return SafeArea(
       child: CustomScrollView(
         slivers: [
@@ -64,48 +63,53 @@ class PortraitModeList extends StatelessWidget {
               ],
             ),
           ),
-          SliverList(
-            delegate: SliverChildBuilderDelegate(
-              (BuildContext context, int index) {
-                return Padding(
-                  padding: const EdgeInsets.all(16),
-                  child: FutureBuilder(
-                    future: PlaceInteractor.getPlaces(
-                      PlacesFilterRequestDto(
-                        lat: GeoUtils.getMyCoordinates()['lat'],
-                        lng: GeoUtils.getMyCoordinates()['lon'],
-                        radius: 10000.0,
-                        typeFilter: mockTypeFilters,
-                        nameFilter: '',
-                      ),
-                    ),
-                    builder: (BuildContext context,
-                        AsyncSnapshot<List<Place>> snapshot) {
-                      if (snapshot.hasData) {
-                        childCount = snapshot.data.length;
-                        final placesList = snapshot.data;
-                        if (placesList.isEmpty) {
-                          return const SizedBox.shrink();
-                        } else if (index <= snapshot.data.length - 1)
-                          return SightCard(
-                            sight: Sight(
-                              nameSights: placesList[index].name,
-                              lat: placesList[index].lat,
-                              lon: placesList[index].lng,
-                              url: placesList[index].urls.first,
-                              details: placesList[index].description,
-                              urlsImages: placesList[index].urls,
-                            ),
-                          );
-                      } else if (snapshot.hasError) {
-                        print('error');
-                      }
-                      return const SizedBox.shrink();
-                    },
+          SliverPadding(
+            padding: const EdgeInsets.all(16),
+            sliver: SliverToBoxAdapter(
+              child: FutureBuilder(
+                future: PlaceInteractor.getPlaces(
+                  PlacesFilterRequestDto(
+                    lat: GeoUtils.getMyCoordinates()['lat'],
+                    lng: GeoUtils.getMyCoordinates()['lon'],
+                    radius: 10000.0,
+                    typeFilter: mockTypeFilters,
+                    nameFilter: '',
                   ),
-                );
-              },
-              childCount: childCount,
+                ),
+                builder: (BuildContext context,
+                    AsyncSnapshot<List<Place>> snapshot) {
+                  if (snapshot.hasData) {
+                    if (snapshot.data.isEmpty) {
+                      return const SizedBox.shrink();
+                    } else
+                      return SizedBox(
+                        width: double.infinity,
+                        child: ListView.builder(
+                          itemCount: snapshot.data.length,
+                          shrinkWrap: true,
+                          itemBuilder: (BuildContext context, int index) {
+                            return Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 10),
+                              child: SightCard(
+                                sight: Sight(
+                                  nameSights: snapshot.data[index].name,
+                                  lat: snapshot.data[index].lat,
+                                  lon: snapshot.data[index].lng,
+                                  url: snapshot.data[index].urls.first,
+                                  details: snapshot.data[index].description,
+                                  urlsImages: snapshot.data[index].urls,
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                      );
+                  } else if (snapshot.hasError) {
+                    print('error');
+                  }
+                  return const SizedBox.shrink();
+                },
+              ),
             ),
           ),
         ],
