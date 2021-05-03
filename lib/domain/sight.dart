@@ -6,7 +6,7 @@ class Sight {
   final String details;
   final String type;
   final List<dynamic> urlsImages;
-  final String id;
+  final int id;
 
   Sight({
     this.nameSights,

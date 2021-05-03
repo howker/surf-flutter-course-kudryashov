@@ -75,11 +75,11 @@ class PlaceRepository {
     throw Exception('HTTP request error: ${response.statusCode}');
   }
 
-  Future<PlaceDto> getPlaceById(int id) async {
+  Future<Place> getPlaceById(int id) async {
     initInterceptors();
     final response = await dio.get(ApiConsts.places + '/$id');
     if (response.statusCode == 200) {
-      return PlaceDto.fromJson(response.data);
+      return Place.fromJson(response.data);
     }
     throw Exception('HTTP request error: ${response.statusCode}');
   }

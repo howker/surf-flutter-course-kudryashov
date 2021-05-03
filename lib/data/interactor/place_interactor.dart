@@ -26,7 +26,7 @@ class PlaceInteractor {
     return places;
   }
 
-  static Future<PlaceDto> getPlaceDetails(int id) async {
+  static Future<Place> getPlaceDetails(int id) async {
     final place = await (placeRepository.getPlaceById(id));
     return place;
   }

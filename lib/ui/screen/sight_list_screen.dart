@@ -98,6 +98,7 @@ class PortraitModeList extends StatelessWidget {
                                   url: snapshot.data[index].urls.first,
                                   details: snapshot.data[index].description,
                                   urlsImages: snapshot.data[index].urls,
+                                  id: snapshot.data[index].id,
                                 ),
                               ),
                             );

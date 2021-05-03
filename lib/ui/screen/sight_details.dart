@@ -3,6 +3,9 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:places/colors.dart';
+import 'package:places/data/interactor/place_interactor.dart';
+import 'package:places/data/model/place.dart';
+import 'package:places/data/model/place_dto.dart';
 import 'package:places/domain/sight.dart';
 import 'package:places/styles.dart';
 import 'package:places/svg_path_const.dart';
@@ -11,7 +14,7 @@ import 'package:places/text_string_const.dart';
 /// Экран детализации интересного места
 class SightDetails extends StatefulWidget {
   final Sight sight;
-  final String sightId;
+  final int sightId;
 
   SightDetails({this.sight, this.sightId});
 
@@ -25,7 +28,6 @@ class _SightDetailsState extends State<SightDetails> {
   @override
   void initState() {
     int currentPage = 0;
-
     Timer.periodic(
       Duration(seconds: 3),
       (timer) {
@@ -40,6 +42,7 @@ class _SightDetailsState extends State<SightDetails> {
         );
       },
     );
+
     super.initState();
   }
 
@@ -53,142 +56,154 @@ class _SightDetailsState extends State<SightDetails> {
   Widget build(BuildContext context) {
     return Material(
       child: SafeArea(
-        child: CustomScrollView(
-          slivers: [
-            SliverAppBar(
-              elevation: 0,
-              primary: true,
-              stretch: true,
-              automaticallyImplyLeading: false,
-              expandedHeight: 360,
-              flexibleSpace: FlexibleSpaceBar(
-                background: PageView.builder(
-                  controller: _pageController,
-                  itemCount: widget.sight.urlsImages.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    return ImageGallery(
-                      sight: widget.sight,
-                      index: index,
-                      photoCount: widget.sight.urlsImages.length,
-                    );
-                  },
-                ),
-              ),
-            ),
-            SliverFillRemaining(
-              child: Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
+        child: FutureBuilder<Place>(
+          future: PlaceInteractor.getPlaceDetails(widget.sightId),
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              return CustomScrollView(
+                slivers: [
+                  SliverAppBar(
+                    elevation: 0,
+                    primary: true,
+                    stretch: true,
+                    automaticallyImplyLeading: false,
+                    expandedHeight: 360,
+                    flexibleSpace: FlexibleSpaceBar(
+                      background: PageView.builder(
+                        controller: _pageController,
+                        itemCount: snapshot.data.urls.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          return ImageGallery(
+                            place: snapshot.data,
+                            index: index,
+                            photoCount: snapshot.data.urls.length,
+                          );
+                        },
+                      ),
+                    ),
+                  ),
+                  SliverFillRemaining(
                     child: Column(
                       children: [
-                        const SizedBox(
-                          height: 24,
-                        ),
-                        Container(
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            widget.sight.nameSights,
-                            style: Theme.of(context).textTheme.subtitle1,
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 2,
-                        ),
-                        Container(
-                          alignment: Alignment.centerLeft,
-                          child: Row(
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 16),
+                          child: Column(
                             children: [
-                              Text(
-                                widget.sight.type ?? '',
-                                style: Theme.of(context).textTheme.subtitle2,
+                              const SizedBox(
+                                height: 24,
+                              ),
+                              Container(
+                                alignment: Alignment.centerLeft,
+                                child: Text(
+                                  snapshot.data.name,
+                                  style: Theme.of(context).textTheme.subtitle1,
+                                ),
                               ),
                               const SizedBox(
-                                width: 16,
+                                height: 2,
                               ),
-                              Text(
-                                close,
-                                style: Theme.of(context).textTheme.headline4,
-                              ),
-                            ],
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 24,
-                        ),
-                        Container(
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            widget.sight.details ?? '',
-                            style: Theme.of(context).textTheme.bodyText1,
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 24,
-                        ),
-                        ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            minimumSize: Size(double.infinity, 48),
-                          ),
-                          onPressed: () {
-                            print('ПОСТРОИТЬ МАРШРУТ');
-                          },
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              SvgPicture.asset(
-                                go,
-                                color: Colors.white,
+                              Container(
+                                alignment: Alignment.centerLeft,
+                                child: Row(
+                                  children: [
+                                    Text(
+                                      snapshot.data.placeType ?? '',
+                                      style:
+                                          Theme.of(context).textTheme.subtitle2,
+                                    ),
+                                    const SizedBox(
+                                      width: 16,
+                                    ),
+                                    Text(
+                                      close,
+                                      style:
+                                          Theme.of(context).textTheme.headline4,
+                                    ),
+                                  ],
+                                ),
                               ),
                               const SizedBox(
-                                width: 10,
+                                height: 24,
                               ),
-                              Text(
-                                buildRoute,
-                                style: Theme.of(context).textTheme.bodyText2,
+                              Container(
+                                alignment: Alignment.centerLeft,
+                                child: Text(
+                                  snapshot.data.description ?? '',
+                                  style: Theme.of(context).textTheme.bodyText1,
+                                ),
                               ),
-                            ],
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 24,
-                        ),
-                        const Divider(),
-                        Container(
-                          alignment: Alignment.centerLeft,
-                          child: Row(
-                            children: [
-                              IconButton(
-                                padding: EdgeInsets.only(left: 33),
-                                icon: Icon(
-                                  Icons.calendar_today,
-                                  color: lmInactiveBlackColor,
+                              const SizedBox(
+                                height: 24,
+                              ),
+                              ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  minimumSize: Size(double.infinity, 48),
                                 ),
                                 onPressed: () {
-                                  print('Запланировать');
+                                  print('ПОСТРОИТЬ МАРШРУТ');
                                 },
-                              ),
-                              const SizedBox(width: 9),
-                              Text(
-                                toPlain,
-                                style: textRegular14Grey.copyWith(
-                                  color: lmInactiveBlackColor,
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    SvgPicture.asset(
+                                      go,
+                                      color: Colors.white,
+                                    ),
+                                    const SizedBox(
+                                      width: 10,
+                                    ),
+                                    Text(
+                                      buildRoute,
+                                      style:
+                                          Theme.of(context).textTheme.bodyText2,
+                                    ),
+                                  ],
                                 ),
                               ),
-                              IconButton(
-                                padding: EdgeInsets.only(left: 40),
-                                icon: Icon(
-                                  Icons.favorite_border,
-                                  color: Theme.of(context).primaryColorDark,
-                                ),
-                                onPressed: () {
-                                  print('В избранное');
-                                },
+                              const SizedBox(
+                                height: 24,
                               ),
-                              const SizedBox(width: 9),
-                              Text(
-                                toFavorites,
-                                style: Theme.of(context).textTheme.bodyText1,
+                              const Divider(),
+                              Container(
+                                alignment: Alignment.centerLeft,
+                                child: Row(
+                                  children: [
+                                    IconButton(
+                                      padding: EdgeInsets.only(left: 33),
+                                      icon: Icon(
+                                        Icons.calendar_today,
+                                        color: lmInactiveBlackColor,
+                                      ),
+                                      onPressed: () {
+                                        print('Запланировать');
+                                      },
+                                    ),
+                                    const SizedBox(width: 9),
+                                    Text(
+                                      toPlain,
+                                      style: textRegular14Grey.copyWith(
+                                        color: lmInactiveBlackColor,
+                                      ),
+                                    ),
+                                    IconButton(
+                                      padding: EdgeInsets.only(left: 40),
+                                      icon: Icon(
+                                        Icons.favorite_border,
+                                        color:
+                                            Theme.of(context).primaryColorDark,
+                                      ),
+                                      onPressed: () {
+                                        print('В избранное');
+                                      },
+                                    ),
+                                    const SizedBox(width: 9),
+                                    Text(
+                                      toFavorites,
+                                      style:
+                                          Theme.of(context).textTheme.bodyText1,
+                                    ),
+                                  ],
+                                ),
                               ),
                             ],
                           ),
@@ -197,9 +212,10 @@ class _SightDetailsState extends State<SightDetails> {
                     ),
                   ),
                 ],
-              ),
-            ),
-          ],
+              );
+            } else
+              return SizedBox.shrink();
+          },
         ),
       ),
     );
@@ -210,14 +226,16 @@ class _SightDetailsState extends State<SightDetails> {
 class ImageGallery extends StatelessWidget {
   ImageGallery({
     Key key,
-    this.sight,
+    // this.sight,
     this.index,
     this.photoCount,
+    this.place,
   });
 
-  final Sight sight;
+  // final Sight sight;
   final int index;
   final int photoCount;
+  final Place place;
 
   @override
   Widget build(BuildContext context) {
@@ -226,7 +244,8 @@ class ImageGallery extends StatelessWidget {
         Container(
           height: 360,
           child: Image.network(
-            sight.urlsImages[index] ?? 0,
+            place.urls[index] ?? 0,
+            //sight.urlsImages[index] ?? 0,
             fit: BoxFit.cover,
             loadingBuilder: (BuildContext context, Widget child,
                 ImageChunkEvent loadingProgress) {

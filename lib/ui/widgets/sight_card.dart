@@ -266,7 +266,7 @@ class SightCard extends StatelessWidget {
                             topLeft: Radius.circular(16),
                             topRight: Radius.circular(16),
                           ),
-                          child: SightDetails(sight: sight),
+                          child: SightDetails(sight: sight, sightId: sight.id),
                         ),
                       );
                     },
