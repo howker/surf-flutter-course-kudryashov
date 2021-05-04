@@ -1,11 +1,9 @@
 import 'dart:io';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:places/domain/sight.dart';
-import 'package:places/main.dart';
-import 'package:places/mock.dart';
+import 'package:places/data/interactor/place_interactor.dart';
+import 'package:places/data/model/place.dart';
 import 'package:places/styles.dart';
 import 'package:places/svg_path_const.dart';
 import 'package:places/text_string_const.dart';
@@ -13,7 +11,7 @@ import 'package:places/ui/screen/sight_details.dart';
 
 /// Карточка интересного места
 class SightCard extends StatelessWidget {
-  Sight sight;
+  Place place;
   String firstIcon;
   Icon secondIcon;
   double descriptionCardHeight;
@@ -26,21 +24,21 @@ class SightCard extends StatelessWidget {
   Function onDismissedCard;
 
   SightCard({
-    this.sight,
+    this.place,
     this.key,
     this.onRemoveCard,
     this.onReorderCard,
     this.onDismissedCard,
   }) : super(key: key) {
-    this.sight = sight ?? mocks[0];
+    this.place = place;
     this.secondIcon = secondIcon ?? const Icon(Icons.favorite_border);
     this.descriptionCardHeight = 102;
-    this.details = sight.details;
+    this.details = place.description;
     this.closed = close;
-    this.key = key ?? ValueKey(this.sight.nameSights);
+    this.key = key ?? ValueKey(this.place.name);
   }
   SightCard.wantToVisit({
-    this.sight,
+    this.place,
     this.key,
     this.onRemoveCard,
     this.onReorderCard,
@@ -52,11 +50,11 @@ class SightCard extends StatelessWidget {
     details = planned;
     closed = close;
     detailsStyle = textRegular14Grey.copyWith(color: Colors.green);
-    this.key = key ?? ValueKey(this.sight.nameSights);
+    this.key = key ?? ValueKey(this.place.name);
   }
 
   SightCard.alreadyVisited({
-    this.sight,
+    this.place,
     this.key,
     this.onRemoveCard,
     this.onReorderCard,
@@ -68,7 +66,7 @@ class SightCard extends StatelessWidget {
     details = aimReached;
     closed = close;
     detailsStyle = textRegular14Grey;
-    this.key = key ?? ValueKey(this.sight.nameSights);
+    this.key = key ?? ValueKey(this.place.name);
   }
 
   @override
@@ -138,27 +136,27 @@ class SightCard extends StatelessWidget {
   }
 
   Widget _buildTarget(context) {
-    return DragTarget<Sight>(
+    return DragTarget<Place>(
       builder: (
         BuildContext context,
-        List<Sight> candidateData,
+        List<Place> candidateData,
         List<dynamic> rejectedData,
       ) {
         return LongPressDraggable(
-          data: sight,
+          data: place,
           axis: Axis.vertical,
           feedback: _buildCard(context),
           child: _buildCard(context),
           childWhenDragging: const SizedBox.shrink(),
         );
       },
-      onAccept: (acceptedSight) {
-        final int targetIndex = mocks.indexOf(sight);
-        final int acceptedIndex = mocks.indexOf(acceptedSight);
-        mocks[targetIndex] = acceptedSight;
-        mocks[acceptedIndex] = sight;
-        onReorderCard();
-      },
+      // onAccept: (acceptedSight) {
+      //   final int targetIndex = mocks.indexOf(place);
+      //   final int acceptedIndex = mocks.indexOf(acceptedSight);
+      //   mocks[targetIndex] = acceptedSight;
+      //   mocks[acceptedIndex] = sight;
+      //   onReorderCard();
+      // },
     );
   }
 
@@ -174,7 +172,7 @@ class SightCard extends StatelessWidget {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(16),
               child: Image.network(
-                sight.url,
+                place.urls[0],
                 height: 198,
                 width: double.infinity,
                 fit: BoxFit.cover,
@@ -226,7 +224,7 @@ class SightCard extends StatelessWidget {
                       right: 16,
                     ),
                     child: Text(
-                      sight.nameSights ?? '',
+                      place.name ?? '',
                       style: Theme.of(context).textTheme.headline5,
                     ),
                   ),
@@ -266,7 +264,7 @@ class SightCard extends StatelessWidget {
                             topLeft: Radius.circular(16),
                             topRight: Radius.circular(16),
                           ),
-                          child: SightDetails(sight: sight, sightId: sight.id),
+                          child: SightDetails(place: place),
                         ),
                       );
                     },
@@ -279,7 +277,7 @@ class SightCard extends StatelessWidget {
             top: 19,
             left: 16,
             child: Text(
-              sight.type ?? '',
+              place.placeType ?? '',
               style: textBold14Black.copyWith(color: Colors.white),
             ),
           ),
@@ -343,9 +341,8 @@ class SightCard extends StatelessWidget {
 
   void _onSecondIconTap() {
     if (secondIcon.icon == Icons.close) {
-      print('delete card');
       onRemoveCard();
     } else
-      print('to favourites');
+      PlaceInteractor.addToFavorites(place);
   }
 }

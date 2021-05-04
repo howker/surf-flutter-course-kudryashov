@@ -62,7 +62,10 @@ class PlaceInteractor {
         element.id == place.id ? result = false : result = true;
       },
     );
-    if (result) favoritesPlaces.add(place);
+    if (result) {
+      favoritesPlaces.add(place);
+    } else
+      favoritesPlaces.remove(place);
 
     return result;
   }

@@ -91,13 +91,12 @@ class PortraitModeList extends StatelessWidget {
                             return Padding(
                               padding: const EdgeInsets.symmetric(vertical: 10),
                               child: SightCard(
-                                sight: Sight(
-                                  nameSights: snapshot.data[index].name,
+                                place: Place(
+                                  name: snapshot.data[index].name,
                                   lat: snapshot.data[index].lat,
-                                  lon: snapshot.data[index].lng,
-                                  url: snapshot.data[index].urls.first,
-                                  details: snapshot.data[index].description,
-                                  urlsImages: snapshot.data[index].urls,
+                                  lng: snapshot.data[index].lng,
+                                  urls: snapshot.data[index].urls,
+                                  description: snapshot.data[index].description,
                                   id: snapshot.data[index].id,
                                 ),
                               ),
@@ -167,13 +166,13 @@ class LandscapeModeList extends StatelessWidget {
                           return const SizedBox.shrink();
                         } else
                           return SightCard(
-                            sight: Sight(
-                              nameSights: placesList[index].name,
-                              lat: placesList[index].lat,
-                              lon: placesList[index].lng,
-                              url: placesList[index].urls.first,
-                              details: placesList[index].description,
-                              urlsImages: placesList[index].urls,
+                            place: Place(
+                              name: snapshot.data[index].name,
+                              lat: snapshot.data[index].lat,
+                              lng: snapshot.data[index].lng,
+                              urls: snapshot.data[index].urls,
+                              description: snapshot.data[index].description,
+                              id: snapshot.data[index].id,
                             ),
                           );
                       } else if (snapshot.hasError) {

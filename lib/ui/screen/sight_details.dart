@@ -1,22 +1,18 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:places/colors.dart';
 import 'package:places/data/interactor/place_interactor.dart';
 import 'package:places/data/model/place.dart';
-import 'package:places/data/model/place_dto.dart';
-import 'package:places/domain/sight.dart';
 import 'package:places/styles.dart';
 import 'package:places/svg_path_const.dart';
 import 'package:places/text_string_const.dart';
 
 /// Экран детализации интересного места
 class SightDetails extends StatefulWidget {
-  final Sight sight;
-  final int sightId;
+  final Place place;
 
-  SightDetails({this.sight, this.sightId});
+  SightDetails({this.place});
 
   @override
   _SightDetailsState createState() => _SightDetailsState();
@@ -24,6 +20,7 @@ class SightDetails extends StatefulWidget {
 
 class _SightDetailsState extends State<SightDetails> {
   PageController _pageController = PageController();
+  bool isClosed = false;
 
   @override
   void initState() {
@@ -31,15 +28,16 @@ class _SightDetailsState extends State<SightDetails> {
     Timer.periodic(
       Duration(seconds: 3),
       (timer) {
-        currentPage++;
-        if (currentPage > 3) {
+        if (currentPage >= widget.place.urls.length) {
           currentPage = 0;
         }
-        _pageController.animateToPage(
-          currentPage,
-          duration: Duration(milliseconds: 500),
-          curve: Curves.linear,
-        );
+        if (!isClosed)
+          _pageController.animateToPage(
+            currentPage,
+            duration: Duration(milliseconds: 500),
+            curve: Curves.linear,
+          );
+        currentPage++;
       },
     );
 
@@ -49,6 +47,7 @@ class _SightDetailsState extends State<SightDetails> {
   @override
   void dispose() {
     _pageController.dispose();
+    isClosed = true;
     super.dispose();
   }
 
@@ -57,7 +56,7 @@ class _SightDetailsState extends State<SightDetails> {
     return Material(
       child: SafeArea(
         child: FutureBuilder<Place>(
-          future: PlaceInteractor.getPlaceDetails(widget.sightId),
+          future: PlaceInteractor.getPlaceDetails(widget.place.id),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               return CustomScrollView(
@@ -193,7 +192,8 @@ class _SightDetailsState extends State<SightDetails> {
                                             Theme.of(context).primaryColorDark,
                                       ),
                                       onPressed: () {
-                                        print('В избранное');
+                                        PlaceInteractor.addToFavorites(
+                                            widget.place);
                                       },
                                     ),
                                     const SizedBox(width: 9),
@@ -226,13 +226,10 @@ class _SightDetailsState extends State<SightDetails> {
 class ImageGallery extends StatelessWidget {
   ImageGallery({
     Key key,
-    // this.sight,
     this.index,
     this.photoCount,
     this.place,
   });
-
-  // final Sight sight;
   final int index;
   final int photoCount;
   final Place place;
@@ -245,7 +242,6 @@ class ImageGallery extends StatelessWidget {
           height: 360,
           child: Image.network(
             place.urls[index] ?? 0,
-            //sight.urlsImages[index] ?? 0,
             fit: BoxFit.cover,
             loadingBuilder: (BuildContext context, Widget child,
                 ImageChunkEvent loadingProgress) {
