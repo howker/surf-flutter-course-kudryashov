@@ -3,6 +3,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:places/colors.dart';
+import 'package:places/data/interactor/place_interactor.dart';
+import 'package:places/data/model/place.dart';
 import 'package:places/domain/sight.dart';
 import 'package:places/mock.dart';
 import 'package:places/svg_path_const.dart';
@@ -27,7 +29,7 @@ class _AddSightScreenState extends State<AddSightScreen> {
   String nameSight = '';
   double latSight = 0.0;
   double lonSight = 0.0;
-  String urlSight = urlByDefault;
+  List<String> urlSight = [urlByDefault];
   String detailsSight = '';
   String typeSight = '';
 
@@ -406,15 +408,16 @@ class _AddSightScreenState extends State<AddSightScreen> {
           minimumSize: Size(double.infinity, 48),
         ),
         onPressed: () {
-          Sight newSight = Sight(
-            nameSights: nameSight,
+          Place place = Place(
             lat: latSight,
-            lon: lonSight,
-            url: urlSight,
-            details: detailsSight,
-            type: typeSight,
+            lng: lonSight,
+            name: nameSight,
+            urls: urlSight,
+            description: detailsSight,
+            placeType: typeSight,
           );
-          mocks.add(newSight);
+
+          PlaceInteractor.addNewPlace(place);
         },
         child: Text(
           newPlaceScreenCreateButton,
