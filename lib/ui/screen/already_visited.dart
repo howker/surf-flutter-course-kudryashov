@@ -33,6 +33,7 @@ class _AlreadyVisitedTabState extends State<AlreadyVisitedTab> {
                     onReorderCard: () => setState(() {}),
                     onDismissedCard: () =>
                         onDismissedCard(snapshot.data[index]),
+                    candidateDataList: snapshot.data,
                   ),
                 ),
               );
@@ -46,15 +47,15 @@ class _AlreadyVisitedTabState extends State<AlreadyVisitedTab> {
     );
   }
 
-  void onRemoveCard(sight) {
+  void onRemoveCard(place) {
     setState(() {
-      mocks.remove(sight);
+      PlaceInteractor.removeFromFavorites(place);
     });
   }
 
-  void onDismissedCard(sight) {
+  void onDismissedCard(place) {
     setState(() {
-      onRemoveCard(sight);
+      onRemoveCard(place);
     });
   }
 }

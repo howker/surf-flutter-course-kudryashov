@@ -22,6 +22,7 @@ class SightCard extends StatelessWidget {
   Function onRemoveCard;
   Function onReorderCard;
   Function onDismissedCard;
+  List<Place> candidateDataList;
 
   SightCard({
     this.place,
@@ -29,6 +30,7 @@ class SightCard extends StatelessWidget {
     this.onRemoveCard,
     this.onReorderCard,
     this.onDismissedCard,
+    this.candidateDataList,
   }) : super(key: key) {
     this.place = place;
     this.secondIcon = secondIcon ?? const Icon(Icons.favorite_border);
@@ -43,6 +45,7 @@ class SightCard extends StatelessWidget {
     this.onRemoveCard,
     this.onReorderCard,
     this.onDismissedCard,
+    this.candidateDataList,
   }) : super(key: key) {
     firstIcon = calendar;
     secondIcon = const Icon(Icons.close);
@@ -59,6 +62,7 @@ class SightCard extends StatelessWidget {
     this.onRemoveCard,
     this.onReorderCard,
     this.onDismissedCard,
+    this.candidateDataList,
   }) : super(key: key) {
     firstIcon = share;
     secondIcon = const Icon(Icons.close);
@@ -150,13 +154,22 @@ class SightCard extends StatelessWidget {
           childWhenDragging: const SizedBox.shrink(),
         );
       },
-      // onAccept: (acceptedSight) {
-      //   final int targetIndex = mocks.indexOf(place);
-      //   final int acceptedIndex = mocks.indexOf(acceptedSight);
-      //   mocks[targetIndex] = acceptedSight;
-      //   mocks[acceptedIndex] = sight;
-      //   onReorderCard();
-      // },
+      onAccept: (acceptedSight) {
+        int targetIndex = 0;
+        candidateDataList.forEach((element) {
+          if (element.id == place.id)
+            targetIndex = candidateDataList.indexOf(element);
+        });
+        int acceptedIndex = 0;
+        candidateDataList.forEach((element) {
+          if (element.id == acceptedSight.id)
+            acceptedIndex = candidateDataList.indexOf(element);
+        });
+
+        candidateDataList[targetIndex] = acceptedSight;
+        candidateDataList[acceptedIndex] = place;
+        onReorderCard();
+      },
     );
   }
 

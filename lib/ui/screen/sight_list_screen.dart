@@ -3,7 +3,6 @@ import 'package:places/colors.dart';
 import 'package:places/data/interactor/place_interactor.dart';
 import 'package:places/data/model/place.dart';
 import 'package:places/data/model/places_filter_request_dto.dart';
-import 'package:places/domain/sight.dart';
 import 'package:places/main.dart';
 import 'package:places/mock.dart';
 import 'package:places/styles.dart';
@@ -99,6 +98,7 @@ class PortraitModeList extends StatelessWidget {
                                   description: snapshot.data[index].description,
                                   id: snapshot.data[index].id,
                                 ),
+                                candidateDataList: snapshot.data,
                               ),
                             );
                           },

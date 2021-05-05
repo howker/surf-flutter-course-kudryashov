@@ -32,6 +32,7 @@ class _WantToVisitTabState extends State<WantToVisitTab> {
                     onReorderCard: () => setState(() {}),
                     onDismissedCard: () =>
                         onDismissedCard(snapshot.data[index]),
+                    candidateDataList: snapshot.data,
                   ),
                 ),
               );
