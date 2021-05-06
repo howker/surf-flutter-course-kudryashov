@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:places/data/interactor/settings_interactor.dart';
 import 'package:places/ui/screen/add_sight_screen.dart';
 import 'package:places/ui/screen/onboarding_screen.dart';
 import 'package:places/ui/screen/res/themes.dart';
@@ -7,7 +8,7 @@ import 'package:places/ui/screen/sight_list_screen.dart';
 import 'package:places/ui/screen/splash_screen.dart';
 import 'package:places/ui/screen/visiting_screen.dart';
 
-final themeModel = ThemeModel();
+final settingsInteractor = SettingsInteractor();
 
 void main() {
   runApp(MyApp());
@@ -21,14 +22,14 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   void initState() {
-    themeModel.addListener(() => setState(() {}));
+    settingsInteractor.addListener(() => setState(() {}));
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: themeModel.isDark ? darkTheme : lightTheme,
+      theme: SettingsInteractor.isDark ? darkTheme : lightTheme,
       title: 'Intresting places',
       home: SplashScreen(),
       routes: {
