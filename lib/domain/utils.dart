@@ -1,12 +1,12 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:places/domain/sight.dart';
+import 'package:places/data/model/place.dart';
 
-List<Sight> listAreaByRadius(
-    List<Sight> inputList, userLat, userLng, RangeValues rangeValues) {
-  List<Sight> listAreaByRadius = [];
-  inputList.forEach((element) {
-    if (arePointsNear(userLat, userLng, element.lat, element.lon,
+List<Place> listAreaByRadius(
+    List<Place> inputList, userLat, userLng, RangeValues rangeValues) {
+  List<Place> listAreaByRadius = [];
+  inputList?.forEach((element) {
+    if (arePointsNear(userLat, userLng, element.lat, element.lng,
         rangeValues.start, rangeValues.end)) listAreaByRadius.add(element);
   });
   return listAreaByRadius;

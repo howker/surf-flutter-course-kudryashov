@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:places/colors.dart';
+import 'package:places/data/interactor/search_interactor.dart';
+import 'package:places/data/model/place.dart';
 import 'package:places/domain/utils.dart';
 import 'package:places/mock.dart';
 import 'package:places/svg_path_const.dart';
 import 'package:places/text_string_const.dart';
+import 'package:places/ui/screen/sight_search_screen.dart';
 import 'package:places/ui/widgets/filter_item.dart';
 
 ///Экран фильтров
@@ -13,8 +16,6 @@ class FiltersScreen extends StatefulWidget {
 }
 
 class _FiltersScreenState extends State<FiltersScreen> {
-  RangeValues _rangeValues = const RangeValues(100, 10000);
-
   @override
   Widget build(BuildContext context) {
     final double deviceHeigh = MediaQuery.of(context).size.height;
@@ -33,7 +34,7 @@ class _FiltersScreenState extends State<FiltersScreen> {
             onPressed: () {
               setState(
                 () {
-                  _rangeValues = const RangeValues(100, 10000);
+                  SearchInteractor.rangeValues = RangeValues(100, 10000);
                   for (var item in filters.entries) {
                     filters[item.key] = false;
                   }
@@ -71,7 +72,7 @@ class _FiltersScreenState extends State<FiltersScreen> {
           const SizedBox(height: 24),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: deviceHeigh > 800 && deviceWidth > 480
+            child: deviceHeigh > 800 && deviceWidth > 400
                 ? FilterItemsGrid()
                 : FilterItemsHorizontalList(),
           ),
@@ -86,7 +87,7 @@ class _FiltersScreenState extends State<FiltersScreen> {
                   style: Theme.of(context).textTheme.caption,
                 ),
                 Text(
-                  '$distanceFrom ${(_rangeValues.start * 0.001).toInt()} $distanceTo ${(_rangeValues.end * 0.001).toInt()} км',
+                  '$distanceFrom ${(SearchInteractor.rangeValues.start * 0.001).toInt()} $distanceTo ${(SearchInteractor.rangeValues.end * 0.001).toInt()} км',
                   style: Theme.of(context)
                       .textTheme
                       .caption
@@ -96,14 +97,17 @@ class _FiltersScreenState extends State<FiltersScreen> {
             ),
           ),
           RangeSlider(
-            values: _rangeValues,
+            values: SearchInteractor.rangeValues,
             max: 10000,
             min: 0,
             onChanged: (newValues) {
               setState(() {
-                _rangeValues = newValues;
-                sortedByRadius =
-                    listAreaByRadius(mocks, userLat, userLng, _rangeValues);
+                SearchInteractor.rangeValues = newValues;
+                SearchInteractor.sortedByRadius = listAreaByRadius(
+                    SearchInteractor.placesListStorage,
+                    userLat,
+                    userLng,
+                    SearchInteractor.rangeValues);
               });
             },
           ),
@@ -114,9 +118,11 @@ class _FiltersScreenState extends State<FiltersScreen> {
               style: ElevatedButton.styleFrom(
                 minimumSize: Size(double.infinity, 48),
               ),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pop(context);
+              },
               child: Text(
-                '$show (${listAreaByRadius(mocks, userLat, userLng, _rangeValues).length})',
+                '$show (${listAreaByRadius(SearchInteractor.placesListStorage, userLat, userLng, SearchInteractor.rangeValues).length})',
                 style: Theme.of(context).textTheme.bodyText2,
               ),
             ),

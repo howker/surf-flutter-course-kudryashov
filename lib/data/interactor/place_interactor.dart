@@ -1,7 +1,5 @@
 import 'dart:math';
-
 import 'package:places/data/model/place.dart';
-import 'package:places/data/model/place_dto.dart';
 import 'package:places/data/model/places_filter_request_dto.dart';
 import 'package:places/data/repository/place_repository.dart';
 

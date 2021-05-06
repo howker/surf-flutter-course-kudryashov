@@ -99,6 +99,7 @@ class PortraitModeList extends StatelessWidget {
                                   id: snapshot.data[index].id,
                                 ),
                                 candidateDataList: snapshot.data,
+                                onReorderCard: () {},
                               ),
                             );
                           },
