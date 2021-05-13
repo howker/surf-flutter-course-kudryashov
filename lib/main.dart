@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:places/dio_config_test.dart';
 import 'package:places/ui/screen/add_sight_screen.dart';
 import 'package:places/ui/screen/onboarding_screen.dart';
 import 'package:places/ui/screen/res/themes.dart';
@@ -22,7 +23,13 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     themeModel.addListener(() => setState(() {}));
+    testDioCall();
     super.initState();
+  }
+
+  void testDioCall() async {
+    final responce = await getTestData();
+    return responce;
   }
 
   @override
