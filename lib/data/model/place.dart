@@ -16,25 +16,4 @@ class Place {
     this.description,
     this.placeType,
   );
-
-  Place.fromJson(Map<String, dynamic> json)
-      : id = json['id'],
-        lat = json['lat'],
-        lng = json['lng'],
-        name = json['name'],
-        urls = json['urls'],
-        placeType = json['placeType'],
-        description = json['description'];
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
-    data['id'] = this.id;
-    data['lat'] = this.lat;
-    data['lng'] = this.lng;
-    data['name'] = this.name;
-    data['urls'] = this.urls;
-    data['placeType'] = this.placeType;
-    data['description'] = this.description;
-    return data;
-  }
 }
