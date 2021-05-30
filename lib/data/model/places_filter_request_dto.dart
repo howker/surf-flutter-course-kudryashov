@@ -12,4 +12,14 @@ class PlacesFilterRequestDto {
     this.typeFilter,
     this.nameFilter,
   );
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['lat'] = this.lat;
+    data['lng'] = this.lng;
+    data['radius'] = this.radius;
+    data['typeFilter'] = this.typeFilter;
+    data['nameFilter'] = this.nameFilter;
+    return data;
+  }
 }
