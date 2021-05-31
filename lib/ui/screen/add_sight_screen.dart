@@ -108,7 +108,7 @@ class _AddSightScreenState extends State<AddSightScreen> {
               const SizedBox(height: 12),
               _buildDescriptionFrame(context),
               const SizedBox(height: 142),
-              _buildCreateButton(context),
+              _buildCreateButton(context, placeInteractor),
             ],
           ),
         ),
@@ -400,7 +400,8 @@ class _AddSightScreenState extends State<AddSightScreen> {
     );
   }
 
-  Widget _buildCreateButton(BuildContext context) {
+  Widget _buildCreateButton(
+      BuildContext context, PlaceInteractor placeInteractor) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 8.0),
       child: ElevatedButton(
@@ -417,7 +418,7 @@ class _AddSightScreenState extends State<AddSightScreen> {
             placeType: typeSight,
           );
 
-          PlaceInteractor.addNewPlace(place);
+          placeInteractor.addNewPlace(place);
         },
         child: Text(
           newPlaceScreenCreateButton,

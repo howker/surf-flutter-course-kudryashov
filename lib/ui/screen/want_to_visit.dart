@@ -15,7 +15,7 @@ class _WantToVisitTabState extends State<WantToVisitTab> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: PlaceInteractor.getFavoritesPlaces(),
+      future: placeInteractor.getFavoritesPlaces(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           return ListView.builder(

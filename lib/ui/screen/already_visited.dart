@@ -16,7 +16,7 @@ class _AlreadyVisitedTabState extends State<AlreadyVisitedTab> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<List<Place>>(
-      future: PlaceInteractor.getVisitPlaces(),
+      future: placeInteractor.getVisitPlaces(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           return ListView.builder(
@@ -49,7 +49,7 @@ class _AlreadyVisitedTabState extends State<AlreadyVisitedTab> {
 
   void onRemoveCard(place) {
     setState(() {
-      PlaceInteractor.removeFromFavorites(place);
+      placeInteractor.removeFromFavorites(place);
     });
   }
 
