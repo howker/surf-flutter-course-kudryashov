@@ -4,8 +4,12 @@ import 'package:places/data/model/places_filter_request_dto.dart';
 import 'package:places/data/repository/place_repository.dart';
 import 'package:places/mock.dart';
 
+final searchInteractor = SearchInteractor(placeRepository: PlaceRepository());
+
 class SearchInteractor {
-  static final PlaceRepository placeRepository = PlaceRepository();
+  final PlaceRepository placeRepository;
+
+  SearchInteractor({this.placeRepository});
 
   static List<Place> sortedByRadius = [];
   static List<Place> placesListStorage = [];
@@ -13,7 +17,7 @@ class SearchInteractor {
   static RangeValues rangeValues = RangeValues(100, 10000);
   static List<String> typeFilters = [];
 
-  static Future<List<Place>> searchPlaces(String name) async {
+  Future<List<Place>> searchPlaces(String name) async {
     PlacesFilterRequestDto filter = PlacesFilterRequestDto(
       nameFilter: name,
       radius: rangeValues.end,

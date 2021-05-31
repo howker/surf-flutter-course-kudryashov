@@ -356,6 +356,6 @@ class SightCard extends StatelessWidget {
     if (secondIcon.icon == Icons.close) {
       onRemoveCard();
     } else
-      PlaceInteractor.addToFavorites(place);
+      placeInteractor.addToFavorites(place);
   }
 }

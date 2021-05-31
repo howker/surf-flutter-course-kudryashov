@@ -60,8 +60,8 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
               const SizedBox(height: 38),
               state == States.found
                   ? FutureBuilder<List<Place>>(
-                      future: SearchInteractor.searchPlaces(
-                          _textEditingController.text.trim()),
+                      future: searchInteractor
+                          .searchPlaces(_textEditingController.text.trim()),
                       builder: (context, snapshot) {
                         if (snapshot.hasData) {
                           snapshot.data.forEach((element) =>

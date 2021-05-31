@@ -3,10 +3,14 @@ import 'package:places/data/model/place.dart';
 import 'package:places/data/model/places_filter_request_dto.dart';
 import 'package:places/data/repository/place_repository.dart';
 
-class PlaceInteractor {
-  static final PlaceRepository placeRepository = PlaceRepository();
+final placeInteractor = PlaceInteractor(placeRepository: PlaceRepository());
 
-  static Future<List<Place>> getPlaces(PlacesFilterRequestDto filter) async {
+class PlaceInteractor {
+  final PlaceRepository placeRepository;
+
+  PlaceInteractor({this.placeRepository});
+
+  Future<List<Place>> getPlaces(PlacesFilterRequestDto filter) async {
     final places = await (placeRepository.getFilteredPlaces(filter));
     places.sort((a, b) => (GeoUtils.distanceInMetersBetweenEarthCoordinates(
                 GeoUtils.getMyCoordinates()['lat'],
@@ -24,12 +28,12 @@ class PlaceInteractor {
     return places;
   }
 
-  static Future<Place> getPlaceDetails(int id) async {
+  Future<Place> getPlaceDetails(int id) async {
     final place = await (placeRepository.getPlaceById(id));
     return place;
   }
 
-  static Future<List<Place>> getFavoritesPlaces() async {
+  Future<List<Place>> getFavoritesPlaces() async {
     //на данном этапе заполняем моковыми данными
     final favoritesPlaces = await (placeRepository.testSetFavoritesPlaces());
 
@@ -50,25 +54,22 @@ class PlaceInteractor {
     return favoritesPlaces;
   }
 
-  static Future<bool> addToFavorites(Place place) async {
+  Future<bool> addToFavorites(Place place) async {
     bool result = false;
     //на данном этапе заполняем моковыми данными
-    final favoritesPlaces = await (placeRepository.testSetFavoritesPlaces());
+    final favoritesPlaces = await placeRepository.testSetFavoritesPlaces();
 
     favoritesPlaces.forEach(
       (element) {
         element.id == place.id ? result = false : result = true;
       },
     );
-    if (result) {
-      favoritesPlaces.add(place);
-    } else
-      favoritesPlaces.remove(place);
+    if (result) favoritesPlaces.add(place);
 
     return result;
   }
 
-  static Future<bool> removeFromFavorites(Place place) async {
+  Future<bool> removeFromFavorites(Place place) async {
     bool result = false;
     //на данном этапе заполняем моковыми данными
     final favoritesPlaces = await (placeRepository.testSetFavoritesPlaces());
@@ -83,14 +84,14 @@ class PlaceInteractor {
     return result;
   }
 
-  static Future<List<Place>> getVisitPlaces() async {
+  Future<List<Place>> getVisitPlaces() async {
     //на данном этапе заполняем моковыми данными
     final visitPlaces = await (placeRepository.testSetFavoritesPlaces());
 
     return visitPlaces;
   }
 
-  static Future<bool> addToVisitingPlaces(Place place) async {
+  Future<bool> addToVisitingPlaces(Place place) async {
     bool result = false;
     //на данном этапе заполняем моковыми данными
     final visitPlaces = await (placeRepository.testSetFavoritesPlaces());
@@ -105,7 +106,7 @@ class PlaceInteractor {
     return result;
   }
 
-  static Future<bool> addNewPlace(Place place) async {
+  Future<bool> addNewPlace(Place place) async {
     try {
       await (placeRepository.createPlace(place));
       return true;
