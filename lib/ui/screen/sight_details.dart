@@ -56,7 +56,7 @@ class _SightDetailsState extends State<SightDetails> {
     return Material(
       child: SafeArea(
         child: FutureBuilder<Place>(
-          future: PlaceInteractor.getPlaceDetails(widget.place.id),
+          future: placeInteractor.getPlaceDetails(widget.place.id),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               return CustomScrollView(
@@ -192,8 +192,8 @@ class _SightDetailsState extends State<SightDetails> {
                                             Theme.of(context).primaryColorDark,
                                       ),
                                       onPressed: () {
-                                        PlaceInteractor.addToFavorites(
-                                            widget.place);
+                                        placeInteractor
+                                            .addToFavorites(widget.place);
                                       },
                                     ),
                                     const SizedBox(width: 9),

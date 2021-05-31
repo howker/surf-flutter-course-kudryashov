@@ -29,7 +29,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: SettingsInteractor.isDark ? darkTheme : lightTheme,
+      theme: settingsInteractor.isDark ? darkTheme : lightTheme,
       title: 'Intresting places',
       home: SplashScreen(),
       routes: {

@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 
 class SettingsInteractor extends ChangeNotifier {
-  static bool isDark = false;
+  bool isDark = false;
+
+  bool get getIsDark => isDark;
 
   set changeTheme(bool val) {
     isDark = val;
     notifyListeners();
   }
 }
+
+SettingsInteractor settingsInteractor = SettingsInteractor();
