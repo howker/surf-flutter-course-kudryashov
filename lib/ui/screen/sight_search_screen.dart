@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:places/colors.dart';
+import 'package:places/data/interactor/search_interactor.dart';
 import 'package:places/data/model/place.dart';
-import 'package:places/domain/sight.dart';
 import 'package:places/mock.dart';
 import 'package:places/styles.dart';
 import 'package:places/svg_path_const.dart';
@@ -26,7 +26,7 @@ class SightSearchScreen extends StatefulWidget {
 class _SightSearchScreenState extends State<SightSearchScreen> {
   final TextEditingController _textEditingController = TextEditingController();
   final FocusNode focusNodeSearchBar = FocusNode();
-  List newFoundList = [];
+  List<Place> newFoundList = [];
   States state = States.history;
 
   @override
@@ -59,8 +59,63 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
               _buildTopSearchBar(context),
               const SizedBox(height: 38),
               state == States.found
-                  ? Column(
-                      children: _buildFoundPlacesList(context),
+                  ? FutureBuilder<List<Place>>(
+                      future: searchInteractor
+                          .searchPlaces(_textEditingController.text.trim()),
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+                          snapshot.data.forEach((element) =>
+                              SearchInteractor.searchHistory.add(element.name));
+                          SearchInteractor.placesListStorage = snapshot.data;
+                          return ListView.builder(
+                            itemCount: snapshot.data.length,
+                            shrinkWrap: true,
+                            itemBuilder: (context, index) {
+                              return Column(
+                                children: [
+                                  InkWell(
+                                    onTap: () {
+                                      Place place = Place(
+                                        name: snapshot.data[index].name,
+                                        lat: snapshot.data[index].lat,
+                                        lng: snapshot.data[index].lng,
+                                        urls: snapshot.data[index].urls,
+                                        description:
+                                            snapshot.data[index].description,
+                                        placeType:
+                                            snapshot.data[index].placeType,
+                                      );
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (BuildContext context) =>
+                                              SightDetails(place: place),
+                                        ),
+                                      );
+                                    },
+                                    child: ListTile(
+                                      contentPadding: const EdgeInsets.all(0),
+                                      title: Text(
+                                        snapshot.data[index].name,
+                                        style:
+                                            Theme.of(context).textTheme.caption,
+                                      ),
+                                      subtitle: Text(
+                                        snapshot.data[index].placeType,
+                                        style: textRegular14Grey,
+                                      ),
+                                      leading: _buildImageCardItem(
+                                          snapshot.data[index]),
+                                    ),
+                                  ),
+                                  const Divider(),
+                                ],
+                              );
+                            },
+                          );
+                        } else
+                          return SizedBox.shrink();
+                      },
                     )
                   : const SizedBox(),
               state == States.history
@@ -136,7 +191,7 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
 
               state = States.history;
 
-              if (searchHistory.isEmpty) state = States.empty;
+              if (SearchInteractor.searchHistory.isEmpty) state = States.empty;
 
               setState(() {});
             },
@@ -146,82 +201,11 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
     );
   }
 
-  void _onCompleteUserSearchInput() {
+  void _onCompleteUserSearchInput() async {
     if (_textEditingController.text != '') {
-      newFoundList = mocks
-          .where(
-            (element) => element.nameSights.contains(
-              _textEditingController.text.trim(),
-            ),
-          )
-          .toList();
-      newFoundList = sortedByRadius
-          .where(
-            (element) => element.nameSights.contains(
-              _textEditingController.text.trim(),
-            ),
-          )
-          .toList();
-
-      newFoundList.forEach((element) =>
-          searchHistory.contains(element.nameSights)
-              ? searchHistory
-              : searchHistory.add(element.nameSights));
-
-      if (newFoundList.isEmpty)
-        state = States.error;
-      else if (newFoundList.isNotEmpty) state = States.found;
-
+      state = States.found;
       setState(() {});
     }
-  }
-
-  List<Widget> _buildFoundPlacesList(BuildContext context) {
-    List<Widget> foundPlacesListlist = [];
-    newFoundList.forEach(
-      (element) => foundPlacesListlist.add(
-        Column(
-          children: [
-            InkWell(
-              onTap: () {
-                Place place = Place(
-                  name: element.nameSights,
-                  lat: element.lat,
-                  lng: element.lon,
-                  urls: element.url,
-                  description: element.details,
-                  placeType: element.type,
-                );
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (BuildContext context) =>
-                        SightDetails(place: place),
-                  ),
-                );
-              },
-              child: ListTile(
-                contentPadding: const EdgeInsets.all(0),
-                title: Text(
-                  element.nameSights,
-                  style: Theme.of(context).textTheme.caption,
-                ),
-                subtitle: Text(
-                  element.type,
-                  style: textRegular14Grey,
-                ),
-                leading: _buildImageCardItem(element),
-              ),
-            ),
-            const Divider(),
-          ],
-        ),
-      ),
-    );
-    if (newFoundList.isEmpty)
-      return _searchErrorState();
-    else
-      return foundPlacesListlist;
   }
 
   Widget _buildImageCardItem(element) {
@@ -231,7 +215,7 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
         height: 56,
         width: 56,
         child: Image.network(
-          element.url,
+          element.urls[0],
           fit: BoxFit.cover,
           loadingBuilder: (BuildContext context, Widget child,
               ImageChunkEvent loadingProgress) {
@@ -252,7 +236,7 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
 
   List<Widget> _buildHistoryPlacesList(BuildContext context) {
     List<Widget> searchHistoryList = [
-      searchHistory.isNotEmpty
+      SearchInteractor.searchHistory.isNotEmpty
           ? Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
@@ -267,7 +251,7 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
             )
           : const SizedBox(),
     ];
-    searchHistory.forEach(
+    SearchInteractor.searchHistory.forEach(
       (element) => searchHistoryList.add(
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -279,8 +263,9 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
                 onPressed: () {
                   setState(
                     () {
-                      searchHistory.remove(element);
-                      if (searchHistory.isEmpty) state = States.empty;
+                      SearchInteractor.searchHistory.remove(element);
+                      if (SearchInteractor.searchHistory.isEmpty)
+                        state = States.empty;
                     },
                   );
                 },
@@ -296,7 +281,7 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
       ),
     );
 
-    searchHistory.isNotEmpty
+    SearchInteractor.searchHistory.isNotEmpty
         ? searchHistoryList.add(
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -305,7 +290,7 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
                   onPressed: () {
                     setState(() {
                       _textEditingController.clear();
-                      searchHistory.clear();
+                      SearchInteractor.searchHistory.clear();
                       state = States.empty;
                     });
                   },

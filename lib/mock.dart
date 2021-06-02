@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:places/data/model/place.dart';
 
 /// моковые (тестовые) объекты для имитации интересных мест
 
@@ -83,12 +84,8 @@ Map placesCategory = {
   'Кафе': false,
 };
 
-List searchHistory = [];
-
-const double userLat = 46.348838;
-const double userLng = 48.029816;
-
-List<Sight> sortedByRadius = [];
+const double userLat = 55.989198; //46.348838;
+const double userLng = 37.601605; //48.029816;
 
 final List<Sight> mocksPhotos = [
   Sight(
