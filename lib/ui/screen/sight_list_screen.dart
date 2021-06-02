@@ -66,51 +66,57 @@ class PortraitModeList extends StatelessWidget {
           SliverPadding(
             padding: const EdgeInsets.all(16),
             sliver: SliverToBoxAdapter(
-              child: FutureBuilder(
-                future: placeInteractor.getPlaces(
-                  PlacesFilterRequestDto(
-                    lat: GeoUtils.getMyCoordinates()['lat'],
-                    lng: GeoUtils.getMyCoordinates()['lon'],
-                    radius: 10000.0,
-                    typeFilter: mockTypeFilters,
-                    nameFilter: '',
-                  ),
-                ),
+              //
+              child: StreamBuilder(
                 builder: (BuildContext context,
-                    AsyncSnapshot<List<Place>> snapshot) {
-                  if (snapshot.hasData) {
-                    if (snapshot.data.isEmpty) {
-                      return const SizedBox.shrink();
-                    } else
-                      return SizedBox(
-                        width: double.infinity,
-                        child: ListView.builder(
-                          itemCount: snapshot.data.length,
-                          shrinkWrap: true,
-                          itemBuilder: (BuildContext context, int index) {
-                            return Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 10),
-                              child: SightCard(
-                                place: Place(
-                                  name: snapshot.data[index].name,
-                                  lat: snapshot.data[index].lat,
-                                  lng: snapshot.data[index].lng,
-                                  urls: snapshot.data[index].urls,
-                                  description: snapshot.data[index].description,
-                                  id: snapshot.data[index].id,
-                                ),
-                                candidateDataList: snapshot.data,
-                              ),
-                            );
-                          },
-                        ),
-                      );
-                  } else if (snapshot.hasError) {
-                    print('error');
-                  }
-                  return const SizedBox.shrink();
-                },
+                    AsyncSnapshot<List<Place>> snapshot) {},
               ),
+
+              // FutureBuilder(
+              //   future: placeInteractor.getPlaces(
+              //     PlacesFilterRequestDto(
+              //       lat: GeoUtils.getMyCoordinates()['lat'],
+              //       lng: GeoUtils.getMyCoordinates()['lon'],
+              //       radius: 10000.0,
+              //       typeFilter: mockTypeFilters,
+              //       nameFilter: '',
+              //     ),
+              //   ),
+              //   builder: (BuildContext context,
+              //       AsyncSnapshot<List<Place>> snapshot) {
+              //     if (snapshot.hasData) {
+              //       if (snapshot.data.isEmpty) {
+              //         return const SizedBox.shrink();
+              //       } else
+              //         return SizedBox(
+              //           width: double.infinity,
+              //           child: ListView.builder(
+              //             itemCount: snapshot.data.length,
+              //             shrinkWrap: true,
+              //             itemBuilder: (BuildContext context, int index) {
+              //               return Padding(
+              //                 padding: const EdgeInsets.symmetric(vertical: 10),
+              //                 child: SightCard(
+              //                   place: Place(
+              //                     name: snapshot.data[index].name,
+              //                     lat: snapshot.data[index].lat,
+              //                     lng: snapshot.data[index].lng,
+              //                     urls: snapshot.data[index].urls,
+              //                     description: snapshot.data[index].description,
+              //                     id: snapshot.data[index].id,
+              //                   ),
+              //                   candidateDataList: snapshot.data,
+              //                 ),
+              //               );
+              //             },
+              //           ),
+              //         );
+              //     } else if (snapshot.hasError) {
+              //       print('error');
+              //     }
+              //     return const SizedBox.shrink();
+              //   },
+              // ),
             ),
           ),
         ],
