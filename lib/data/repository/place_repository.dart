@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:places/data/model/place.dart';
 import 'package:places/data/model/places_filter_request_dto.dart';
 import 'package:places/dio.dart';
@@ -8,35 +6,23 @@ import 'package:places/dio.dart';
 class PlaceRepository {
   Future<List<Place>> getPlaces() async {
     final response = await dio.get(ApiConsts.places);
-    return jsonDecode(response.data)
-        .data
-        .map((response) => Place.fromJson(response))
-        .toList();
+    return (response.data as List).map((json) => Place.fromJson(json)).toList();
   }
 
   Future<List<Place>> getFilteredPlaces(PlacesFilterRequestDto filter) async {
     final response =
         await dio.post(ApiConsts.getFilteredPlaces, data: filter.toJson());
-    return jsonDecode(response.data)
-        .data
-        .map((response) => Place.fromJson(response))
-        .toList();
+    return (response.data as List).map((json) => Place.fromJson(json)).toList();
   }
 
   Future<Place> createPlace(Place place) async {
     final response = await dio.post(ApiConsts.places, data: place.toJson());
-    return jsonDecode(response.data)
-        .data
-        .map((response) => Place.fromJson(response))
-        .toList();
+    return Place.fromJson(response.data);
   }
 
   Future<Place> getPlaceById(int id) async {
     final response = await dio.get(ApiConsts.places + '/$id');
-    return jsonDecode(response.data)
-        .data
-        .map((response) => Place.fromJson(response))
-        .toList();
+    return Place.fromJson(response.data);
   }
 
   Future<void> deletePlaceById(int id) async {
@@ -45,6 +31,12 @@ class PlaceRepository {
 
   Future<void> updatePlace(Place place) async {
     await dio.put(ApiConsts.places + '${place.id}', data: place.toJson());
+  }
+
+  ///Для теста временно список для имитации избранного
+  Future<List<Place>> testSetFavoritesPlaces() async {
+    List<Place> favorites = await getPlaces();
+    return favorites;
   }
 }
 

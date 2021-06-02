@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:places/colors.dart';
+import 'package:places/data/interactor/place_interactor.dart';
+import 'package:places/data/model/place.dart';
+import 'package:places/data/model/places_filter_request_dto.dart';
+import 'package:places/data/repository/place_repository.dart';
 import 'package:places/main.dart';
 import 'package:places/mock.dart';
 import 'package:places/styles.dart';
@@ -59,17 +63,54 @@ class PortraitModeList extends StatelessWidget {
               ],
             ),
           ),
-          SliverList(
-            delegate: SliverChildBuilderDelegate(
-              (BuildContext context, int index) {
-                return Padding(
-                  padding: const EdgeInsets.all(16),
-                  child: SightCard(
-                    sight: mocks[index],
+          SliverPadding(
+            padding: const EdgeInsets.all(16),
+            sliver: SliverToBoxAdapter(
+              child: FutureBuilder(
+                future: placeInteractor.getPlaces(
+                  PlacesFilterRequestDto(
+                    lat: GeoUtils.getMyCoordinates()['lat'],
+                    lng: GeoUtils.getMyCoordinates()['lon'],
+                    radius: 10000.0,
+                    typeFilter: mockTypeFilters,
+                    nameFilter: '',
                   ),
-                );
-              },
-              childCount: mocks.length,
+                ),
+                builder: (BuildContext context,
+                    AsyncSnapshot<List<Place>> snapshot) {
+                  if (snapshot.hasData) {
+                    if (snapshot.data.isEmpty) {
+                      return const SizedBox.shrink();
+                    } else
+                      return SizedBox(
+                        width: double.infinity,
+                        child: ListView.builder(
+                          itemCount: snapshot.data.length,
+                          shrinkWrap: true,
+                          itemBuilder: (BuildContext context, int index) {
+                            return Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 10),
+                              child: SightCard(
+                                place: Place(
+                                  name: snapshot.data[index].name,
+                                  lat: snapshot.data[index].lat,
+                                  lng: snapshot.data[index].lng,
+                                  urls: snapshot.data[index].urls,
+                                  description: snapshot.data[index].description,
+                                  id: snapshot.data[index].id,
+                                ),
+                                candidateDataList: snapshot.data,
+                              ),
+                            );
+                          },
+                        ),
+                      );
+                  } else if (snapshot.hasError) {
+                    print('error');
+                  }
+                  return const SizedBox.shrink();
+                },
+              ),
             ),
           ),
         ],
@@ -80,6 +121,8 @@ class PortraitModeList extends StatelessWidget {
 
 /// Список карточек для горизонтального режима
 class LandscapeModeList extends StatelessWidget {
+  LandscapeModeList({this.placeInteractor});
+  final PlaceInteractor placeInteractor;
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -108,12 +151,42 @@ class LandscapeModeList extends StatelessWidget {
               (BuildContext context, int index) {
                 return Padding(
                   padding: const EdgeInsets.all(16),
-                  child: SightCard(
-                    sight: mocks[index],
+                  child: FutureBuilder(
+                    future: placeInteractor.getPlaces(
+                      PlacesFilterRequestDto(
+                        lat: GeoUtils.getMyCoordinates()['lat'],
+                        lng: GeoUtils.getMyCoordinates()['lon'],
+                        radius: 10000.0,
+                        typeFilter: mockTypeFilters,
+                        nameFilter: '',
+                      ),
+                    ),
+                    builder: (BuildContext context,
+                        AsyncSnapshot<List<Place>> snapshot) {
+                      if (snapshot.hasData) {
+                        final placesList = snapshot.data;
+                        if (placesList.isEmpty) {
+                          return const SizedBox.shrink();
+                        } else
+                          return SightCard(
+                            place: Place(
+                              name: snapshot.data[index].name,
+                              lat: snapshot.data[index].lat,
+                              lng: snapshot.data[index].lng,
+                              urls: snapshot.data[index].urls,
+                              description: snapshot.data[index].description,
+                              id: snapshot.data[index].id,
+                            ),
+                          );
+                      } else if (snapshot.hasError) {
+                        print('error');
+                      }
+                      return const SizedBox.shrink();
+                    },
                   ),
                 );
               },
-              childCount: mocks.length,
+              childCount: null,
             ),
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:places/data/repository/place_repository.dart';
 import 'package:places/ui/screen/add_sight_screen.dart';
 import 'package:places/ui/screen/onboarding_screen.dart';
 import 'package:places/ui/screen/res/themes.dart';
@@ -9,7 +8,7 @@ import 'package:places/ui/screen/splash_screen.dart';
 import 'package:places/ui/screen/visiting_screen.dart';
 
 final themeModel = ThemeModel();
-PlaceRepository placeRepository = PlaceRepository();
+
 void main() {
   runApp(MyApp());
 }

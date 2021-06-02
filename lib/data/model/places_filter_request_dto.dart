@@ -5,13 +5,13 @@ class PlacesFilterRequestDto {
   final List<String> typeFilter;
   final String nameFilter;
 
-  PlacesFilterRequestDto(
+  PlacesFilterRequestDto({
     this.lat,
     this.lng,
     this.radius,
     this.typeFilter,
     this.nameFilter,
-  );
+  });
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();

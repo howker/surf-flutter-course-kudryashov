@@ -7,7 +7,7 @@ class Place {
   final String placeType;
   final String description;
 
-  Place(
+  Place({
     this.id,
     this.lat,
     this.lng,
@@ -15,7 +15,7 @@ class Place {
     this.urls,
     this.description,
     this.placeType,
-  );
+  });
 
   Place.fromJson(Map<String, dynamic> json)
       : id = json['id'],

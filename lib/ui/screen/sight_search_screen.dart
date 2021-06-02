@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:places/colors.dart';
+import 'package:places/data/model/place.dart';
 import 'package:places/domain/sight.dart';
 import 'package:places/mock.dart';
 import 'package:places/styles.dart';
@@ -183,19 +184,19 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
           children: [
             InkWell(
               onTap: () {
-                Sight sight = Sight(
-                  nameSights: element.nameSights,
+                Place place = Place(
+                  name: element.nameSights,
                   lat: element.lat,
-                  lon: element.lon,
-                  url: element.url,
-                  details: element.details,
-                  type: element.type,
+                  lng: element.lon,
+                  urls: element.url,
+                  description: element.details,
+                  placeType: element.type,
                 );
                 Navigator.push(
                   context,
                   MaterialPageRoute(
                     builder: (BuildContext context) =>
-                        SightDetails(sight: sight),
+                        SightDetails(place: place),
                   ),
                 );
               },

@@ -1,6 +1,8 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:places/data/interactor/place_interactor.dart';
+import 'package:places/data/model/place.dart';
 import 'package:places/mock.dart';
 import 'package:places/ui/widgets/sight_card.dart';
 
@@ -13,37 +15,47 @@ class AlreadyVisitedTab extends StatefulWidget {
 class _AlreadyVisitedTabState extends State<AlreadyVisitedTab> {
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemBuilder: (BuildContext context, int index) {
-        return AspectRatio(
-          aspectRatio: 3 / 2,
-          child: ConstrainedBox(
-            constraints:
-                BoxConstraints(maxWidth: MediaQuery.of(context).size.width),
-            child: SightCard.alreadyVisited(
-              key: ValueKey(mocks[index].nameSights),
-              sight: mocks[index],
-              onRemoveCard: () => onRemoveCard(mocks[index]),
-              onReorderCard: () => setState(() {}),
-              onDismissedCard: () => onDismissedCard(mocks[index]),
-            ),
-          ),
-        );
+    return FutureBuilder<List<Place>>(
+      future: placeInteractor.getVisitPlaces(),
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          return ListView.builder(
+            itemBuilder: (BuildContext context, int index) {
+              return AspectRatio(
+                aspectRatio: 3 / 2,
+                child: ConstrainedBox(
+                  constraints: BoxConstraints(
+                      maxWidth: MediaQuery.of(context).size.width),
+                  child: SightCard.alreadyVisited(
+                    key: ValueKey(snapshot.data[index].name),
+                    place: snapshot.data[index],
+                    onRemoveCard: () => onRemoveCard(snapshot.data[index]),
+                    onReorderCard: () => setState(() {}),
+                    onDismissedCard: () =>
+                        onDismissedCard(snapshot.data[index]),
+                    candidateDataList: snapshot.data,
+                  ),
+                ),
+              );
+            },
+            itemCount: snapshot.data.length,
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+          );
+        } else
+          return SizedBox.shrink();
       },
-      itemCount: mocks.length,
-      padding: const EdgeInsets.symmetric(horizontal: 16),
     );
   }
 
-  void onRemoveCard(sight) {
+  void onRemoveCard(place) {
     setState(() {
-      mocks.remove(sight);
+      placeInteractor.removeFromFavorites(place);
     });
   }
 
-  void onDismissedCard(sight) {
+  void onDismissedCard(place) {
     setState(() {
-      onRemoveCard(sight);
+      onRemoveCard(place);
     });
   }
 }

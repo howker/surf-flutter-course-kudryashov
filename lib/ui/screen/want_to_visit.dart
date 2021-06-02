@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:places/data/interactor/place_interactor.dart';
 import 'package:places/mock.dart';
 import 'package:places/ui/widgets/sight_card.dart';
 
@@ -13,25 +14,35 @@ class WantToVisitTab extends StatefulWidget {
 class _WantToVisitTabState extends State<WantToVisitTab> {
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemBuilder: (BuildContext context, int index) {
-        return AspectRatio(
-          aspectRatio: 3 / 2,
-          child: ConstrainedBox(
-            constraints:
-                BoxConstraints(maxWidth: MediaQuery.of(context).size.width),
-            child: SightCard.wantToVisit(
-              key: ValueKey(mocks[index].nameSights),
-              sight: mocks[index],
-              onRemoveCard: () => onRemoveCard(mocks[index]),
-              onReorderCard: () => setState(() {}),
-              onDismissedCard: () => onDismissedCard(mocks[index]),
-            ),
-          ),
-        );
+    return FutureBuilder(
+      future: placeInteractor.getFavoritesPlaces(),
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          return ListView.builder(
+            itemBuilder: (BuildContext context, int index) {
+              return AspectRatio(
+                aspectRatio: 3 / 2,
+                child: ConstrainedBox(
+                  constraints: BoxConstraints(
+                      maxWidth: MediaQuery.of(context).size.width),
+                  child: SightCard.wantToVisit(
+                    key: ValueKey(snapshot.data[index].name),
+                    place: snapshot.data[index],
+                    onRemoveCard: () => onRemoveCard(snapshot.data[index]),
+                    onReorderCard: () => setState(() {}),
+                    onDismissedCard: () =>
+                        onDismissedCard(snapshot.data[index]),
+                    candidateDataList: snapshot.data,
+                  ),
+                ),
+              );
+            },
+            itemCount: snapshot.data.length,
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+          );
+        } else
+          return SizedBox.shrink();
       },
-      itemCount: mocks.length,
-      padding: const EdgeInsets.symmetric(horizontal: 16),
     );
   }
 
