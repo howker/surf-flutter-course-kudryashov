@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:math';
 import 'package:places/data/model/place.dart';
 import 'package:places/data/model/places_filter_request_dto.dart';
@@ -9,6 +10,9 @@ class PlaceInteractor {
   final PlaceRepository placeRepository;
 
   PlaceInteractor({this.placeRepository});
+
+  StreamController<List<Place>> placesController = StreamController.broadcast();
+  Stream<List<Place>> get placeStream => placesController.stream;
 
   Future<List<Place>> getPlaces(PlacesFilterRequestDto filter) async {
     final places = await (placeRepository.getFilteredPlaces(filter));
@@ -24,7 +28,7 @@ class PlaceInteractor {
                 b.lat,
                 b.lng)
             .toInt()));
-
+    placesController.sink.add(places);
     return places;
   }
 
