@@ -11,6 +11,11 @@ class PlaceInteractor {
 
   PlaceInteractor({this.placeRepository});
 
+  StreamController<List<Place>> _favoritesListController =
+      StreamController.broadcast();
+
+  Stream<List<Place>> get favoriteListStream => _favoritesListController.stream;
+
   StreamController<List<Place>> placesController = StreamController.broadcast();
   Stream<List<Place>> get placeStream => placesController.stream;
 
@@ -55,6 +60,8 @@ class PlaceInteractor {
                     b.lng)
                 .toInt()));
 
+    _favoritesListController.add(favoritesPlaces);
+
     return favoritesPlaces;
   }
 
@@ -69,6 +76,7 @@ class PlaceInteractor {
       },
     );
     if (result) favoritesPlaces.add(place);
+    _favoritesListController.add(favoritesPlaces);
 
     return result;
   }
@@ -84,7 +92,7 @@ class PlaceInteractor {
       },
     );
     if (result) favoritesPlaces.remove(place);
-
+    _favoritesListController.add(favoritesPlaces);
     return result;
   }
 
