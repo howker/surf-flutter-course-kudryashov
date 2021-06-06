@@ -19,6 +19,11 @@ class PlaceInteractor {
   StreamController<List<Place>> placesController = StreamController.broadcast();
   Stream<List<Place>> get placeStream => placesController.stream;
 
+  void dispose() {
+    placesController.close();
+    _favoritesListController.close();
+  }
+
   Future<List<Place>> getPlaces(PlacesFilterRequestDto filter) async {
     final places = await (placeRepository.getFilteredPlaces(filter));
     places.sort((a, b) => (GeoUtils.distanceInMetersBetweenEarthCoordinates(
