@@ -7,6 +7,7 @@ import 'package:places/main.dart';
 import 'package:places/mock.dart';
 import 'package:places/styles.dart';
 import 'package:places/text_string_const.dart';
+import 'package:places/ui/screen/error_screen.dart';
 import 'package:places/ui/widgets/bottom_navibar.dart';
 import 'package:places/ui/widgets/search_bar.dart';
 import 'package:places/ui/widgets/sight_card.dart';
@@ -106,13 +107,7 @@ class PortraitModeList extends StatelessWidget {
                         ),
                       );
                   } else if (snapshot.hasError) {
-                    return const Center(
-                      child: const Icon(
-                        Icons.error_outline,
-                        color: Colors.red,
-                        size: 60,
-                      ),
-                    );
+                    return ErrorScreen();
                   } else
                     return const WaitingIndicator();
                 },
