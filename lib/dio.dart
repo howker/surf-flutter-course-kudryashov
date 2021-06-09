@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:places/data/repository/network_exception.dart';
 
 final dio = Dio(BaseOptions(
-  baseUrl: 'https://test-backend-flutter.surfstudio.ru/111',
+  baseUrl: 'https://test-backend-flutter.surfstudio.ru/',
   connectTimeout: 5000,
   receiveTimeout: 5000,
   sendTimeout: 5000,

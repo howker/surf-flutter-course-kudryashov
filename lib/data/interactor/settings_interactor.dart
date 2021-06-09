@@ -5,10 +5,8 @@ class SettingsInteractor extends ChangeNotifier {
 
   bool get getIsDark => isDark;
 
-  set changeTheme(bool val) {
+  changeTheme(bool val) {
     isDark = val;
     notifyListeners();
   }
 }
-
-SettingsInteractor settingsInteractor = SettingsInteractor();

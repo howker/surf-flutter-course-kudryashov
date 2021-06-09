@@ -1,10 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:places/colors.dart';
+import 'package:places/data/interactor/settings_interactor.dart';
 
 import 'package:places/main.dart';
 import 'package:places/text_string_const.dart';
 import 'package:places/ui/widgets/bottom_navibar.dart';
+import 'package:provider/provider.dart';
 
 ///Экран настроек
 class SettingsScreen extends StatefulWidget {
@@ -41,11 +43,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 CupertinoSwitch(
                   activeColor: Colors.green,
                   trackColor: lmInactiveBlackColor,
-                  value: settingsInteractor.getIsDark,
+                  value: context.watch<SettingsInteractor>().getIsDark,
                   onChanged: (bool newValue) {
-                    setState(() {
-                      settingsInteractor.changeTheme = newValue;
-                    });
+                    context.read<SettingsInteractor>().changeTheme(newValue);
                   },
                 ),
               ],
