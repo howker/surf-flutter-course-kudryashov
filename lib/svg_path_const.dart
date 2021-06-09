@@ -28,3 +28,4 @@ const String settingsFill = 'res/icons/Settings_fill.svg';
 const String camera = 'res/icons/Camera.svg';
 const String photo = 'res/icons/Photo.svg';
 const String file = 'res/icons/File.svg';
+const String error = 'res/icons/Error.svg';

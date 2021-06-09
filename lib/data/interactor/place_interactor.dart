@@ -25,21 +25,25 @@ class PlaceInteractor {
   }
 
   Future<List<Place>> getPlaces(PlacesFilterRequestDto filter) async {
-    final places = await (placeRepository.getFilteredPlaces(filter));
-    places.sort((a, b) => (GeoUtils.distanceInMetersBetweenEarthCoordinates(
-                GeoUtils.getMyCoordinates()['lat'],
-                GeoUtils.getMyCoordinates()['lon'],
-                a.lat,
-                a.lng)
-            .toInt())
-        .compareTo(GeoUtils.distanceInMetersBetweenEarthCoordinates(
-                GeoUtils.getMyCoordinates()['lat'],
-                GeoUtils.getMyCoordinates()['lon'],
-                b.lat,
-                b.lng)
-            .toInt()));
-    placesController.sink.add(places);
-    return places;
+    try {
+      final places = await (placeRepository.getFilteredPlaces(filter));
+      places.sort((a, b) => (GeoUtils.distanceInMetersBetweenEarthCoordinates(
+                  GeoUtils.getMyCoordinates()['lat'],
+                  GeoUtils.getMyCoordinates()['lon'],
+                  a.lat,
+                  a.lng)
+              .toInt())
+          .compareTo(GeoUtils.distanceInMetersBetweenEarthCoordinates(
+                  GeoUtils.getMyCoordinates()['lat'],
+                  GeoUtils.getMyCoordinates()['lon'],
+                  b.lat,
+                  b.lng)
+              .toInt()));
+      placesController.sink.add(places);
+      return places;
+    } catch (e) {
+      placesController.sink.addError(e);
+    }
   }
 
   Future<Place> getPlaceDetails(int id) async {
