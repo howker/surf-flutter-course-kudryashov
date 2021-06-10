@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:places/data/interactor/place_interactor.dart';
 import 'package:places/mock.dart';
@@ -16,7 +14,7 @@ class _WantToVisitTabState extends State<WantToVisitTab> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: context.watch<PlaceInteractor>().getFavoritesPlaces(),
+      future: context.read<PlaceInteractor>().getFavoritesPlaces(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           return ListView.builder(

@@ -343,7 +343,7 @@ class SightCard extends StatelessWidget {
                 const SizedBox(width: 23),
                 InkWell(
                   child: secondIcon,
-                  onTap: _onSecondIconTap(context),
+                  onTap: () => _onSecondIconTap(context),
                 ),
               ],
             ),
@@ -353,7 +353,7 @@ class SightCard extends StatelessWidget {
     );
   }
 
-  _onSecondIconTap(context) {
+  void _onSecondIconTap(context) {
     if (secondIcon.icon == Icons.close) {
       onRemoveCard();
     } else

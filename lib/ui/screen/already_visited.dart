@@ -1,9 +1,6 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:places/data/interactor/place_interactor.dart';
 import 'package:places/data/model/place.dart';
-import 'package:places/mock.dart';
 import 'package:places/ui/widgets/sight_card.dart';
 import 'package:provider/provider.dart';
 
