@@ -7,6 +7,7 @@ import 'package:places/data/model/place.dart';
 import 'package:places/styles.dart';
 import 'package:places/svg_path_const.dart';
 import 'package:places/text_string_const.dart';
+import 'package:provider/provider.dart';
 
 /// Экран детализации интересного места
 class SightDetails extends StatefulWidget {
@@ -56,7 +57,8 @@ class _SightDetailsState extends State<SightDetails> {
     return Material(
       child: SafeArea(
         child: FutureBuilder<Place>(
-          future: placeInteractor.getPlaceDetails(widget.place.id),
+          future:
+              context.watch<PlaceInteractor>().getPlaceDetails(widget.place.id),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               return CustomScrollView(
@@ -192,7 +194,8 @@ class _SightDetailsState extends State<SightDetails> {
                                             Theme.of(context).primaryColorDark,
                                       ),
                                       onPressed: () {
-                                        placeInteractor
+                                        context
+                                            .watch<PlaceInteractor>()
                                             .addToFavorites(widget.place);
                                       },
                                     ),

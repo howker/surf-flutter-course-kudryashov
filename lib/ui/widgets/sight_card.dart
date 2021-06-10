@@ -8,6 +8,7 @@ import 'package:places/styles.dart';
 import 'package:places/svg_path_const.dart';
 import 'package:places/text_string_const.dart';
 import 'package:places/ui/screen/sight_details.dart';
+import 'package:provider/provider.dart';
 
 /// Карточка интересного места
 class SightCard extends StatelessWidget {
@@ -342,7 +343,7 @@ class SightCard extends StatelessWidget {
                 const SizedBox(width: 23),
                 InkWell(
                   child: secondIcon,
-                  onTap: _onSecondIconTap,
+                  onTap: _onSecondIconTap(context),
                 ),
               ],
             ),
@@ -352,10 +353,10 @@ class SightCard extends StatelessWidget {
     );
   }
 
-  void _onSecondIconTap() {
+  _onSecondIconTap(context) {
     if (secondIcon.icon == Icons.close) {
       onRemoveCard();
     } else
-      placeInteractor.addToFavorites(place);
+      Provider.of<PlaceInteractor>(context).addToFavorites(place);
   }
 }

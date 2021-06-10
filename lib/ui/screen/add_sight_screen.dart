@@ -10,6 +10,7 @@ import 'package:places/mock.dart';
 import 'package:places/svg_path_const.dart';
 import 'package:places/text_string_const.dart';
 import 'package:places/ui/screen/new_place_category.dart';
+import 'package:provider/provider.dart';
 
 /// Экран "Добавить новое место"
 class AddSightScreen extends StatefulWidget {
@@ -108,7 +109,7 @@ class _AddSightScreenState extends State<AddSightScreen> {
               const SizedBox(height: 12),
               _buildDescriptionFrame(context),
               const SizedBox(height: 142),
-              _buildCreateButton(context, placeInteractor),
+              _buildCreateButton(context),
             ],
           ),
         ),
@@ -400,8 +401,7 @@ class _AddSightScreenState extends State<AddSightScreen> {
     );
   }
 
-  Widget _buildCreateButton(
-      BuildContext context, PlaceInteractor placeInteractor) {
+  Widget _buildCreateButton(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 8.0),
       child: ElevatedButton(
@@ -418,7 +418,7 @@ class _AddSightScreenState extends State<AddSightScreen> {
             placeType: typeSight,
           );
 
-          placeInteractor.addNewPlace(place);
+          context.read<PlaceInteractor>().addNewPlace(place);
         },
         child: Text(
           newPlaceScreenCreateButton,
