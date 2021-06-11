@@ -4,8 +4,6 @@ import 'package:places/data/model/place.dart';
 import 'package:places/data/model/places_filter_request_dto.dart';
 import 'package:places/data/repository/place_repository.dart';
 
-final placeInteractor = PlaceInteractor(placeRepository: PlaceRepository());
-
 class PlaceInteractor {
   final PlaceRepository placeRepository;
 

@@ -12,6 +12,7 @@ import 'package:places/ui/widgets/bottom_navibar.dart';
 import 'package:places/ui/widgets/search_bar.dart';
 import 'package:places/ui/widgets/sight_card.dart';
 import 'package:places/ui/widgets/waiting_indicator.dart';
+import 'package:provider/provider.dart';
 
 /// список карточек интересных мест
 class SightListScreen extends StatefulWidget {
@@ -43,15 +44,16 @@ class _SightListScreenState extends State<SightListScreen> {
 class PortraitModeList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    placeInteractor.getPlaces(
-      PlacesFilterRequestDto(
-        lat: GeoUtils.getMyCoordinates()['lat'],
-        lng: GeoUtils.getMyCoordinates()['lon'],
-        radius: 10000.0,
-        typeFilter: mockTypeFilters,
-        nameFilter: '',
-      ),
-    );
+    context.read<PlaceInteractor>().getPlaces(
+          PlacesFilterRequestDto(
+            lat: GeoUtils.getMyCoordinates()['lat'],
+            lng: GeoUtils.getMyCoordinates()['lon'],
+            radius: 10000.0,
+            typeFilter: mockTypeFilters,
+            nameFilter: '',
+          ),
+        );
+
     return SafeArea(
       child: CustomScrollView(
         slivers: [
@@ -77,7 +79,7 @@ class PortraitModeList extends StatelessWidget {
             padding: const EdgeInsets.all(16),
             sliver: SliverToBoxAdapter(
               child: StreamBuilder<List<Place>>(
-                stream: placeInteractor.placeStream,
+                stream: context.read<PlaceInteractor>().placeStream,
                 builder: (BuildContext context, snapshot) {
                   if (snapshot.hasData) {
                     if (snapshot.data.isEmpty) {
@@ -148,19 +150,19 @@ class LandscapeModeList extends StatelessWidget {
           SliverGrid(
             delegate: SliverChildBuilderDelegate(
               (BuildContext context, int index) {
-                placeInteractor.getPlaces(
-                  PlacesFilterRequestDto(
-                    lat: GeoUtils.getMyCoordinates()['lat'],
-                    lng: GeoUtils.getMyCoordinates()['lon'],
-                    radius: 10000.0,
-                    typeFilter: mockTypeFilters,
-                    nameFilter: '',
-                  ),
-                );
+                context.read<PlaceInteractor>().getPlaces(
+                      PlacesFilterRequestDto(
+                        lat: GeoUtils.getMyCoordinates()['lat'],
+                        lng: GeoUtils.getMyCoordinates()['lon'],
+                        radius: 10000.0,
+                        typeFilter: mockTypeFilters,
+                        nameFilter: '',
+                      ),
+                    );
                 return Padding(
                   padding: const EdgeInsets.all(16),
                   child: StreamBuilder<List<Place>>(
-                    stream: placeInteractor.placeStream,
+                    stream: context.read<PlaceInteractor>().placeStream,
                     builder: (BuildContext context, snapshot) {
                       if (snapshot.hasData) {
                         if (snapshot.data.isEmpty) {

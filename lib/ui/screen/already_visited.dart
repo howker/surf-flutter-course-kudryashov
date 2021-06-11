@@ -1,10 +1,8 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:places/data/interactor/place_interactor.dart';
 import 'package:places/data/model/place.dart';
-import 'package:places/mock.dart';
 import 'package:places/ui/widgets/sight_card.dart';
+import 'package:provider/provider.dart';
 
 /// Экран "Уже посетил"
 class AlreadyVisitedTab extends StatefulWidget {
@@ -16,7 +14,7 @@ class _AlreadyVisitedTabState extends State<AlreadyVisitedTab> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<List<Place>>(
-      future: placeInteractor.getVisitPlaces(),
+      future: context.watch<PlaceInteractor>().getVisitPlaces(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           return ListView.builder(
@@ -49,7 +47,7 @@ class _AlreadyVisitedTabState extends State<AlreadyVisitedTab> {
 
   void onRemoveCard(place) {
     setState(() {
-      placeInteractor.removeFromFavorites(place);
+      context.watch<PlaceInteractor>().removeFromFavorites(place);
     });
   }
 

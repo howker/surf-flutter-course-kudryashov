@@ -1,9 +1,8 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:places/data/interactor/place_interactor.dart';
 import 'package:places/mock.dart';
 import 'package:places/ui/widgets/sight_card.dart';
+import 'package:provider/provider.dart';
 
 /// Экран "Хочу посетить"
 class WantToVisitTab extends StatefulWidget {
@@ -15,7 +14,7 @@ class _WantToVisitTabState extends State<WantToVisitTab> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: placeInteractor.getFavoritesPlaces(),
+      future: context.read<PlaceInteractor>().getFavoritesPlaces(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           return ListView.builder(
