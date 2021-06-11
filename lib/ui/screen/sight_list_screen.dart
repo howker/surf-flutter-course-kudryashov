@@ -5,6 +5,7 @@ import 'package:places/data/model/place.dart';
 import 'package:places/data/model/places_filter_request_dto.dart';
 import 'package:places/main.dart';
 import 'package:places/mock.dart';
+import 'package:places/store/place_list/place_list_store.dart';
 import 'package:places/styles.dart';
 import 'package:places/text_string_const.dart';
 import 'package:places/ui/screen/error_screen.dart';
@@ -44,15 +45,16 @@ class _SightListScreenState extends State<SightListScreen> {
 class PortraitModeList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    context.read<PlaceInteractor>().getPlaces(
-          PlacesFilterRequestDto(
-            lat: GeoUtils.getMyCoordinates()['lat'],
-            lng: GeoUtils.getMyCoordinates()['lon'],
-            radius: 10000.0,
-            typeFilter: mockTypeFilters,
-            nameFilter: '',
-          ),
-        );
+    PlaceListStore store = PlaceListStore(context.watch<PlaceInteractor>());
+    final placeList = store.getFilteredPlace(
+      filter: PlacesFilterRequestDto(
+        lat: GeoUtils.getMyCoordinates()['lat'],
+        lng: GeoUtils.getMyCoordinates()['lon'],
+        radius: 10000.0,
+        typeFilter: mockTypeFilters,
+        nameFilter: '',
+      ),
+    );
 
     return SafeArea(
       child: CustomScrollView(
