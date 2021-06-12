@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:mobx/mobx.dart';
 import 'package:places/colors.dart';
 import 'package:places/data/interactor/place_interactor.dart';
 import 'package:places/data/model/place.dart';
 import 'package:places/data/model/places_filter_request_dto.dart';
 import 'package:places/main.dart';
 import 'package:places/mock.dart';
+import 'package:places/store/place_list/place_list_store.dart';
 import 'package:places/styles.dart';
 import 'package:places/text_string_const.dart';
 import 'package:places/ui/screen/error_screen.dart';
@@ -44,16 +47,16 @@ class _SightListScreenState extends State<SightListScreen> {
 class PortraitModeList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    context.read<PlaceInteractor>().getPlaces(
-          PlacesFilterRequestDto(
-            lat: GeoUtils.getMyCoordinates()['lat'],
-            lng: GeoUtils.getMyCoordinates()['lon'],
-            radius: 10000.0,
-            typeFilter: mockTypeFilters,
-            nameFilter: '',
-          ),
-        );
-
+    PlaceListStore _store = PlaceListStore(context.read<PlaceInteractor>());
+    _store.getFilteredPlace(
+      filter: PlacesFilterRequestDto(
+        lat: GeoUtils.getMyCoordinates()['lat'],
+        lng: GeoUtils.getMyCoordinates()['lon'],
+        radius: 10000.0,
+        typeFilter: mockTypeFilters,
+        nameFilter: '',
+      ),
+    );
     return SafeArea(
       child: CustomScrollView(
         slivers: [
@@ -78,40 +81,43 @@ class PortraitModeList extends StatelessWidget {
           SliverPadding(
             padding: const EdgeInsets.all(16),
             sliver: SliverToBoxAdapter(
-              child: StreamBuilder<List<Place>>(
-                stream: context.read<PlaceInteractor>().placeStream,
-                builder: (BuildContext context, snapshot) {
-                  if (snapshot.hasData) {
-                    if (snapshot.data.isEmpty) {
-                      return const SizedBox.shrink();
-                    } else
-                      return SizedBox(
-                        width: double.infinity,
-                        child: ListView.builder(
-                          itemCount: snapshot.data.length,
-                          shrinkWrap: true,
-                          itemBuilder: (BuildContext context, int index) {
-                            return Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 10),
-                              child: SightCard(
-                                place: Place(
-                                  name: snapshot.data[index].name,
-                                  lat: snapshot.data[index].lat,
-                                  lng: snapshot.data[index].lng,
-                                  urls: snapshot.data[index].urls,
-                                  description: snapshot.data[index].description,
-                                  id: snapshot.data[index].id,
-                                ),
-                                candidateDataList: snapshot.data,
-                              ),
-                            );
-                          },
-                        ),
-                      );
-                  } else if (snapshot.hasError) {
-                    return ErrorScreen();
-                  } else
+              child: Observer(
+                builder: (BuildContext context) {
+                  final future = _store.listPlacesFuture;
+                  if (future == null) {
                     return const WaitingIndicator();
+                  }
+                  if (future.status == FutureStatus.pending) {
+                    return const WaitingIndicator();
+                  }
+
+                  if (future.status == FutureStatus.rejected) {
+                    return ErrorScreen();
+                  }
+
+                  if (future.status == FutureStatus.fulfilled) {
+                    return ListView.builder(
+                      itemCount: future.result.length,
+                      shrinkWrap: true,
+                      itemBuilder: (BuildContext context, int index) {
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 10),
+                          child: SightCard(
+                            place: Place(
+                              name: future.result[index].name,
+                              lat: future.result[index].lat,
+                              lng: future.result[index].lng,
+                              urls: future.result[index].urls,
+                              description: future.result[index].description,
+                              id: future.result[index].id,
+                            ),
+                            candidateDataList: future.result,
+                          ),
+                        );
+                      },
+                    );
+                  }
+                  return const SizedBox.shrink();
                 },
               ),
             ),
@@ -126,6 +132,16 @@ class PortraitModeList extends StatelessWidget {
 class LandscapeModeList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    PlaceListStore _store = PlaceListStore(context.read<PlaceInteractor>());
+    _store.getFilteredPlace(
+      filter: PlacesFilterRequestDto(
+        lat: GeoUtils.getMyCoordinates()['lat'],
+        lng: GeoUtils.getMyCoordinates()['lon'],
+        radius: 10000.0,
+        typeFilter: mockTypeFilters,
+        nameFilter: '',
+      ),
+    );
     return SafeArea(
       child: CustomScrollView(
         slivers: [
@@ -147,61 +163,50 @@ class LandscapeModeList extends StatelessWidget {
               ],
             ),
           ),
-          SliverGrid(
-            delegate: SliverChildBuilderDelegate(
-              (BuildContext context, int index) {
-                context.read<PlaceInteractor>().getPlaces(
-                      PlacesFilterRequestDto(
-                        lat: GeoUtils.getMyCoordinates()['lat'],
-                        lng: GeoUtils.getMyCoordinates()['lon'],
-                        radius: 10000.0,
-                        typeFilter: mockTypeFilters,
-                        nameFilter: '',
-                      ),
-                    );
-                return Padding(
-                  padding: const EdgeInsets.all(16),
-                  child: StreamBuilder<List<Place>>(
-                    stream: context.read<PlaceInteractor>().placeStream,
-                    builder: (BuildContext context, snapshot) {
-                      if (snapshot.hasData) {
-                        if (snapshot.data.isEmpty) {
-                          return const SizedBox.shrink();
-                        } else
-                          return SizedBox(
-                            width: double.infinity,
-                            child: SightCard(
-                              place: Place(
-                                name: snapshot.data[index].name,
-                                lat: snapshot.data[index].lat,
-                                lng: snapshot.data[index].lng,
-                                urls: snapshot.data[index].urls,
-                                description: snapshot.data[index].description,
-                                id: snapshot.data[index].id,
-                              ),
-                              candidateDataList: snapshot.data,
+          Observer(
+            builder: (BuildContext context) {
+              final future = _store.listPlacesFuture;
+              if (future == null) {
+                return SliverToBoxAdapter(child: const WaitingIndicator());
+              }
+              if (future.status == FutureStatus.pending) {
+                return SliverToBoxAdapter(child: const WaitingIndicator());
+              }
+
+              if (future.status == FutureStatus.rejected) {
+                return ErrorScreen();
+              }
+              if (future.status == FutureStatus.fulfilled) {
+                return SliverGrid(
+                  delegate: SliverChildBuilderDelegate(
+                    (BuildContext context, int index) {
+                      return Padding(
+                        padding: const EdgeInsets.all(16),
+                        child: SizedBox(
+                          width: double.infinity,
+                          child: SightCard(
+                            place: Place(
+                              name: future.result[index].name,
+                              lat: future.result[index].lat,
+                              lng: future.result[index].lng,
+                              urls: future.result[index].urls,
+                              description: future.result[index].description,
+                              id: future.result[index].id,
                             ),
-                          );
-                      } else if (snapshot.hasError) {
-                        return const Center(
-                          child: const Icon(
-                            Icons.error_outline,
-                            color: Colors.red,
-                            size: 60,
+                            candidateDataList: future.result,
                           ),
-                        );
-                      } else
-                        return const WaitingIndicator();
+                        ),
+                      );
                     },
                   ),
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    childAspectRatio: 1.5,
+                  ),
                 );
-              },
-              childCount: 10,
-            ),
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              childAspectRatio: 1.5,
-            ),
+              }
+              return const SizedBox.shrink();
+            },
           ),
         ],
       ),
