@@ -15,9 +15,7 @@ class PlannedPlacesBloc extends Bloc<PlannedPlacesEvent, PlannedPlacesState> {
   PlannedPlacesBloc(this._interactor) : super(PlannedPlacesLoadInProgress());
 
   @override
-  Stream<PlannedPlacesState> mapEventToState(
-    PlannedPlacesEvent event,
-  ) async* {
+  Stream<PlannedPlacesState> mapEventToState(PlannedPlacesEvent event) async* {
     if (event is PlannedPlacesLoad) {
       yield* _mapLoadPlannedToState();
     } else if (event is PlannedPlacesRemovePlace) {
