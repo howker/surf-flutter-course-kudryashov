@@ -17,6 +17,8 @@ dependencies:
   provider: ^5.0.0
   mobx: ^2.0.1
   flutter_mobx: ^2.0.0
+  flutter_bloc: ^7.0.1
+  equatable: ^2.0.3
 
 
 dev_dependencies:

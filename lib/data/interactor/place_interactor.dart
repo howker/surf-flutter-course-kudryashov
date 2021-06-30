@@ -89,18 +89,18 @@ class PlaceInteractor {
   }
 
   Future<bool> removeFromFavorites(Place place) async {
-    bool result = false;
     //на данном этапе заполняем моковыми данными
     final favoritesPlaces = await (placeRepository.testSetFavoritesPlaces());
 
-    favoritesPlaces.forEach(
-      (element) {
-        element.id == place.id ? result = false : result = true;
-      },
-    );
-    if (result) favoritesPlaces.remove(place);
-    _favoritesListController.add(favoritesPlaces);
-    return result;
+    final result =
+        favoritesPlaces.indexWhere((element) => element.id == place.id);
+    print(favoritesPlaces.length);
+    if (result != -1) {
+      favoritesPlaces.removeAt(result);
+      print(favoritesPlaces.length);
+      return true;
+    } else
+      return false;
   }
 
   Future<List<Place>> getVisitPlaces() async {

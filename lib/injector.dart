@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:places/bloc/visiting_screen/visited/visited_places_bloc.dart';
 import 'package:places/data/interactor/place_interactor.dart';
 import 'package:places/data/interactor/search_interactor.dart';
 import 'package:places/data/interactor/settings_interactor.dart';
 import 'package:places/data/repository/place_repository.dart';
 import 'package:provider/provider.dart';
+
+import 'bloc/visiting_screen/planned/planned_places_bloc.dart';
 
 class InjectorWidget extends StatelessWidget {
   final Widget child;
@@ -27,6 +31,16 @@ class InjectorWidget extends StatelessWidget {
         ),
         ChangeNotifierProvider<SettingsInteractor>(
           create: (_) => SettingsInteractor(),
+        ),
+        BlocProvider<PlannedPlacesBloc>(
+          create: (_) => PlannedPlacesBloc(
+            PlaceInteractor(placeRepository: _placeRepository),
+          ),
+        ),
+        BlocProvider<VisitedPlacesBloc>(
+          create: (_) => VisitedPlacesBloc(
+            PlaceInteractor(placeRepository: _placeRepository),
+          ),
         ),
       ],
       child: child,

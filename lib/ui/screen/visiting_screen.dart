@@ -1,11 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-
-import 'package:places/colors.dart';
-import 'package:places/svg_path_const.dart';
 import 'package:places/text_string_const.dart';
-import 'package:places/styles.dart';
 import 'package:places/ui/screen/already_visited.dart';
 import 'package:places/ui/screen/want_to_visit.dart';
 import 'package:places/ui/widgets/bottom_navibar.dart';
@@ -22,7 +17,7 @@ class _VisitingScreenState extends State with SingleTickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 4, vsync: this);
+    _tabController = TabController(length: 2, vsync: this);
     _tabController.addListener(
       () {
         if (!_tabController.indexIsChanging) {
@@ -54,8 +49,6 @@ class _VisitingScreenState extends State with SingleTickerProviderStateMixin {
         children: [
           WantToVisitTab(),
           AlreadyVisitedTab(),
-          buildEmptyState(card, markPlaces),
-          buildEmptyState(go, finishRoute),
         ],
       ),
       bottomNavigationBar: BottomNaviBar(current: 2),
@@ -124,37 +117,6 @@ class _VisitingScreenState extends State with SingleTickerProviderStateMixin {
             ),
           ],
         ),
-      ),
-    );
-  }
-
-  Widget buildEmptyState(String icon, String text) {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Container(
-            color: Theme.of(context).primaryColor,
-            child: SvgPicture.asset(
-              icon,
-              color: lmInactiveBlackColor,
-              width: 53,
-              height: 53,
-            ),
-          ),
-          const SizedBox(
-            height: 32,
-          ),
-          const Text(
-            empty,
-            style: textSubtitleRegular18Grey,
-          ),
-          Text(
-            text,
-            style: textSmallRegular14Grey,
-            textAlign: TextAlign.center,
-          ),
-        ],
       ),
     );
   }
