@@ -4,12 +4,12 @@ import 'package:places/data/model/places_filter_request_dto.dart';
 import 'package:places/data/repository/place_repository.dart';
 import 'package:places/mock.dart';
 
-final searchInteractor = SearchInteractor(placeRepository: PlaceRepository());
+//final searchInteractor = SearchInteractor(placeRepository: PlaceRepository());
 
 class SearchInteractor {
-  final PlaceRepository placeRepository;
+  final PlaceRepository placeRepository = PlaceRepository();
 
-  SearchInteractor({this.placeRepository});
+  //SearchInteractor({this.placeRepository});
 
   static List<Place> sortedByRadius = [];
   static List<Place> placesListStorage = [];
@@ -28,5 +28,9 @@ class SearchInteractor {
     List<Place> listPlaces = await placeRepository.getFilteredPlaces(filter);
     placesListStorage = listPlaces;
     return listPlaces;
+  }
+
+  Future<List> getSearchHistory() async {
+    return searchHistory;
   }
 }

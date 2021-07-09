@@ -27,7 +27,7 @@ class InjectorWidget extends StatelessWidget {
           },
         ),
         Provider<SearchInteractor>(
-          create: (_) => SearchInteractor(placeRepository: _placeRepository),
+          create: (_) => SearchInteractor(),
         ),
         ChangeNotifierProvider<SettingsInteractor>(
           create: (_) => SettingsInteractor(),

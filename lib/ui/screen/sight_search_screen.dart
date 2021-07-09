@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:places/colors.dart';
 import 'package:places/data/interactor/search_interactor.dart';
 import 'package:places/data/model/place.dart';
-import 'package:places/mock.dart';
+import 'package:places/redux/action/search_action.dart';
+import 'package:places/redux/state/app_state.dart';
+import 'package:places/redux/state/search_state.dart';
 import 'package:places/styles.dart';
 import 'package:places/svg_path_const.dart';
 import 'package:places/text_string_const.dart';
@@ -11,13 +14,6 @@ import 'package:places/ui/screen/sight_details.dart';
 import 'package:places/ui/widgets/bottom_navibar.dart';
 
 ///Экран поиска мест
-enum States {
-  error,
-  found,
-  history,
-  empty,
-}
-
 class SightSearchScreen extends StatefulWidget {
   @override
   _SightSearchScreenState createState() => _SightSearchScreenState();
@@ -27,7 +23,6 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
   final TextEditingController _textEditingController = TextEditingController();
   final FocusNode focusNodeSearchBar = FocusNode();
   List<Place> newFoundList = [];
-  States state = States.history;
 
   @override
   void dispose() {
@@ -50,87 +45,98 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
         elevation: 0,
       ),
       bottomNavigationBar: BottomNaviBar(current: 0),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16),
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              _buildTopSearchBar(context),
-              const SizedBox(height: 38),
-              state == States.found
-                  ? FutureBuilder<List<Place>>(
-                      future: searchInteractor
-                          .searchPlaces(_textEditingController.text.trim()),
-                      builder: (context, snapshot) {
-                        if (snapshot.hasData) {
-                          snapshot.data.forEach((element) =>
-                              SearchInteractor.searchHistory.add(element.name));
-                          SearchInteractor.placesListStorage = snapshot.data;
-                          return ListView.builder(
-                            itemCount: snapshot.data.length,
-                            shrinkWrap: true,
-                            itemBuilder: (context, index) {
-                              return Column(
-                                children: [
-                                  InkWell(
-                                    onTap: () {
-                                      Place place = Place(
-                                        name: snapshot.data[index].name,
-                                        lat: snapshot.data[index].lat,
-                                        lng: snapshot.data[index].lng,
-                                        urls: snapshot.data[index].urls,
-                                        description:
-                                            snapshot.data[index].description,
-                                        placeType:
-                                            snapshot.data[index].placeType,
-                                      );
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (BuildContext context) =>
-                                              SightDetails(place: place),
-                                        ),
-                                      );
-                                    },
-                                    child: ListTile(
-                                      contentPadding: const EdgeInsets.all(0),
-                                      title: Text(
-                                        snapshot.data[index].name,
-                                        style:
-                                            Theme.of(context).textTheme.caption,
-                                      ),
-                                      subtitle: Text(
-                                        snapshot.data[index].placeType,
-                                        style: textRegular14Grey,
-                                      ),
-                                      leading: _buildImageCardItem(
-                                          snapshot.data[index]),
-                                    ),
-                                  ),
-                                  const Divider(),
-                                ],
-                              );
-                            },
-                          );
-                        } else
-                          return SizedBox.shrink();
+      body: StoreConnector<AppState, SearchState>(
+        converter: (store) => store.state.searchState,
+        onInit: (store) => store.dispatch(GetSearchHistoryAction()),
+        builder: (BuildContext context, state) {
+          if (state is SearchLoadingState) {
+            print('Загружаем результаты Поиска или Историю $state');
+
+            return _buildLoader();
+          } else if (state is SearchResultHistoryState) {
+            print('История запросов ${state.result}');
+            return Column(
+              children: _buildHistoryPlacesList(context),
+            );
+          } else if (state is SearchResultState) {
+            print('Результаты поиска ${state.result}');
+
+            if (state.result.isEmpty) {
+              return Column(
+                children: _searchErrorState(),
+              );
+            } else {
+              return _buildSearchResult(state.result);
+            }
+          } else if (state is SearchErrorState) {
+            return Column(
+              children: _searchErrorState(),
+            );
+          }
+          return _buildLoader();
+        },
+      ),
+    );
+  }
+
+  Padding _buildSearchResult(List<Place> data) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _buildTopSearchBar(context),
+            const SizedBox(height: 38),
+
+            //searchInteractor.searchPlaces(_textEditingController.text.trim()),
+
+            //snapshot.data.forEach((element) =>
+            // SearchInteractor.searchHistory.add(element.name));
+            //SearchInteractor.placesListStorage = snapshot.data;
+            ListView.builder(
+              itemCount: data.length,
+              shrinkWrap: true,
+              itemBuilder: (context, index) {
+                return Column(
+                  children: [
+                    InkWell(
+                      onTap: () {
+                        Place place = Place(
+                          name: data[index].name,
+                          lat: data[index].lat,
+                          lng: data[index].lng,
+                          urls: data[index].urls,
+                          description: data[index].description,
+                          placeType: data[index].placeType,
+                        );
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (BuildContext context) =>
+                                SightDetails(place: place),
+                          ),
+                        );
                       },
-                    )
-                  : const SizedBox(),
-              state == States.history
-                  ? Column(
-                      children: _buildHistoryPlacesList(context),
-                    )
-                  : const SizedBox(),
-              const SizedBox(height: 14),
-              state == States.error
-                  ? Column(
-                      children: _searchErrorState(),
-                    )
-                  : const SizedBox(),
-            ],
-          ),
+                      child: ListTile(
+                        contentPadding: const EdgeInsets.all(0),
+                        title: Text(
+                          data[index].name,
+                          style: Theme.of(context).textTheme.caption,
+                        ),
+                        subtitle: Text(
+                          data[index].placeType,
+                          style: textRegular14Grey,
+                        ),
+                        leading: _buildImageCardItem(data[index]),
+                      ),
+                    ),
+                    const Divider(),
+                  ],
+                );
+              },
+            ),
+          ],
         ),
       ),
     );
@@ -188,12 +194,6 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
             onPressed: () {
               _textEditingController.clear();
               newFoundList.clear();
-
-              state = States.history;
-
-              if (SearchInteractor.searchHistory.isEmpty) state = States.empty;
-
-              setState(() {});
             },
           ),
         ),
@@ -203,8 +203,8 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
 
   void _onCompleteUserSearchInput() async {
     if (_textEditingController.text != '') {
-      state = States.found;
-      setState(() {});
+      StoreProvider.of<AppState>(context).dispatch(
+          GetSearchResultAction(keywords: _textEditingController.text));
     }
   }
 
@@ -259,17 +259,12 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
             ListTile(
               contentPadding: const EdgeInsets.all(0),
               trailing: IconButton(
-                icon: const Icon(Icons.close),
-                onPressed: () {
-                  setState(
-                    () {
+                  icon: const Icon(Icons.close),
+                  onPressed: () {
+                    setState(() {
                       SearchInteractor.searchHistory.remove(element);
-                      if (SearchInteractor.searchHistory.isEmpty)
-                        state = States.empty;
-                    },
-                  );
-                },
-              ),
+                    });
+                  }),
               leading: Text(
                 element,
                 style: Theme.of(context).textTheme.caption,
@@ -291,7 +286,6 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
                     setState(() {
                       _textEditingController.clear();
                       SearchInteractor.searchHistory.clear();
-                      state = States.empty;
                     });
                   },
                   child: Text(
@@ -342,5 +336,24 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
     ];
 
     return searchErrorState;
+  }
+
+  /// лоадер при ожидании
+  Widget _buildLoader() {
+    return Column(
+      children: [
+        _buildTopSearchBar(context),
+        Center(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: SizedBox(
+              child: const CircularProgressIndicator(),
+              width: 40,
+              height: 40,
+            ),
+          ),
+        ),
+      ],
+    );
   }
 }

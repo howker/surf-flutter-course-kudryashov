@@ -6,6 +6,7 @@ class Place {
   final List<dynamic> urls;
   final String placeType;
   final String description;
+  final bool isFavorite;
 
   Place({
     this.id,
@@ -15,16 +16,19 @@ class Place {
     this.urls,
     this.description,
     this.placeType,
+    this.isFavorite,
   });
 
-  Place.fromJson(Map<String, dynamic> json)
-      : id = json['id'],
+  Place.fromJson(
+    Map<String, dynamic> json,
+  )   : id = json['id'],
         lat = json['lat'],
         lng = json['lng'],
         name = json['name'],
         urls = json['urls'],
         placeType = json['placeType'],
-        description = json['description'];
+        description = json['description'],
+        isFavorite = json['isFavorite'];
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = Map<String, dynamic>();
@@ -35,6 +39,7 @@ class Place {
     data['urls'] = this.urls;
     data['placeType'] = this.placeType;
     data['description'] = this.description;
+    data['isFavorite'] = this.isFavorite;
     return data;
   }
 }

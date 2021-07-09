@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_redux/flutter_redux.dart';
 import 'package:places/data/interactor/settings_interactor.dart';
 import 'package:places/injector.dart';
+import 'package:places/redux/middleware/search_middleware.dart';
+import 'package:places/redux/reducer/reducer.dart';
+import 'package:places/redux/state/app_state.dart';
 import 'package:places/ui/screen/add_sight_screen.dart';
 import 'package:places/ui/screen/onboarding_screen.dart';
 import 'package:places/ui/screen/res/themes.dart';
@@ -9,6 +13,9 @@ import 'package:places/ui/screen/sight_list_screen.dart';
 import 'package:places/ui/screen/splash_screen.dart';
 import 'package:places/ui/screen/visiting_screen.dart';
 import 'package:provider/provider.dart';
+import 'package:redux/redux.dart';
+
+import 'data/interactor/search_interactor.dart';
 
 final settingsInteractor = SettingsInteractor();
 
@@ -28,19 +35,28 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: context.watch<SettingsInteractor>().getIsDark
-          ? darkTheme
-          : lightTheme,
-      title: 'Intresting places',
-      home: SplashScreen(),
-      routes: {
-        AppRoutes.visiting: (context) => VisitingScreen(),
-        AppRoutes.settings: (context) => SettingsScreen(),
-        AppRoutes.onboarding: (context) => OnboardingScreen(),
-        AppRoutes.sightList: (context) => SightListScreen(),
-        AppRoutes.newPlace: (context) => AddSightScreen(),
-      },
+    return StoreProvider<AppState>(
+      store: Store<AppState>(
+        reducer,
+        initialState: AppState(),
+        middleware: [
+          SearchMiddleware(SearchInteractor()),
+        ],
+      ),
+      child: MaterialApp(
+        theme: context.watch<SettingsInteractor>().getIsDark
+            ? darkTheme
+            : lightTheme,
+        title: 'Intresting places',
+        home: SplashScreen(),
+        routes: {
+          AppRoutes.visiting: (context) => VisitingScreen(),
+          AppRoutes.settings: (context) => SettingsScreen(),
+          AppRoutes.onboarding: (context) => OnboardingScreen(),
+          AppRoutes.sightList: (context) => SightListScreen(),
+          AppRoutes.newPlace: (context) => AddSightScreen(),
+        },
+      ),
     );
   }
 }
