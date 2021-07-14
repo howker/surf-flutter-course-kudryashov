@@ -46,10 +46,4 @@ class LocalStorage {
   ];
 
   static List<String> searchHistory = [];
-
-  // /// 6. Настройки пользователя
-  // static Map<String, dynamic> userSetting = {
-  //   'isDarkTheme': false, // тема
-  //   'isFirstStart': false, // первый запуск приложения
-  // };
 }

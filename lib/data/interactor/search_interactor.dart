@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:places/data/model/place.dart';
 import 'package:places/data/model/places_filter_request_dto.dart';
+import 'package:places/data/repository/local_place_repository.dart';
 import 'package:places/data/repository/place_repository.dart';
 import 'package:places/mock.dart';
 
@@ -8,12 +9,10 @@ import 'package:places/mock.dart';
 
 class SearchInteractor {
   final PlaceRepository placeRepository = PlaceRepository();
-
-  //SearchInteractor({this.placeRepository});
+  final LocalPlaceRepository localPlaceRepository = LocalPlaceRepository();
 
   static List<Place> sortedByRadius = [];
   static List<Place> placesListStorage = [];
-  static List searchHistory = [];
   static RangeValues rangeValues = RangeValues(100, 10000);
   static List<String> typeFilters = [];
 
@@ -31,6 +30,11 @@ class SearchInteractor {
   }
 
   Future<List> getSearchHistory() async {
+    var searchHistory = await localPlaceRepository.getSearchHistory();
     return searchHistory;
+  }
+
+  Future<void> addSearchHistory(String keywords) async {
+    await localPlaceRepository.saveKeywords(keywords);
   }
 }

@@ -88,12 +88,6 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
           children: [
             _buildTopSearchBar(context),
             const SizedBox(height: 38),
-
-            //searchInteractor.searchPlaces(_textEditingController.text.trim()),
-
-            //snapshot.data.forEach((element) =>
-            // SearchInteractor.searchHistory.add(element.name));
-            //SearchInteractor.placesListStorage = snapshot.data;
             ListView.builder(
               itemCount: data.length,
               shrinkWrap: true,
@@ -201,7 +195,7 @@ class _SightSearchScreenState extends State<SightSearchScreen> {
     );
   }
 
-  void _onCompleteUserSearchInput() async {
+  void _onCompleteUserSearchInput() {
     if (_textEditingController.text != '') {
       StoreProvider.of<AppState>(context).dispatch(
           GetSearchResultAction(keywords: _textEditingController.text));

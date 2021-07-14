@@ -10,13 +10,12 @@ class SearchMiddleware implements MiddlewareClass<AppState> {
   SearchMiddleware(this._searchInteractor);
 
   @override
-  call(Store<AppState> store, action, NextDispatcher next) async {
+  call(Store<AppState> store, action, NextDispatcher next) {
     if (action is GetSearchResultAction) {
-      var result = await _searchInteractor.searchPlaces(action.keywords);
-      if (result == null)
-        store.dispatch(SearchErrorAction());
-      else
-        store.dispatch(LoadedSearchResultAction(result));
+      _searchInteractor
+          .searchPlaces(action.keywords)
+          .then((result) => store.dispatch(LoadedSearchResultAction(result)))
+          .onError((e, stackTrace) => store.dispatch(SearchErrorAction()));
     } else if (action is GetSearchHistoryAction) {
       _searchInteractor
           .getSearchHistory()
